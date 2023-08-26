@@ -15,4 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.Login');
-});
+})->name('login');
+
+Route::post('login', function () {
+    return view('pages.Login');
+})->name('login.post');
+
+Route::get('dashboard', function () {
+    return view('layouts.App');
+})->name('dashboard');
