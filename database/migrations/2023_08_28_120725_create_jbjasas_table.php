@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('id_jpendapatan', 20);
             $table->timestamps();
 
-            $table->foreign('id_jualbeli')->references('id_jualbeli')->on('jualbelis')->onDelete('cascade');
+            $table->foreign('id_jualbeli')->references('id_jualbeli')->on('jual_belis')->onDelete('cascade');
             $table->foreign('id_jpendapatan')->references('id_jpendapatan')->on('jenis_pendapatans')->onDelete('cascade');
         });
     }

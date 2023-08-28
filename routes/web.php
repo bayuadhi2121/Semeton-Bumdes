@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('pages.Login');
-})->name('login');
-
-Route::post('login', function () {
-    return view('pages.Login');
-})->name('login.post');
-
-Route::get('dashboard', function () {
-    return view('layouts.App');
-})->name('dashboard');
+    return redirect()->route('login');
+});
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('harga')->length(20);
             $table->timestamps();
 
-            $table->foreign('id_transaksi')->references('id_transaksis')->on('transaksis')->onDelete('cascade');
+            $table->foreign('id_transaksi')->references('id_transaksi')->on('transaksis')->onDelete('cascade');
         });
     }
 

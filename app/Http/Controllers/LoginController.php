@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     /**
@@ -11,54 +13,30 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.Login'); //return view di folder pages/login
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function authenticate(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);                                    //request+validasi value dari view
+
+        if (Auth::attempt($credentials)) {     //mengotentikasi pengguna dengan kredensial yang diterima. Jika kredensial valid (username dan password yang sesuai), fungsi attempt akan mengautentikasi pengguna dan menyimpan status autentikasi dalam sesi
+            $request->session()->regenerate(); //alasan keamanan untuk session
+            dd('berhasil');
+            // return redirect()->intended(route('dashboard'));
+        }
+
+        return back()->with('LoginFailed', 'Login Gagal!');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Auth::logout();                         //mengeluarkan (logout) pengguna yang saat ini diotentikasi
+        $request->session()->invalidate();      //memastikan bahwa sesi pengguna yang sedang aktif menjadi tidak valid
+        $request->session()->regenerateToken(); //alasan keamanan tambahan untuk token CSRF
+        return redirect('/');
     }
 }

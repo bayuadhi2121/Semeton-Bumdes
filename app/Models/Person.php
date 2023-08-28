@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
-class Person extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Person extends Authenticatable
 {
     use HasFactory;
 
+    protected $table = 'persons';
     protected $guarded = [];
+    protected $primaryKey = 'id_person';
 
     protected $attributes = [
         'alamat' => null,
@@ -27,7 +31,7 @@ class Person extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            // $model->id = IdGenerator::generate(['table' => 'persons', 'length' => 12, 'prefix' => 'PNG-' . date('ym'), 'reset_on_prefix_change' => true]);
+            $model->id_person = IdGenerator::generate(['table' => 'persons', 'field' => 'id_person', 'length' => 12, 'prefix' => 'PNG-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
     }
 }
