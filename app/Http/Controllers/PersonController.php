@@ -39,9 +39,19 @@ class PersonController extends Controller
             'username' => 'required',
             'status' => 'required'
         ]);
-        Person::create($validatedData);
+        if ($request->has('kontak')) {
+            $attributes['kontak'] = $request->kontak;
+        }
 
-        Alert::success('Tambah Berhasil', 'Pengelola Berhasil Ditambahkan!');
+        try {
+            Person::create($validatedData);
+            Alert::success('Tambah Berhasil', 'Pengelola Berhasil Ditambahkan!');
+        } catch (\Exception $e) {
+            Alert::error('Gagal Tambah', 'Username sudah ada yang menggunakan.');
+        }
+
+
+
         return redirect()->back();
     }
 
