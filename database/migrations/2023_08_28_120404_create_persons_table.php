@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->String('id_person', 20)->primary();
             $table->String('nama', 50);
             $table->String('username')->unique();
-            $table->String('password')->default('123456789');
+            $table->String('password')->default(Hash::make('123456789'));
             $table->String('alamat')->nullable();
             $table->String('kontak', 15)->unique()->nullable();
             $table->String('status', 15);
