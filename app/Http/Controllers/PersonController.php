@@ -36,7 +36,6 @@ class PersonController extends Controller
 
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
-            'kontak' => 'required',
             'username' => 'required',
             'status' => 'required'
         ]);
