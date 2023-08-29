@@ -13,7 +13,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('pages.Login'); //return view di folder pages/login
+        return view('pages.Login'); //return view folder pages/login
     }
 
     public function authenticate(Request $request)
@@ -21,10 +21,10 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
-        ]);                                    //request+validasi value dari view
+        ]);                                    //request+validation value from view
 
-        if (Auth::attempt($credentials)) {     //mengotentikasi pengguna dengan kredensial yang diterima. Jika kredensial valid (username dan password yang sesuai), fungsi attempt akan mengautentikasi pengguna dan menyimpan status autentikasi dalam sesi
-            $request->session()->regenerate(); //alasan keamanan untuk session
+        if (Auth::attempt($credentials)) {     //authenticate user with credential. if creadential is valid(username and password match), fucntion attempt will authenticate user and store authentication status in session 
+            $request->session()->regenerate(); //security reason for session
             dd('berhasil');
             // return redirect()->intended(route('dashboard'));
         }
@@ -34,9 +34,9 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();                         //mengeluarkan (logout) pengguna yang saat ini diotentikasi
-        $request->session()->invalidate();      //memastikan bahwa sesi pengguna yang sedang aktif menjadi tidak valid
-        $request->session()->regenerateToken(); //alasan keamanan tambahan untuk token CSRF
+        Auth::logout();                         //logout the currently authenticated user
+        $request->session()->invalidate();      //Ensuring that the active user session becomes invalid.
+        $request->session()->regenerateToken(); //security reason for CSRF token
         return redirect('/');
     }
 }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('id_usaha', 20)->primary();
             $table->string('status', 15);
             $table->string('nama', 50);
-            $table->string('id_person', 20);
+            $table->string('id_person', 20)->nullable();
             $table->timestamps();
-            $table->foreign('id_person')->references('id_person')->on('persons')->onDelete('cascade');
+            $table->foreign('id_person')->references('id_person')->on('persons')->onDelete('null');
         });
     }
 

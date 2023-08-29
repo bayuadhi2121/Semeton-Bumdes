@@ -18,5 +18,5 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');

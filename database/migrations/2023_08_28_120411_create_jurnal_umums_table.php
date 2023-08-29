@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jurnal_umums', function (Blueprint $table) {
-            $table->String('id_jumum', 12)->primary();
-            $table->integer('kredit');
-            $table->integer('debit');
-            $table->String('id_akun');
+            $table->String('id_jumum', 20)->primary();
+            $table->integer('kredit')->nullable();
+            $table->integer('debit')->nullable();
+            $table->String('id_akun', 20);
             $table->String('id_transaksi', 15);
             $table->timestamps();
 
