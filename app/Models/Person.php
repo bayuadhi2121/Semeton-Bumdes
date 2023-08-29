@@ -31,7 +31,11 @@ class Person extends Authenticatable
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->id_person = IdGenerator::generate(['table' => 'persons', 'field' => 'id_person', 'length' => 12, 'prefix' => 'PNG-' . date('ym'), 'reset_on_prefix_change' => true]);
+            $model->id_person = IdGenerator::generate(['table' => 'persons', 'field' => 'id_person', 'length' => 20, 'prefix' => 'PNG-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
+    }
+    public function usaha()
+    {
+        return $this->hasMany(Usaha::class, 'id_usaha');
     }
 }

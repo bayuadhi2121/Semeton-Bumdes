@@ -25,8 +25,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {     //authenticate user with credential. if creadential is valid(username and password match), fucntion attempt will authenticate user and store authentication status in session 
             $request->session()->regenerate(); //security reason for session
-            dd('berhasil');
-            // return redirect()->intended(route('dashboard'));
+            // dd('berhasil');
+            return redirect()->intended(route('pengelola.index'));
         }
 
         return back()->with('LoginFailed', 'Login Gagal!');

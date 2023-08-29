@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('id_transaksi', 15);
             $table->timestamps();
 
-            $table->foreign('id_akun')->references('id_akun')->on('akuns')->onDelete('cascade');
+            $table->foreign('id_akun')->references('id_akun')->on('akuns');
             $table->foreign('id_transaksi')->references('id_transaksi')->on('transaksis')->onDelete('cascade');
         });
     }

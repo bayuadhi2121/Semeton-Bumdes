@@ -15,7 +15,7 @@ return new class extends Migration
             $table->String('id_person', 20)->primary();
             $table->String('nama', 50);
             $table->String('username')->unique();
-            $table->String('password');
+            $table->String('password')->default('123456789');
             $table->String('alamat')->nullable();
             $table->String('kontak', 15)->unique()->nullable();
             $table->String('status', 15);
