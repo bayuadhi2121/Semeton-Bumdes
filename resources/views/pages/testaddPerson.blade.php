@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
-
-
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 </head>
 
 <body>
@@ -34,14 +33,12 @@
         <p>kontak:{{$p->kontak}}</p>
         <p>status:{{$p->status}}</p>
         <button>edit</button>
-        <form action="{{route('pengelola.destroy', ['pengelola' => $p->id_person])}}" method="post" data-confirm-delete="true">
-            @method('delete')
-            @csrf
-            <button data-confirm-delete="true">delete</button>
-        </form>
+
+        <button><a href="{{route('pengelola.destroy', $p->id_person)}}" class="btn btn-danger" data-confirm-delete="true">Delete</a></button>
+
         @endforeach
     </section>
-    <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
 </body>
 
 </html>

@@ -13,6 +13,7 @@ class PersonController extends Controller
      */
     public function index()
     {
+        confirmDelete("delete user", "delete kah manis ?");
         return view('pages.testaddPerson', [
             'pengelola' => Person::where('status', '!=', 'Ketua')->orderBy('status', 'DESC')->latest()->get()
         ]);
@@ -71,8 +72,12 @@ class PersonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(String $id)
+
     {
-        Alert::confirmDelete("Hapus Pengelola", "Anda yakin akan menghapus pengelola ini ?");
+        // dd($id);
+        Person::destroy($id);
+        Alert::success('Delete Berhasil', 'Pengelola Berhasil Dihapus!');
+        return redirect()->back();
     }
 }
