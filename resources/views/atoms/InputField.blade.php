@@ -3,6 +3,5 @@
     <label class="label">
         <span class="label-text">{{ $label }}</span>
     </label>
-    <input type="{{ $type }}" placeholder="{{ $placeholder }}" class="input input-bordered w-full max-w-xs" />
+    <input type="{{ $type }}" placeholder="{{ $placeholder }}" name="{{$name}}" class="input input-bordered w-full max-w-xs" />
 </div>
-
