@@ -23,14 +23,23 @@
         </select>
         <button type="submit">submit</button>
     </form>
-
+    <form action="{{route('logout')}}" method="post">
+        @csrf
+        <button>logout</button>
+    </form>
     <section>
-        <p>nama:</p>
-        <p>nama:</p>
-        <p>nama:</p>
-        <p>nama:</p>
+        @foreach($pengelola as $p)
+        <p>nama:{{$p->nama}}</p>
+        <p>username:{{$p->username}}</p>
+        <p>kontak:{{$p->kontak}}</p>
+        <p>status:{{$p->status}}</p>
         <button>edit</button>
-        <button>delete</button>
+        <form action="{{route('pengelola.destroy', ['pengelola' => $p->id_person])}}" method="post" data-confirm-delete="true">
+            @method('delete')
+            @csrf
+            <button data-confirm-delete="true">delete</button>
+        </form>
+        @endforeach
     </section>
     <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 </body>

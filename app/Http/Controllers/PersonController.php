@@ -13,7 +13,9 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return view('pages.testaddPerson');
+        return view('pages.testaddPerson', [
+            'pengelola' => Person::where('status', '!=', 'Ketua')->orderBy('status', 'DESC')->latest()->get()
+        ]);
     }
 
     /**
@@ -72,6 +74,6 @@ class PersonController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Alert::confirmDelete("Hapus Pengelola", "Anda yakin akan menghapus pengelola ini ?");
     }
 }
