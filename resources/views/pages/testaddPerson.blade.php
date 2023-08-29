@@ -13,9 +13,9 @@
     @include('sweetalert::alert')
     <form action="{{route('pengelola.store')}}" method="POST">
         @csrf
-        <input type="text" name="nama">
-        <input type="text" name="kontak">
-        <input type="text" name="username">
+        <input type="text" name="nama" placeholder="nama" required>
+        <input type="text" name="kontak" placeholder="kontak" required>
+        <input type="text" name="username" placeholder="username" required>
         <select name="status" id="">
             <option value="ketua">ketua</option>
             <option value="sekertaris">sekertaris</option>
