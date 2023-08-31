@@ -76,7 +76,17 @@ class PersonController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $rule = [
+            'nama' => 'required|max:255',
+            'kontak' => 'nullable',
+            'status' => 'required',
+            'username' => 'required'
+        ];
+
+        $validatedData = $request->validate($rule);
+
+        Person::where('id_person', $id,)->update($validatedData);
+        return redirect()->back();
     }
 
     /**
