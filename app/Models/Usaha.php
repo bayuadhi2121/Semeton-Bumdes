@@ -13,13 +13,15 @@ class Usaha extends Model
 
     protected $guarded = [];
 
+    public $primaryKey = 'id_usaha';
+
     public $incrementing = false;
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->id = IdGenerator::generate(['table' => 'usahas', 'field' => 'id_usaha', 'length' => 20, 'prefix' => 'USH-' . date('ym'), 'reset_on_prefix_change' => true]);
+            $model->id_usaha = IdGenerator::generate(['table' => 'usahas', 'field' => 'id_usaha', 'length' => 20, 'prefix' => 'USH-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
     }
 }
