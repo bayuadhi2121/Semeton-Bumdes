@@ -52,7 +52,7 @@ class PersonController extends Component
             'kontak' => $this->kontak,
             'status' => $this->status,
         ]);
-        $this->dispatch('close-modal');
+        $this->dispatchBrowserEvent('close-modal');
     }
     public function store()
     {
@@ -64,7 +64,7 @@ class PersonController extends Component
         $validatedData['username'] = $this->nama;
 
         Person::create($validatedData);
-        $this->dispatch('close-modal');
+        $this->dispatchBrowserEvent('close-modal');
     }
     public function resetData()
     {
