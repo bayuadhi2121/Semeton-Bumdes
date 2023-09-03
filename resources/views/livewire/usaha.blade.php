@@ -1,8 +1,4 @@
 <div>
-    @php
-        $num = $usaha->firstItem();
-    @endphp
-
     <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Usaha</h2>
 
     <div class="mb-4 flex justify-between">
@@ -43,7 +39,7 @@
                 @forelse ($usaha as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $num++ }}
+                            {{ $usaha->firstItem() + $loop->index }}
                         </th>
                         <td class="px-6 py-4">
                             {{ $item->nama }}
@@ -187,7 +183,7 @@
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Lanjut
                     </button>
-                    <button data-modal-hide="confirmation-modal" type="button"
+                    <button wire:click="resetInput" data-modal-hide="confirmation-modal" type="button"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
                         Batal</button>
                 </div>

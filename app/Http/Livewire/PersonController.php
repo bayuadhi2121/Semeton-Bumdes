@@ -11,50 +11,28 @@ class PersonController extends Component
 {
     use WithPagination;
 
-    public $id_person, $act, $nama, $status, $kontak;
+    public $id_person, $delete, $nama, $status, $kontak;
     public $search;
     protected $updatesQueryString = [
         ['page' => ['except' => 1]],
         ['search' => ['except' => '']],
     ];
 
-    public function from($id, $act)
+    public function setAction($id_person, $action)
     {
-        $this->id_person = $id;
-        $this->act = $act;
+        $this->id_person = $id_person;
+        $this->delete = $action;
     }
-    public function action()
+
+    public function save()
     {
-        if ($this->id_person == '' && $this->act == '') {
-
+        if ($this->id_person == '') {
             $this->store();
-        } else if ($this->id_person != '' && $this->act == '') {
-
-            $this->update();
         } else {
-            if ($this->act == "reset") {
-                $this->resetData();
-            } else {
-                $this->destroy();
-            }
+            $this->update();
         }
     }
-    public function setData(Person $person)
-    {
-        $this->id_person = $person->id_person;
-        $this->nama = $person->nama;
-        $this->status = $person->status;
-        $this->kontak = $person->kontak;
-    }
-    public function update()
-    {
-        Person::find($this->id_person)->update([
-            'nama' => $this->nama,
-            'kontak' => $this->kontak,
-            'status' => $this->status,
-        ]);
-        $this->dispatchBrowserEvent('close-modal');
-    }
+
     public function store()
     {
         $validatedData = $this->validate([
@@ -67,10 +45,40 @@ class PersonController extends Component
         Person::create($validatedData);
         $this->dispatchBrowserEvent('close-modal');
     }
-    public function resetData()
+
+    public function edit(Person $person)
+    {
+        $this->id_person = $person->id_person;
+        $this->nama = $person->nama;
+        $this->status = $person->status;
+        $this->kontak = $person->kontak;
+    }
+  
+    public function update()
+    {
+        Person::find($this->id_person)->update([
+            'nama' => $this->nama,
+            'kontak' => $this->kontak,
+            'status' => $this->status,
+        ]);
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function runAction()
+    {
+        if($this->delete) {
+            $this->destroy();
+        } else {
+            $this->resetPassword();
+        }
+    }
+
+    public function resetPassword()
     {
         Person::where('id_person', $this->id_person)->update(['password' => Hash::make('123')]);
     }
+  
     public function destroy()
     {
         Person::destroy($this->id_person);
@@ -81,7 +89,6 @@ class PersonController extends Component
     {
         $this->reset();
     }
-
 
     public function render()
     {
