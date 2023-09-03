@@ -1,5 +1,5 @@
 @extends('layouts.common')
 
 @section('common_content')
-    @livewire('usaha-controller')
+  @livewire('usaha-controller')
 @endsection

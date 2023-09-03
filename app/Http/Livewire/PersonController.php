@@ -53,7 +53,7 @@ class PersonController extends Component
         $this->status = $person->status;
         $this->kontak = $person->kontak;
     }
-
+  
     public function update()
     {
         Person::find($this->id_person)->update([
@@ -78,6 +78,7 @@ class PersonController extends Component
     {
         Person::where('id_person', $this->id_person)->update(['password' => Hash::make('123')]);
     }
+  
     public function destroy()
     {
         Person::destroy($this->id_person);

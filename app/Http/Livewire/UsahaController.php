@@ -17,7 +17,7 @@ class UsahaController extends Component
 
     public function save()
     {
-        if($this->id_usaha == '') {
+        if ($this->id_usaha == '') {
             $this->store();
         } else {
             $this->update();
@@ -41,7 +41,8 @@ class UsahaController extends Component
         $this->status = $usaha->status;
     }
 
-    public function update() {
+    public function update()
+    {
         Usaha::find($this->id_usaha)->update([
             'nama' => $this->nama,
             'status' => $this->status,
