@@ -1,11 +1,11 @@
 @extends('layouts.common')
 
 @php
-    $num = $barang->firstItem();
+    $num = $jenispendapatan->firstItem();
 @endphp
 
 @section('common_content')
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Barang</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Jenis Pendapatan</h2>
 
     <div class="mb-4 flex justify-between">
         <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
@@ -14,7 +14,7 @@
         <div class="relative w-1/4">
             <input type="text" id="simple-search"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
-                placeholder="Cari Barang..." required>
+                placeholder="Cari jenis pendapatan..." required>
         </div>
     </div>
 
@@ -30,13 +30,7 @@
                         Nama
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Stok Minimum
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Jumlah Stok
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Harga
+                        Usaha
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Aksi
@@ -44,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($barang as $item)
+                @forelse ($jenispendapatan as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
@@ -54,12 +48,6 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->stok_min }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $item->stok }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $item->harga }}
                         </td>
                         <td class="px-6 py-4 flex space-x-2">
                             <button data-modal-target="add-data-modal" title="Edit" data-modal-show="add-data-modal">
@@ -89,7 +77,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $barang->links() }}
+        {{ $jenispendapatan->links() }}
     </div>
 
     <!-- Add data modal -->
@@ -110,44 +98,28 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Data Barang</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Jenis Pendapatan</h3>
                     <form class="space-y-6" action="#" method="POST">
                         <div class="relative">
                             <input type="text" id="nama" name="nama"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="nama"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Barang</label>
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
+                            </label>
                         </div>
                         <div class="relative">
-                            <input type="text" id="harga" name="harga"
+                            <input type="text" id="usaha" name="usaha" list="person"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
-                            <label for="harga"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga Barang</label>
+                            <label for="usaha"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Usaha</label>
+                            <datalist id="person">
+                                <option value="Boston nmnmnmnmnmnmn">
+                                <option value="Cambridge">
+                            </datalist>
                         </div>
-                        <div class="relative">
-                            <input type="text" id="untung" name="untung"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="untung"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Untung</label>
-                        </div>
-                        <div class="relative">
-                            <input type="text" id="stok" name="stok"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="stok"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Stok</label>
-                        </div>
-                        <div class="relative">
-                            <input type="text" id="stok_min" name="stok_min"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="stok_min"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Stok Minimum</label>
-                        </div>
-
+                        
                         <button type="submit"
                             class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
                     </form>
