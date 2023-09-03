@@ -1,15 +1,13 @@
 <div>
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Usaha</h2>
-
     <div class="mb-4 flex justify-between">
         <button onclick="setModal('Tambah')" type="button" data-modal-target="add-data-modal"
             data-modal-show="add-data-modal"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
 
         <div class="relative w-1/4">
-            <input type="text" id="simple-search"
+            <input wire:model.live="search" type="text" id="simple-search"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
-                placeholder="Cari usaha..." required>
+                placeholder="Cari pengelola..." required>
         </div>
     </div>
 
@@ -25,10 +23,13 @@
                         Nama
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Status
+                        Username
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Pengelola
+                        Kontak
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Aksi
@@ -36,23 +37,26 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($usaha as $item)
+                @forelse ($pengelola as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $usaha->firstItem() + $loop->index }}
+                            {{ $pengelola->firstItem() + $loop->index }}
                         </th>
                         <td class="px-6 py-4">
                             {{ $item->nama }}
                         </td>
                         <td class="px-6 py-4">
+                            {{ $item->username }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $item->kontak }}
+                        </td>
+                        <td class="px-6 py-4">
                             {{ $item->status }}
                         </td>
-                        <td class="px-6 py-4">
-                            {{-- {{ $item->pengelola->nama }} --}}
-                        </td>
-                        <td class="px-6 py-4">
-                            <button onclick="setModal('Edit')" data-modal-target="add-data-modal"
-                                data-modal-show="add-data-modal" wire:click="edit('{{ $item->id_usaha }}')">
+                        <td class="px-6 py-4 flex space-x-2">
+                            <button wire:click="edit('{{ $item->id_person }}')" onclick="setModal('Edit')"
+                                data-modal-target="add-data-modal" data-modal-show="add-data-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="2" stroke="currentColor" class="w-6 h-6 text-cyan-500">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,23 +64,23 @@
                                 </svg>
                             </button>
 
-                            <button wire:click="delete('{{ $item->id_usaha }}')" data-modal-target="confirmation-modal"
-                                data-modal-show="confirmation-modal">
+                            <button wire:click="setAction('{{ $item->id_person }}', false)"
+                                data-modal-target="confirmation-modal" data-modal-show="confirmation-modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                </svg>
+                            </button>
+
+                            <button wire:click="setAction('{{ $item->id_person }}', true)"
+                                data-modal-target="confirmation-modal" data-modal-show="confirmation-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="2" stroke="currentColor" class="w-6 h-6 text-red-500">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                 </svg>
                             </button>
-
-                            <a href="#" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                                </svg>
-
-                            </a>
                         </td>
                     </tr>
                 @empty
@@ -89,7 +93,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $usaha->links() }}
+        {{ $pengelola->links() }}
     </div>
 
     <!-- Add data modal -->
@@ -98,7 +102,7 @@
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
-                <button wire:click="resetInput" type="button" id="close-button"
+                <button type="button" id="close-button" wire:click='resetInput'
                     class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
                     data-modal-hide="add-data-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -110,9 +114,8 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900"><span id="modal-title"></span> Data
-                        Usaha</h3>
-
+                    <h3 class="mb-4 text-xl font-medium text-gray-900"><span id="modal-title"></span> Data Pengelola
+                    </h3>
                     <form wire:submit.prevent="save" class="space-y-6">
                         <div class="relative">
                             <input wire:model.defer="nama" type="text" id="nama" name="nama"
@@ -120,6 +123,16 @@
                                 placeholder=" " />
                             <label for="nama"
                                 class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama</label>
+
+                        </div>
+
+                        <div class="relative">
+                            <input wire:model.defer="kontak" type="text" id="kontak" name="kontak"
+                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                placeholder="081111111111" />
+                            <label for="kontak"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Kontak
+                                (Opsional)</label>
                         </div>
 
                         <div>
@@ -127,40 +140,27 @@
                                 class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
                                     <div class="flex items-center pl-3">
-                                        <input wire:model.defer="status" id="horizontal-list-radio-license"
-                                            type="radio" value="Dagang" name="list-radio"
+                                        <input wire:model.defer="status" id="bendahara" type="radio"
+                                            value="Bendahara" name="list-radio"
                                             class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
-                                        <label for="horizontal-list-radio-license"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Dagang</label>
+                                        <label for="bendahara"
+                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Bendahara</label>
                                     </div>
                                 </li>
-                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                                <li wire:model.defer="status"
+                                    class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
                                     <div class="flex items-center pl-3">
-                                        <input wire:model.defer="status" id="horizontal-list-radio-id" type="radio"
-                                            value="Jasa" name="list-radio"
+                                        <input id="akuntan" type="radio" value="Akuntan" name="list-radio"
                                             class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
-                                        <label for="horizontal-list-radio-id"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Jasa</label>
+                                        <label for="akuntan"
+                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Akuntan</label>
                                     </div>
                                 </li>
                             </ul>
                         </div>
 
-                        <div class="relative">
-                            <input wire:model.defer="person" type="text" id="pengelola" name="pengelola"
-                                list="person"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="pengelola"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Pengelola
-                                (Opsional)</label>
-                            <datalist id="person">
-                                <option value="Person">
-                            </datalist>
-                        </div>
-
                         <button type="submit"
-                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
                     </form>
                 </div>
             </div>
@@ -179,7 +179,7 @@
                             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda yakin?</h3>
-                    <button wire:click="destroy" data-modal-hide="confirmation-modal" type="button"
+                    <button wire:click='runAction' data-modal-hide="confirmation-modal" type="button"
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Lanjut
                     </button>
@@ -191,7 +191,6 @@
         </div>
     </div>
 </div>
-
 @section('script')
     <script>
         window.addEventListener('close-modal', event => {
