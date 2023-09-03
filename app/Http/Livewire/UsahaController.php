@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Person;
 use App\Models\Usaha;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,11 +11,18 @@ class UsahaController extends Component
 {
     use WithPagination;
 
+    public $data = '';
+    public $query = '';
     public $id_usaha = '';
     public $nama = '';
     public $status = '';
     public $person = '';
-
+    public function updatedQuery()
+    {
+        $this->data = Person::where('nama', 'like', '%' . $this->query . '%')
+            ->get()
+            ->toArray();
+    }
     public function save()
     {
         if ($this->id_usaha == '') {
@@ -31,7 +39,7 @@ class UsahaController extends Component
             'status' => $this->status,
         ]);
 
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatch('close-modal');
     }
 
     public function edit(Usaha $usaha)
@@ -48,7 +56,7 @@ class UsahaController extends Component
             'status' => $this->status,
         ]);
 
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatch('close-modal');
     }
 
     public function delete($id)

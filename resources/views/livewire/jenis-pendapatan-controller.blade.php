@@ -1,25 +1,19 @@
 <div>
-    @php
-    $num = $usaha->firstItem();
-    @endphp
-
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Usaha</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Jenis Pendapatan</h2>
 
     <div class="mb-4 flex justify-between">
-        <button onclick="setModal('Tambah')" type="button" data-modal-target="add-data-modal"
-            data-modal-show="add-data-modal"
+        <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
 
         <div class="relative w-1/4">
             <input type="text" id="simple-search"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
-                placeholder="Cari usaha..." required>
+                placeholder="Cari jenis pendapatan..." required>
         </div>
     </div>
 
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -30,10 +24,7 @@
                         Nama
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Status
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Pengelola
+                        Usaha
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Aksi
@@ -41,23 +32,19 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($usaha as $item)
+                @forelse ($jenispendapatan as $item)
                 <tr class="bg-white border-b">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ $num++ }}
+                        {{ $loop->iteration }}
                     </th>
                     <td class="px-6 py-4">
                         {{ $item->nama }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ $item->status }}
+                        {{ $item->stok_min }}
                     </td>
-                    <td class="px-6 py-4">
-                        {{-- {{ $item->pengelola->nama }} --}}
-                    </td>
-                    <td class="px-6 py-4">
-                        <button onclick="setModal('Edit')" data-modal-target="add-data-modal"
-                            data-modal-show="add-data-modal" wire:click="edit('{{ $item->id_usaha }}')">
+                    <td class="px-6 py-4 flex space-x-2">
+                        <button data-modal-target="add-data-modal" title="Edit" data-modal-show="add-data-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                 stroke="currentColor" class="w-6 h-6 text-cyan-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,7 +52,7 @@
                             </svg>
                         </button>
 
-                        <button wire:click="delete('{{ $item->id_usaha }}')" data-modal-target="confirmation-modal"
+                        <button title="Hapus" data-modal-target="confirmation-modal"
                             data-modal-show="confirmation-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                 stroke="currentColor" class="w-6 h-6 text-red-500">
@@ -73,15 +60,6 @@
                                     d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                             </svg>
                         </button>
-
-                        <a href="#" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                            </svg>
-
-                        </a>
                     </td>
                 </tr>
                 @empty
@@ -94,16 +72,16 @@
     </div>
 
     <div class="mt-3">
-        {{ $usaha->links() }}
+        {{ $jenispendapatan->links() }}
     </div>
 
     <!-- Add data modal -->
-    <div wire:ignore id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+    <div id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
-                <button wire:click="resetInput" type="button" id="close-button"
+                <button type="button"
                     class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
                     data-modal-hide="add-data-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -115,64 +93,30 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900"><span id="modal-title"></span> Data
-                        Usaha</h3>
-
-                    <form wire:submit.prevent="save" class="space-y-6">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Jenis Pendapatan</h3>
+                    <form class="space-y-6" action="#" method="POST">
                         <div class="relative">
-                            <input wire:model.defer="nama" type="text" id="nama" name="nama"
+                            <input type="text" id="nama" name="nama"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="nama"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama</label>
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
+                            </label>
                         </div>
-
-                        <div>
-                            <ul
-                                class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
-                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
-                                    <div class="flex items-center pl-3">
-                                        <input wire:model.defer="status" id="horizontal-list-radio-license" type="radio"
-                                            value="Dagang" name="list-radio"
-                                            class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
-                                        <label for="horizontal-list-radio-license"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Dagang</label>
-                                    </div>
-                                </li>
-                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
-                                    <div class="flex items-center pl-3">
-                                        <input wire:model.defer="status" id="horizontal-list-radio-id" type="radio"
-                                            value="Jasa" name="list-radio"
-                                            class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
-                                        <label for="horizontal-list-radio-id"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Jasa</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="relative ">
-                            <input type="text" class="w-full" placeholder="Search contact..."
-                                wire:model.debounce.500ms="query" wire:keydown.escape="resetInput"
-                                wire:keydown.tab="resetInput" wire:keydown.enter="showContact" />
-                            @if(!empty($query))
-                            <div class="fixed top-0 right-0 bottom-0 left-0" wire:click="resetInput"></div>
-                            <div wire:loading class=" absolute block group p-2 bg-yellow-100">Searching...</div>
-                            @if(!empty($data))
-                            <div class="absolute z-40 bg-white">
-                                @foreach($data as $row)
-                                <a href="" class="block group p-2 hover:bg-blue-100">{{ $row['nama']
-                                    }}</a>
-                                @endforeach
-                            </div>
-                            @else
-                            <div class="absolute block group p-2 bg-red-100">No contact found.</div>
-                            @endif
-                            @endif
+                        <div class="relative">
+                            <input type="text" id="usaha" name="usaha" list="person"
+                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                placeholder=" " />
+                            <label for="usaha"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Usaha</label>
+                            <datalist id="person">
+                                <option value="Boston nmnmnmnmnmnmn">
+                                <option value="Cambridge">
+                            </datalist>
                         </div>
 
                         <button type="submit"
-                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
                     </form>
                 </div>
             </div>
@@ -180,7 +124,7 @@
     </div>
 
     {{-- Confirmation modal --}}
-    <div wire:ignore id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
+    <div id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
         class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <div class="relative bg-white rounded-lg shadow">
@@ -191,7 +135,7 @@
                             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda yakin?</h3>
-                    <button wire:click="destroy" data-modal-hide="confirmation-modal" type="button"
+                    <button data-modal-hide="confirmation-modal" type="button"
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Lanjut
                     </button>
@@ -203,15 +147,3 @@
         </div>
     </div>
 </div>
-
-@section('script')
-<script>
-    window.addEventListener('close-modal', event => {
-            document.getElementById("close-button").click();
-        })
-
-        function setModal(title) {
-            document.getElementById("modal-title").innerHTML = title;
-        }
-</script>
-@endsection

@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\UsahaController;
-use App\Models\Person;
-use App\Models\Barang;
+
+use App\Http\Controllers\JenisPendapatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +30,5 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/pengelola', [PersonController::class, 'index'])->name('pengelola');
 
 Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
+Route::get('/jenispendapatan', [JenisPendapatanController::class, 'index'])->name('jenispendapatan');
 // });

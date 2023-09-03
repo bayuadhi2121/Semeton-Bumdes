@@ -18,7 +18,7 @@ return new class extends Migration
             $table->String('username')->unique();
             $table->String('password')->default(Hash::make('123456789'));
             $table->String('alamat')->nullable();
-            $table->String('kontak', 15)->unique()->nullable();
+            $table->String('kontak', 15)->nullable();
             $table->String('status', 15);
             $table->timestamps();
         });

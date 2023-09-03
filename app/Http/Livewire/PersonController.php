@@ -13,6 +13,11 @@ class PersonController extends Component
 
     public $id_person, $delete, $nama, $status, $kontak;
     public $search;
+    protected $rules = [
+        'nama' => 'required|min:3|unique:persons',
+        'status' => 'required',
+        'kontak' => 'nullable|numeric',
+    ];
     protected $updatesQueryString = [
         ['page' => ['except' => 1]],
         ['search' => ['except' => '']],
@@ -35,15 +40,11 @@ class PersonController extends Component
 
     public function store()
     {
-        $validatedData = $this->validate([
-            'nama' => 'required|min:3',
-            'status' => 'required',
-            'kontak' => 'nullable',
-        ]);
+        $validatedData = $this->validate();
         $validatedData['username'] = $this->nama;
 
         Person::create($validatedData);
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatch('close-modal');
     }
 
     public function edit(Person $person)
@@ -53,7 +54,7 @@ class PersonController extends Component
         $this->status = $person->status;
         $this->kontak = $person->kontak;
     }
-  
+
     public function update()
     {
         Person::find($this->id_person)->update([
@@ -62,12 +63,12 @@ class PersonController extends Component
             'status' => $this->status,
         ]);
 
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatch('close-modal');
     }
 
     public function runAction()
     {
-        if($this->delete) {
+        if ($this->delete) {
             $this->destroy();
         } else {
             $this->resetPassword();
@@ -78,7 +79,7 @@ class PersonController extends Component
     {
         Person::where('id_person', $this->id_person)->update(['password' => Hash::make('123')]);
     }
-  
+
     public function destroy()
     {
         Person::destroy($this->id_person);
@@ -87,9 +88,14 @@ class PersonController extends Component
 
     public function resetInput()
     {
+        $this->resetValidation();
         $this->reset();
     }
+    public function updated($propertyName)
+    {
 
+        $this->validateOnly($propertyName);
+    }
     public function render()
     {
         return view('livewire.person-controller', [
