@@ -44,6 +44,7 @@ class PersonController extends Component
         $this->id_person = $person->id_person;
         $this->nama = $person->nama;
         $this->status = $person->status;
+        $this->kontak = $person->kontak;
     }
     public function update()
     {
@@ -73,6 +74,11 @@ class PersonController extends Component
     public function destroy()
     {
         Person::destroy($this->id_person);
+        $this->reset();
+    }
+
+    public function resetInput()
+    {
         $this->reset();
     }
 
