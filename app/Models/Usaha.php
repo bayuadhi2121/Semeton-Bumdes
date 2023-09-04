@@ -24,4 +24,12 @@ class Usaha extends Model
             $model->id_usaha = IdGenerator::generate(['table' => 'usahas', 'field' => 'id_usaha', 'length' => 20, 'prefix' => 'USH-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
     }
+    public function usaha()
+    {
+        return $this->belongsTo(Person::class, 'id_person');
+    }
+    public function akun()
+    {
+        return $this->hasMany(Akun::class, 'id_akun');
+    }
 }

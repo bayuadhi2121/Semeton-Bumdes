@@ -11,7 +11,7 @@
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
 
         <div class="relative w-1/4">
-            <input type="text" id="simple-search"
+            <input type="text" id="simple-search" wire:model.live="search"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
                 placeholder="Cari usaha..." required>
         </div>
@@ -55,7 +55,7 @@
                     <td class="px-6 py-4">
                         {{-- {{ $item->pengelola->nama }} --}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 flex py-4">
                         <button onclick="setModal('Edit')" data-modal-target="add-data-modal"
                             data-modal-show="add-data-modal" wire:click="edit('{{ $item->id_usaha }}')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -98,7 +98,7 @@
     </div>
 
     <!-- Add data modal -->
-    <div wire:ignore id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+    <div wire:ignore.self id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
@@ -120,11 +120,13 @@
 
                     <form wire:submit.prevent="save" class="space-y-6">
                         <div class="relative">
-                            <input wire:model.defer="nama" type="text" id="nama" name="nama"
+                            <input wire:model.live="nama" type="text" id="nama" name="nama"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="nama"
                                 class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama</label>
+                            @error('nama') <span class="error text-sm text-red-500">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div>
@@ -132,7 +134,7 @@
                                 class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
                                     <div class="flex items-center pl-3">
-                                        <input wire:model.defer="status" id="horizontal-list-radio-license" type="radio"
+                                        <input wire:model.live="status" id="horizontal-list-radio-license" type="radio"
                                             value="Dagang" name="list-radio"
                                             class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
                                         <label for="horizontal-list-radio-license"
@@ -141,7 +143,7 @@
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
                                     <div class="flex items-center pl-3">
-                                        <input wire:model.defer="status" id="horizontal-list-radio-id" type="radio"
+                                        <input wire:model.live="status" id="horizontal-list-radio-id" type="radio"
                                             value="Jasa" name="list-radio"
                                             class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
                                         <label for="horizontal-list-radio-id"
@@ -149,21 +151,26 @@
                                     </div>
                                 </li>
                             </ul>
+                            @error('status') <span class="error text-sm text-red-500">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="relative ">
-                            <input type="text" class="w-full" placeholder="Search contact..."
-                                wire:model.debounce.500ms="query" wire:keydown.escape="resetInput"
-                                wire:keydown.tab="resetInput" wire:keydown.enter="showContact" />
+                            <input type="text" class="w-full" placeholder="Search contact..." wire:model.live="query"
+                                wire:keydown.escape="resetInput" wire:keydown.tab="resetInput" list="persons"
+                                wire:keydown.enter="showContact" />
                             @if(!empty($query))
                             <div class="fixed top-0 right-0 bottom-0 left-0" wire:click="resetInput"></div>
                             <div wire:loading class=" absolute block group p-2 bg-yellow-100">Searching...</div>
                             @if(!empty($data))
                             <div class="absolute z-40 bg-white">
-                                @foreach($data as $row)
-                                <a href="" class="block group p-2 hover:bg-blue-100">{{ $row['nama']
-                                    }}</a>
-                                @endforeach
+                                <datalist id="persons">
+                                    @foreach($data as $row)
+                                    <option href="" class="block group p-2 hover:bg-blue-100"
+                                        value="{{ $row['nama'] }}">
+                                        @endforeach
+                                </datalist>
+
                             </div>
                             @else
                             <div class="absolute block group p-2 bg-red-100">No contact found.</div>

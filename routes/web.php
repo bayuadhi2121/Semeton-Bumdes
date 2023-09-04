@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
@@ -30,5 +31,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/pengelola', [PersonController::class, 'index'])->name('pengelola');
 
 Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
+Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 Route::get('/jenispendapatan', [JenisPendapatanController::class, 'index'])->name('jenispendapatan');
 // });
