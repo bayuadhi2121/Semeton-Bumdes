@@ -53,7 +53,7 @@
                         {{ $item->status }}
                     </td>
                     <td class="px-6 py-4">
-                        {{-- {{ $item->pengelola->nama }} --}}
+                        {{ $item->person->nama ?? ""}}
                     </td>
                     <td class="px-6 flex py-4">
                         <button onclick="setModal('Edit')" data-modal-target="add-data-modal"
@@ -155,27 +155,25 @@
                             @enderror
                         </div>
 
-                        <div class="relative ">
-                            <input type="text" class="w-full" placeholder="Search contact..." wire:model.live="query"
-                                wire:keydown.escape="resetInput" wire:keydown.tab="resetInput" list="persons"
-                                wire:keydown.enter="showContact" />
-                            @if(!empty($query))
-                            <div class="fixed top-0 right-0 bottom-0 left-0" wire:click="resetInput"></div>
-                            <div wire:loading class=" absolute block group p-2 bg-yellow-100">Searching...</div>
-                            @if(!empty($data))
-                            <div class="absolute z-40 bg-white">
-                                <datalist id="persons">
-                                    @foreach($data as $row)
-                                    <option href="" class="block group p-2 hover:bg-blue-100"
-                                        value="{{ $row['nama'] }}">
-                                        @endforeach
-                                </datalist>
+                        <div class="relative">
+                            <input type="text" id="pengelola" name="pengelola" list="person" wire:model.live='id_person'
+                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                placeholder=" " />
+                            <label for="id_person"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Pengelola</label>
+                            @error('id_person')
+                            <span class="error text-sm text-red-500">
+                                {!! $message !!}
+                                <button wire:click.prevent="createPengelola" class="text-blue-500">Tambah
+                                    Pengelola</button>
+                            </span>
+                            @enderror
+                            <datalist id="person">
+                                @foreach ($pengelolas as $item)
+                                <option value="{{ $item->nama }}"></option>
+                                @endforeach
+                            </datalist>
 
-                            </div>
-                            @else
-                            <div class="absolute block group p-2 bg-red-100">No contact found.</div>
-                            @endif
-                            @endif
                         </div>
 
                         <button type="submit"

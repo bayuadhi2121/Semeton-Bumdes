@@ -22,4 +22,8 @@ class JenisPendapatan extends Model
             $model->id_jpendapatan = IdGenerator::generate(['table' => 'jenis_pendapatans', 'field' => 'id_jpendapatan', 'length' => 20, 'prefix' => 'JPDTN-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
     }
+    public function usaha()
+    {
+        return $this->belongsTo(Usaha::class, 'id_usaha');
+    }
 }

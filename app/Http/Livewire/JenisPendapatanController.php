@@ -4,16 +4,23 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\JenisPendapatan;
+use App\Models\Usaha;
 use Livewire\WithPagination;
 
 class JenisPendapatanController extends Component
 {
     use WithPagination;
-    public $nama, $id_usaha;
+    public $nama, $nama_usaha;
     protected $rules = [
-        'nama' => 'required|min:3|unique:persons',
-
+        'nama' => 'required|min:3',
+        'nama_usaha' => 'required|exists:usahas,nama'
     ];
+    protected $messages = [
+        'nama_usaha.exists' => 'Usaha tidak ada '
+    ];
+    //test
+
+    //
     public function store()
     {
         $validatedData = $this->validate();
@@ -27,10 +34,15 @@ class JenisPendapatanController extends Component
         $this->resetValidation();
         $this->reset();
     }
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
     public function render()
     {
         return view('livewire.jenis-pendapatan-controller', [
-            'jenispendapatan' => jenispendapatan::latest()->paginate(10)
+            'jenispendapatan' => jenispendapatan::latest()->paginate(10),
+            'usaha' => Usaha::get()
         ]);
     }
 }

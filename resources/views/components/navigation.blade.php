@@ -33,11 +33,13 @@
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">Profil</a>
                             </li>
                             <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                        class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">Keluar</button>
-                                </form>
+                                <div class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="">Keluar</button>
+                                    </form>
+                                </div>
+
                             </li>
                         </ul>
                     </div>

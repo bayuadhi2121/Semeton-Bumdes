@@ -29,7 +29,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route::group(['middleware' => ['auth']], function () {
 Route::get('/pengelola', [PersonController::class, 'index'])->name('pengelola');
-
+Route::get('/pengelolalieve', App\Http\Livewire\PersonController::class)->name('live');
 Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
 Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 Route::get('/jenispendapatan', [JenisPendapatanController::class, 'index'])->name('jenispendapatan');

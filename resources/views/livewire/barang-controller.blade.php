@@ -6,7 +6,7 @@
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
 
         <div class="relative w-1/4">
-            <input type="text" id="simple-search"
+            <input type="text" id="simple-search" wire:model.live='search'
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
                 placeholder="Cari Barang..." required>
         </div>
@@ -56,8 +56,8 @@
                         {{ $item->harga }}
                     </td>
                     <td class="px-6 py-4 flex space-x-2">
-                        <button wire:click='edit({{ $item->id_barang }})' data-modal-target="add-data-modal"
-                            title="Edit" data-modal-show="add-data-modal">
+                        <button wire:click="edit({{ $item }})" data-modal-target="add-data-modal" title="Edit"
+                            data-modal-show="add-data-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                 stroke="currentColor" class="w-6 h-6 text-cyan-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,8 +65,8 @@
                             </svg>
                         </button>
 
-                        <button title="Hapus" wire:model='delete' data-modal-target="confirmation-modal"
-                            data-modal-show="confirmation-modal">
+                        <button title="Hapus" wire:click="setAction('{{ $item->id_barang }}',true)"
+                            data-modal-target="confirmation-modal" data-modal-show="confirmation-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                 stroke="currentColor" class="w-6 h-6 text-red-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -167,7 +167,7 @@
     </div>
 
     {{-- Confirmation modal --}}
-    <div id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
+    <div wire:ignore.self id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
         class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <div class="relative bg-white rounded-lg shadow">
@@ -178,7 +178,7 @@
                             d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda yakin?</h3>
-                    <button data-modal-hide="confirmation-modal" type="button"
+                    <button wire:click='runAction' data-modal-hide="confirmation-modal" type="button"
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Lanjut
                     </button>

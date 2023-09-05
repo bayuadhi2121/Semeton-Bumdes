@@ -99,7 +99,7 @@ class PersonController extends Component
     public function render()
     {
         return view('livewire.person-controller', [
-            'pengelola' => $this->search === null ? Person::where('status', '!=', 'Ketua')->latest()->paginate(10) :
+            'pengelola' => $this->search === null ? Person::where('status', '!=', 'Ketua')->orderBy('status')->latest()->paginate(10) :
                 Person::where('nama', 'like', '%' . $this->search . '%')->latest()->paginate(5)
         ]);
     }
