@@ -11,7 +11,6 @@ class PersonController extends Controller
      */
     public function index()
     {
-        // confirmDelete("delete user", "delete kah manis ?");
         return view('pages.pengelola.index');
     }
 }

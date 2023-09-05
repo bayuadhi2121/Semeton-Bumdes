@@ -33,11 +33,13 @@
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">Profil</a>
                             </li>
                             <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                        class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">Keluar</button>
-                                </form>
+                                <div class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="">Keluar</button>
+                                    </form>
+                                </div>
+
                             </li>
                         </ul>
                     </div>
@@ -97,6 +99,14 @@
                     <li>
                         <a href="{{ route('pengelola') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Pengelola</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('barang') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Barang</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('jenispendapatan') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">JenisPendapatan</a>
                     </li>
                     <li>
                         <a href="#"
