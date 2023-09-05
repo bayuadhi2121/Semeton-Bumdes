@@ -34,3 +34,4 @@ Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
 Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 Route::get('/jenispendapatan', [JenisPendapatanController::class, 'index'])->name('jenispendapatan');
 // });
+
