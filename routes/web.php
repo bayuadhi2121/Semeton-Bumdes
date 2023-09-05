@@ -31,3 +31,9 @@ Route::get('/pengelola', [PersonController::class, 'index'])->name('pengelola');
 
 Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
 // });
+
+
+Route::get('/test', function() {
+    return view('pages.akun.index', [
+        'akun' => Person::paginate(5)]);
+});
