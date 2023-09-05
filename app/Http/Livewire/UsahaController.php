@@ -18,6 +18,7 @@ class UsahaController extends Component
     public $nama = '';
     public $status = '';
     public $person = '';
+
     protected $rules = [
         'nama' => 'required|min:2',
         'status' => 'required',
@@ -115,6 +116,7 @@ class UsahaController extends Component
         $this->id_usaha = $usaha->id_usaha;
         $this->nama = $usaha->nama;
         $this->status = $usaha->status;
+        $this->id_person = $usaha->person->nama ?? "";
     }
 
     public function update()
@@ -123,7 +125,7 @@ class UsahaController extends Component
         Usaha::find($this->id_usaha)->update([
             'nama' => $this->nama,
             'status' => $this->status,
-
+            'id_person' => Person::where('nama', $this->id_person)->pluck('id_person')->first()
         ]);
         $this->storeAkun($this->id_usaha);
         $this->dispatch('close-modal');
@@ -139,7 +141,7 @@ class UsahaController extends Component
         Usaha::destroy($this->id_usaha);
         $this->resetInput();
     }
-    public function destroyAkun($id_akun)
+    public function destroyAkun()
     {
         Akun::where('id_usaha', $this->id_usaha)->delete();
     }

@@ -10,17 +10,16 @@ use Livewire\WithPagination;
 class JenisPendapatanController extends Component
 {
     use WithPagination;
-    public $nama, $nama_usaha;
+    public $nama;
+    public $id_usaha;
     protected $rules = [
         'nama' => 'required|min:3',
-        'nama_usaha' => 'required|exists:usahas,nama'
+        'id_usaha' => 'nullable'
     ];
     protected $messages = [
-        'nama_usaha.exists' => 'Usaha tidak ada '
+        'id_usaha.exists' => 'Usaha tidak ada '
     ];
-    //test
 
-    //
     public function store()
     {
         $validatedData = $this->validate();

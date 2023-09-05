@@ -61,7 +61,7 @@ class BarangController extends Component
             $this->update();
         }
     }
-    public function edit(Barang $item)
+    public function edit(Barang $item) // set-ing value to view
     {
         $this->nama = $item->nama;
         $this->id_barang = $item->id_barang;
@@ -70,10 +70,11 @@ class BarangController extends Component
         $this->stok = $item->stok;
         $this->stok_min = $item->stok_min;
     }
-    public function render()
+    public function render()  // rendering view function
     {
         return view('livewire.barang-controller', [
-            'barang' => $this->search == null ? Barang::orderBy('nama')->paginate(10) : Barang::where('nama', 'like', '%' . $this->search . '%')->latest()->paginate(5)
+            'barang' => $this->search == null ? Barang::orderBy('nama')->paginate(10) :
+                Barang::where('nama', 'like', '%' . $this->search . '%')->latest()->paginate(5)  //for search purpose (select nama barang that contain desire character)
         ]);
     }
 }
