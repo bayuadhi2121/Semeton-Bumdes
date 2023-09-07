@@ -1,11 +1,11 @@
 @extends('layouts.common')
 
 @php
-    $num = $transaksijasa->firstItem();
+    $num = $transaksibarang->firstItem();
 @endphp
 
 @section('common_content')
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Transaksi Jasa</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Transaksi Barang</h2>
 
     <div class="mb-4 flex justify-between">
         <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($transaksijasa as $item)
+                @forelse ($transaksibarang as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
@@ -98,7 +98,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $transaksijasa->links() }}
+        {{ $transaksibarang->links() }}
     </div>
 
     <!-- Add data modal -->
@@ -138,15 +138,40 @@
                             <label for="keterangan"
                                 class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Keterangan</label>
                         </div>
+                                               
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 ">Jenis Dagang</label>
+                            <ul
+                                class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
+                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                                    <div class="flex items-center pl-3">
+                                        <input wire:model.defer="status" id="horizontal-list-radio-license"
+                                            type="radio" value="Jual" name="list-radio"
+                                            class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
+                                        <label for="horizontal-list-radio-license"
+                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Jual</label>
+                                    </div>
+                                </li>
+                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                                    <div class="flex items-center pl-3">
+                                        <input wire:model.defer="status" id="horizontal-list-radio-id" type="radio"
+                                            value="Beli" name="list-radio"
+                                            class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
+                                        <label for="horizontal-list-radio-id"
+                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Beli</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
                         <div class="relative ">
                             
                             
-                            {{-- <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload file</label> --}}
+                            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload Nota</label>
                             <input class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-transparent bg-cyan-700" aria-describedby="file_input_help" id="file_input" type="file">
                             <p class="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
 
                         </div>
-                        
                         <button type="submit"
                             class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
                     </form>
