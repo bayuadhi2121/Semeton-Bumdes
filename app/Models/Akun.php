@@ -13,7 +13,7 @@ class Akun extends Model
 
     protected $table = 'akuns';
     protected $guarded = [];
-    protected $primaryKey = 'id_akuns';
+    protected $primaryKey = 'id_akun';
 
     public $incrementing = false;
 

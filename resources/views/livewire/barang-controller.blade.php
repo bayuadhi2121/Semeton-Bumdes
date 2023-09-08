@@ -6,7 +6,7 @@
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
 
         <div class="relative w-1/4">
-            <input type="text" id="simple-search" wire:model.live='search'
+            <input type="text" id="simple-search" wire:model.live="search"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
                 placeholder="Cari Barang..." required>
         </div>
@@ -89,8 +89,7 @@
     </div>
 
     <!-- Add data modal -->
-    <div wire:ignore.self wire:keydown.escape="resetInput" id="add-data-modal" data-modal-backdrop="static"
-        tabindex="-1" aria-hidden="true"
+    <div wire:ignore.self id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
@@ -108,9 +107,9 @@
 
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Data Barang</h3>
-                    <form wire:submit='save' class="space-y-6" action="#" method="POST">
+                    <form wire:submit.prevent="save" class="space-y-6" action="#" method="POST">
                         <div class="relative">
-                            <input type="text" id="nama" name="nama" wire:model.live='nama'
+                            <input type="text" id="nama" name="nama" wire:model.live="nama"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="nama"
@@ -120,7 +119,7 @@
                             @enderror
                         </div>
                         <div class="relative">
-                            <input type="text" id="harga" name="harga" wire:model.live='harga'
+                            <input type="text" id="harga" name="harga" wire:model.live="harga"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="harga"
@@ -130,7 +129,7 @@
                             @enderror
                         </div>
                         <div class="relative">
-                            <input type="text" id="untung" name="untung" wire:model.live='untung'
+                            <input type="text" id="untung" name="untung" wire:model.live="untung"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="untung"
@@ -167,7 +166,7 @@
     </div>
 
     {{-- Confirmation modal --}}
-    <div wire:ignore.self id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
+    <div wire:ignore id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
         class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <div class="relative bg-white rounded-lg shadow">
