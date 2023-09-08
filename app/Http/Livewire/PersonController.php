@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Person;
 use Livewire\Component;
@@ -12,7 +12,7 @@ class PersonController extends Component
     use WithPagination;
 
     public $id_person, $delete, $nama, $status, $kontak;
-    public $search;
+    public $search = '';
     protected $rules = [
         'nama' => 'required|min:3|unique:persons',
         'status' => 'required',
@@ -98,9 +98,6 @@ class PersonController extends Component
     }
     public function render()
     {
-        return view('livewire.person-controller', [
-            'pengelola' => $this->search === null ? Person::where('status', '!=', 'Ketua')->orderBy('status')->latest()->paginate(10) :
-                Person::where('nama', 'like', '%' . $this->search . '%')->latest()->paginate(5)
-        ]);
+        return view('livewire.person-controller', []);
     }
 }

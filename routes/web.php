@@ -3,10 +3,12 @@
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PersonController;
 use App\Http\Controllers\UsahaController;
-
-use App\Http\Controllers\JenisPendapatanController;
+use App\Livewire\Akun;
+use App\Livewire\JenisPendapatan;
+use App\Livewire\Person;
+use App\Livewire\TransaksiJasa;
+use App\Livewire\Usaha;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +30,10 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('authentic
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route::group(['middleware' => ['auth']], function () {
-Route::get('/pengelola', [PersonController::class, 'index'])->name('pengelola');
-Route::get('/pengelolalieve', App\Http\Livewire\PersonController::class)->name('live');
-Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
+Route::get('/pengelola', Person::class)->name('pengelola');
+Route::get('/usaha', Usaha::class)->name('usaha');
 Route::get('/barang', [BarangController::class, 'index'])->name('barang');
-Route::get('/jenispendapatan', [JenisPendapatanController::class, 'index'])->name('jenispendapatan');
+Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
+Route::get('/Akun', Akun::class)->name('akun');
+Route::get('/transaksi/{usaha}', TransaksiJasa::class)->name('trxjasa');
 // });
-

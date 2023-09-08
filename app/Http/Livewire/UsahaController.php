@@ -122,10 +122,11 @@ class UsahaController extends Component
     public function update()
     {
         $this->destroyAkun($this->id_usaha);
+        $id_person = Person::where('nama', $this->id_person)->pluck('id_person')->first() ?? "";
         Usaha::find($this->id_usaha)->update([
             'nama' => $this->nama,
             'status' => $this->status,
-            'id_person' => Person::where('nama', $this->id_person)->pluck('id_person')->first()
+            'id_person' => $id_person
         ]);
         $this->storeAkun($this->id_usaha);
         $this->dispatch('close-modal');
