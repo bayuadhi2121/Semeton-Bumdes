@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('nama', 50);
             $table->string('id_person', 20)->nullable();
             $table->timestamps();
-            $table->foreign('id_person')->references('id_person')->on('persons');
+
+            $table->foreign('id_person')->references('id_person')->on('persons')->onDelete('set null');
         });
     }
 

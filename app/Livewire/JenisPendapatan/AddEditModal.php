@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Livewire\Akun;
+namespace App\Livewire\JenisPendapatan;
 
-use App\Models\Akun;
 use App\Models\Usaha;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use App\Models\JenisPendapatan;
 use Illuminate\Database\Eloquent\Collection;
 
 class AddEditModal extends Component
 {
     public $show, $showList, $title, $mode, $search = '';
-    public $id_akun, $id_usaha, $nama;
+    public $id_jenis_pendapatan, $id_usaha, $nama;
 
     public Collection $usaha;
 
@@ -32,7 +32,7 @@ class AddEditModal extends Component
     {
         $this->validate();
 
-        Akun::create([
+        JenisPendapatan::create([
             'nama' => $this->nama,
             'id_usaha' => $this->id_usaha,
         ]);
@@ -45,7 +45,7 @@ class AddEditModal extends Component
     {
         $this->validate();
 
-        Akun::where('id_akun', $this->id_akun)->update([
+        JenisPendapatan::where('id_jpendapatan', $this->id_jenis_pendapatan)->update([
             'nama' => $this->nama,
             'id_usaha' => $this->id_usaha,
         ]);
@@ -67,12 +67,12 @@ class AddEditModal extends Component
     }
 
     #[On('edit-modal')]
-    public function editModal(Akun $akun)
+    public function editModal(JenisPendapatan $jenisPendapatan)
     {
-        $this->id_akun = $akun->id_akun;
-        $this->nama = $akun->nama;
-        $this->id_usaha = $akun->id_usaha;
-        $this->search = $akun->usaha->nama ?? '';
+        $this->id_jenis_pendapatan = $jenisPendapatan->id_jpendapatan;
+        $this->nama = $jenisPendapatan->nama;
+        $this->id_usaha = $jenisPendapatan->id_usaha;
+        $this->search = $jenisPendapatan->usaha->nama ?? '';
         $this->openModal('update', 'Edit');
     }
 
@@ -117,7 +117,7 @@ class AddEditModal extends Component
     public function render()
     {
         $this->usaha = Usaha::where('nama', 'like', '%'.$this->search.'%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
-        return view('livewire.akun.add-edit-modal', [
+        return view('livewire.jenis-pendapatan.add-edit-modal', [
             'usaha' => $this->usaha
         ]);
     }

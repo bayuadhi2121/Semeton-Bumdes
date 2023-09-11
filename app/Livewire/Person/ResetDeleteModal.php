@@ -3,10 +3,9 @@
 namespace App\Livewire\Person;
 
 use App\Models\Person;
-use Illuminate\Support\Facades\Hash;
-use Livewire\Attributes\On;
 use Livewire\Component;
-
+use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Hash;
 
 class ResetDeleteModal extends Component
 {
@@ -63,6 +62,7 @@ class ResetDeleteModal extends Component
     {
         $this->show = false;
     }
+
     public function render()
     {
         return view('livewire.person.reset-delete-modal');

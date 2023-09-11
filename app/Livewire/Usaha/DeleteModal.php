@@ -3,8 +3,8 @@
 namespace App\Livewire\Usaha;
 
 use App\Models\Usaha;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class DeleteModal extends Component
 {

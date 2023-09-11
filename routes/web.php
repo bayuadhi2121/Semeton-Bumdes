@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\BarangController;
+use App\Livewire\Akun;
+use App\Livewire\Usaha;
+use App\Livewire\Barang;
+use App\Livewire\Person;
+use App\Livewire\Transaksi;
+use App\Livewire\JenisPendapatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UsahaController;
-use App\Livewire\Akun;
-use App\Livewire\JenisPendapatan;
-use App\Livewire\Person;
-use App\Livewire\TransaksiJasa;
-use App\Livewire\Usaha;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +20,6 @@ use App\Livewire\Usaha;
 |
 */
 
-
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -29,11 +27,9 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Route::group(['middleware' => ['auth']], function () {
 Route::get('/pengelola', Person::class)->name('pengelola');
 Route::get('/usaha', Usaha::class)->name('usaha');
-Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+Route::get('/barang', Barang::class)->name('barang');
 Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
-Route::get('/Akun', Akun::class)->name('akun');
-Route::get('/transaksi/{usaha}', TransaksiJasa::class)->name('trxjasa');
-// });
+Route::get('/akun', Akun::class)->name('akun');
+Route::get('/transaksi', Transaksi::class)->name('transaksi');

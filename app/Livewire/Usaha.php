@@ -2,17 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\Usaha as ModelsUsaha;
-use Livewire\Attributes\On;
+use App\Models\Person;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Models\Usaha as ModelsUsaha;
 
 class Usaha extends Component
 {
     use WithPagination;
-    public $search = '';
 
-    public Person $person;
+    public $search = '';
 
     #[On('page-refresh', '$refresh')]
 
@@ -25,10 +25,11 @@ class Usaha extends Component
     {
         $this->resetPage();
     }
+
     public function render()
     {
-        return view('livewire.usaha', [
-            'usaha' => ModelsUsaha::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
+        return view('livewire.usaha.index', [
+            'usaha' => ModelsUsaha::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
         ]);
     }
 }
