@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('jenis_pendapatans', function (Blueprint $table) {
             $table->string('id_jpendapatan', 20)->primary();
             $table->string('nama', 50);
-            $table->string('id_usaha', 20);
+            $table->string('id_usaha', 20)->nullable();
             $table->timestamps();
 
-            $table->foreign('id_usaha')->references('id_usaha')->on('usahas')->onDelete('cascade');
+            $table->foreign('id_usaha')->references('id_usaha')->on('usahas');
         });
     }
 

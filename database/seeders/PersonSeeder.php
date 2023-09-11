@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Barang;
+use App\Models\JenisPendapatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Person;
@@ -21,6 +23,9 @@ class PersonSeeder extends Seeder
             'password' => Hash::make('A'),
             'kontak' => '087889872637',
             'status' => 'Ketua',
+        ]);
+        JenisPendapatan::create([
+            'nama' => 'dummy',
         ]);
     }
 }
