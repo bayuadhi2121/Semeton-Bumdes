@@ -34,6 +34,6 @@ Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
 
 
 Route::get('/test', function() {
-    return view('pages.transaksilainnya.index', [
-        'transaksilainnya' => Person::paginate(5)]);
+    return view('pages.detaillainnya.index', [
+        'detaillainnya' => Person::paginate(5)]);
 });

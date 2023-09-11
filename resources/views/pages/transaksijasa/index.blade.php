@@ -26,7 +26,7 @@
                     <th scope="col" class="w-1 px-6 py-3">
                         No
                     </th>
-                    <th scope="col" class="w-1 px-6 py-3">
+                    <th scope="col" class="px-6 py-3">
                         Tanggal
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -119,7 +119,7 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Data Barang</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Transaksi Jasa</h3>
                     <form class="space-y-6" action="#" method="POST">
 
                         <div class="relative max-w-sm">
@@ -128,7 +128,7 @@
                                   <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                 </svg>
                             </div>
-                              <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Tanggal">
+                              <input datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 bg-transparent bg-cyan-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Tanggal">
                         </div>
                           
                         <div class="relative">

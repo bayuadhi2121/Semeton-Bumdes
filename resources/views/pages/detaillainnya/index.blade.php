@@ -1,7 +1,7 @@
 @extends('layouts.common')
 
 @php
-    $num = $transaksilainnya->firstItem();
+    $num = $detaillainnya->firstItem();
 @endphp
 
 @section('common_content')
@@ -41,7 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($transaksilainnya as $item)
+                @forelse ($detaillainnya as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
@@ -95,13 +95,13 @@
     </div>
 
     <div class="mt-3">
-        {{ $transaksilainnya->links() }}
+        {{ $detaillainnya->links() }}
     </div>
 
     <!-- Add data modal -->
     <div id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-md max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
                 <button type="button"
@@ -117,38 +117,43 @@
 
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi Lainnya</h3>
-                    <form class="space-y-6" action="#" method="POST">
-
-                        <div class="relative">
-                            <input wire:model.defer="person" type="text" id="nama" name="nama"
-                                list="person"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="nama"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Akun</label>
-                            <datalist id="person">
-                                <option value="Person">
-                            </datalist>
+                    <form class="">
+                        <div id="input-box">
+                            <div id="input-data" class="flex flex-row pb-6">
+                                <div class="basis-1/2 relative pr-2">
+                                    <input wire:model.defer="person" type="text" id="nama" name="nama" list="person"
+                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
+                                    
+                                    
+                                    <label for="nama"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Akun</label>
+                                    
+                                    <datalist id="person">
+                                        <option value="Person">
+                                    </datalist>
+                                
+                                </div>
+                                <div class="relative basis-1/4 pr-2">
+                                    <input type="text" id="debit" name="debit" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
+                                
+                                    <label for="debit" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Debit</label>
+                                
+                                </div>
+                                <div class="relative basis-1/4 pr-2">
+                                    <input type="text" id="kredit" name="kredit"
+                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                    placeholder=" " />
+                                    <label for="kredit"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Kredit</label>
+                                </div>
+                                <div class="relative basis-1/8 pb-2">
+                                    <button type="button" class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onclick="addRow()">+</button>
+                                </div>
+                            </div>
                         </div>
-                          
-                        <div class="relative">
-                            <input type="text" id="debit" name="debit"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="debit"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Debit</label>
-                        </div>
-
-                        <div class="relative">
-                            <input type="text" id="kredit" name="kredit"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="kredit"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Kredit</label>
-                        </div>
-                        
                         <button type="submit"
-                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan
+                        </button>
                     </form>
                 </div>
             </div>

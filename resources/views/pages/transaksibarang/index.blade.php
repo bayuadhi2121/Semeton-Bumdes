@@ -119,7 +119,7 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Data Barang</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Transaksi Barang</h3>
                     <form class="space-y-6" action="#" method="POST">
 
                         <div class="relative max-w-sm">
@@ -128,7 +128,7 @@
                                   <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                 </svg>
                             </div>
-                              <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Tanggal">
+                              <input datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 bg-transparent bg-cyan-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Tanggal">
                         </div>
                           
                         <div class="relative">
@@ -140,7 +140,7 @@
                         </div>
                                                
                         <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900 ">Jenis Dagang</label>
+                            <label class="block mb-2 text-sm font-small text-gray-700 ">Jenis Dagang</label>
                             <ul
                                 class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
@@ -149,7 +149,7 @@
                                             type="radio" value="Jual" name="list-radio"
                                             class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
                                         <label for="horizontal-list-radio-license"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Jual</label>
+                                            class="w-full py-3 ml-2 text-sm font-small text-gray-700">Jual</label>
                                     </div>
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
@@ -158,7 +158,7 @@
                                             value="Beli" name="list-radio"
                                             class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
                                         <label for="horizontal-list-radio-id"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Beli</label>
+                                            class="w-full py-3 ml-2 text-sm font-small text-gray-700">Beli</label>
                                     </div>
                                 </li>
                             </ul>
@@ -167,7 +167,7 @@
                         <div class="relative ">
                             
                             
-                            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload Nota</label>
+                            <label class="block mb-2 text-sm font-small text-gray-700 ">Nota</label>
                             <input class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-transparent bg-cyan-700" aria-describedby="file_input_help" id="file_input" type="file">
                             <p class="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
 
