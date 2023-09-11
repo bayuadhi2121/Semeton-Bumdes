@@ -21,6 +21,7 @@ class Nav extends Component
         if (Auth::check()) {
             $id = Auth::user()->id_person;
         }
+
         return view('livewire.navigation.nav', [
             'usaha' => Usaha::where('id_person', $id)->get()
         ]);

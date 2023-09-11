@@ -5,9 +5,9 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use App\Models\JenisPendapatan as ModelsJenisPendapatan;
+use App\Models\Transaksi as ModelsTransaksi;
 
-class JenisPendapatan extends Component
+class Transaksi extends Component
 {
     use WithPagination;
 
@@ -27,8 +27,8 @@ class JenisPendapatan extends Component
 
     public function render()
     {
-        return view('livewire.jenis-pendapatan.index', [
-            'jenispendapatan' => ModelsJenisPendapatan::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+        return view('livewire.transaksi.index', [
+            'transaksi' => ModelsTransaksi::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
         ]);
     }
 }

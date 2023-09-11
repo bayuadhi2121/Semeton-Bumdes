@@ -6,7 +6,8 @@
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow">
                     <button wire:click='closeModal' type="button"
-                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                        data-modal-hide="add-data-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -16,8 +17,7 @@
                     </button>
 
                     <div class="px-6 py-6 lg:px-8">
-                        <h3 class="mb-4 text-xl font-medium text-gray-900">{{ $title }} Akun</h3>
-
+                        <h3 class="mb-4 text-xl font-medium text-gray-900">{{ $title }} Jenis Pendapatan</h3>
                         <form wire:submit.prevent="{{ $mode }}" class="space-y-6">
                             <div class="relative">
                                 <input type="text" id="nama" name="nama" wire:model='nama'
@@ -25,7 +25,7 @@
                                     placeholder=" " />
                                 <label for="nama"
                                     class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
-                                    Akun</label>
+                                </label>
                                 @error('nama')
                                     <span class="error text-sm text-red-500">{{ $message }}</span>
                                 @enderror
@@ -71,10 +71,12 @@
                                                         {{ $item->nama }}
                                                     </div>
                                                 @empty
-                                                    <div wire:click=""
-                                                        class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
-                                                        Tidak Ada Usaha Tersedia
-                                                    </div>
+                                                    <a href="{{ route('usaha') }}">
+                                                        <div
+                                                            class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
+                                                            Tambah Data Usaha
+                                                        </div>
+                                                    </a>
                                                 @endempty
                                         </div>
                                     </div>

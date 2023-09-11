@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Akun;
+namespace App\Livewire\Barang;
 
-use App\Models\Akun;
+use App\Models\Barang;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
 class DeleteModal extends Component
 {
     public $show;
-    public $id_akun, $nama_akun;
+    public $id_barang, $nama_barang;
 
     public function mount()
     {
@@ -18,17 +18,17 @@ class DeleteModal extends Component
 
     public function destroy()
     {
-        Akun::where('id_akun', $this->id_akun)->delete();
+        Barang::where('id_barang', $this->id_barang)->delete();
 
         $this->closeModal();
         $this->dispatch('page-refresh');
     }
 
     #[On('delete-modal')]
-    public function delete($akun, $nama)
+    public function delete($barang, $nama)
     {
-        $this->id_akun = $akun;
-        $this->nama_akun = $nama;
+        $this->id_barang = $barang;
+        $this->nama_barang = $nama;
         $this->show = true;
     }
 
@@ -39,6 +39,6 @@ class DeleteModal extends Component
 
     public function render()
     {
-        return view('livewire.akun.delete-modal');
+        return view('livewire.barang.delete-modal');
     }
 }
