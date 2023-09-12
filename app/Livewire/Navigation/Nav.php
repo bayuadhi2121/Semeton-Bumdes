@@ -4,26 +4,36 @@ namespace App\Livewire\Navigation;
 
 use App\Models\Usaha;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Nav extends Component
 {
+    private $id_person;
 
     #[On('page-refresh', '$refresh')]
+
+    public function mount()
+    {
+        $this->id_person = Auth::user()->id_person;
+    }
+
+    #[Computed]
+    public function usaha()
+    {
+        return Usaha::where('id_person', $this->id_person)->get();
+    }
+
     public function showTransaksi($usaha)
     {
-        return redirect()->route('trxjasa', ['usaha' => $usaha]);
+        $this->redirect(route('transaksi', [
+            'usaha' => $usaha
+        ]));
     }
+
     public function render()
     {
-        // $id = Auth::user()->id_person;
-        if (Auth::check()) {
-            $id = Auth::user()->id_person;
-        }
-
-        return view('livewire.navigation.nav', [
-            'usaha' => Usaha::where('id_person', $id)->get()
-        ]);
+        return view('livewire.navigation.nav');
     }
 }

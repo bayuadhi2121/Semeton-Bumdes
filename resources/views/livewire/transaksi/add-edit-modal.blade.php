@@ -6,7 +6,8 @@
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow">
                     <button wire:click='closeModal' type="button"
-                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                        data-modal-hide="add-data-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -16,45 +17,74 @@
                     </button>
 
                     <div class="px-6 py-6 lg:px-8">
-                        <h3 class="mb-4 text-xl font-medium text-gray-900">{{ $title }} Data Barang</h3>
+                        <h3 class="mb-4 text-xl font-medium text-gray-900">{{ $title }} Transaksi</h3>
                         <form wire:submit.prevent="{{ $mode }}" class="space-y-6">
                             <div class="relative">
-                                <input type="text" id="nama" name="nama"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
-                                <label for="nama"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
-                                    Barang</label>
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input datepicker datepicker-autohide type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date">
                             </div>
-                            <div class="relative">
-                                <input type="text" id="harga" name="harga"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
-                                <label for="harga"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga
-                                    Barang</label>
+
+                            <div>
+                                <input wire:model="tanggal" class="w-full rounded-lg border-1 border-gray-300"
+                                    type="date" name="tanggal" id="tanggal">
+                                @error('tanggal')
+                                    <span class="error text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
+
                             <div class="relative">
-                                <input type="text" id="untung" name="untung"
+                                <textarea wire:modek="keterangan" rows="4" id="keterangan" name="keterangan"
                                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
-                                <label for="untung"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Untung</label>
+                                    placeholder=""></textarea>
+                                <label for="keterangan"
+                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Keterangan</label>
                             </div>
-                            <div class="relative">
-                                <input type="text" id="stok" name="stok"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
-                                <label for="stok"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Stok</label>
-                            </div>
-                            <div class="relative">
-                                <input type="text" id="stok_min" name="stok_min"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
-                                <label for="stok_min"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Stok
-                                    Minimum</label>
+
+                            @if ($statusMode == 'Dagang')
+                                <div>
+                                    <ul
+                                        class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                                            <div class="flex items-center pl-3">
+                                                <input wire:model="status" id="jual" type="radio" value="Jual"
+                                                    name="list-radio"
+                                                    class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
+                                                <label for="jual"
+                                                    class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Jual</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                                            <div class="flex items-center pl-3">
+                                                <input wire:model="status" id="beli" type="radio" value="Beli"
+                                                    name="list-radio"
+                                                    class="w-4 h-4 text-cyan-600 bg-gray-100 border-gray-300">
+                                                <label for="beli"
+                                                    class="w-full py-3 ml-2 text-sm font-medium text-gray-900">Beli</label>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    @error('status')
+                                        <span class="error text-sm text-red-500">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            @endif
+
+                            <div>
+                                <label class="block mb-1 text-sm font-medium text-gray-900"
+                                    for="file_input">Nota</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                    aria-describedby="file_input_help" id="file_input" type="file">
+                                <p class="mt-1 text-sm text-gray-500" id="file_input_help">PNG, JPG</p>
                             </div>
 
                             <button type="submit"
@@ -64,6 +94,9 @@
                 </div>
             </div>
         </div>
+    @endif
 </div>
-@endif
-</div>
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
+@endsection

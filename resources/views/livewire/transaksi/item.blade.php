@@ -10,10 +10,7 @@
             {{ $transaksi->keterangan }}
         </td>
         <td class="px-6 py-4">
-            {{-- {{ $transaksi->jualbeli }} --}}
-        </td>
-        <td class="px-6 py-4">
-            {{ $transaksi->noat }}
+            {{ $transaksi->nota }}
         </td>
         <td class="px-6 py-4 flex space-x-2">
             <button wire:click="$dispatch('edit-modal', { transaksi: {{ $transaksi }} })">

@@ -1,39 +1,53 @@
 <?php
 
-namespace App\Livewire\Akun;
+namespace App\Livewire\Transaksi;
 
-use App\Models\Akun;
-use App\Models\Usaha;
+use Livewire\Attributes\Url;
 use Livewire\Component;
+use App\Models\Transaksi;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
-use Illuminate\Database\Eloquent\Collection;
+use Livewire\WithFileUploads;
 
 class AddEditModal extends Component
 {
-    public $show, $showList, $title, $mode, $search = '';
-    public $id_akun, $id_usaha, $nama;
+    use WithFileUploads;
 
-    public Collection $usaha;
+    public $show, $title, $mode, $statusMode;
+    public $id_transaksi, $id_usaha, $tanggal, $keterangan = '', $status, $nota = '';
+
+    #[Url]
+    public $usaha;
 
     public function rules()
     {
         return [
-            'nama' => 'required|min:3',
-            'id_usaha' => 'nullable|exists:usahas,id_usaha'
+            'tanggal' => 'required',
         ];
     }
 
-    public function mount()
+    public function cek()
+    {
+        dd($this->usaha);
+    }
+
+    public function mount($status)
     {
         $this->show = false;
+        $this->statusMode =  $status;
+        $this->id_usaha = $this->usaha;
     }
 
-    public function store()
+    public function storeDagang()
     {
+        // dd(strtotime($this->tanggal));
         $this->validate();
 
-        Akun::create([
-            'nama' => $this->nama,
+        Transaksi::create([
+            'tanggal' => strtotime($this->tanggal),
+            'keterangan' => $this->keterangan,
+            'status' => $this->status,
+            'nota' => $this->nota,
             'id_usaha' => $this->id_usaha,
         ]);
 
@@ -41,12 +55,15 @@ class AddEditModal extends Component
         $this->dispatch('page-refresh');
     }
 
-    public function update()
+    public function updateDagang()
     {
         $this->validate();
 
-        Akun::where('id_akun', $this->id_akun)->update([
-            'nama' => $this->nama,
+        Transaksi::where('id_transaksi', $this->id_transaksi)->update([
+            'tanggal' => $this->tanggal,
+            'keterangan' => $this->keterangan,
+            'status' => $this->status,
+            'nota' => $this->nota,
             'id_usaha' => $this->id_usaha,
         ]);
 
@@ -54,26 +71,63 @@ class AddEditModal extends Component
         $this->dispatch('page-refresh');
     }
 
-    public function setUsaha($id_usaha, $nama_usaha)
+    public function storeJasa()
     {
-        $this->id_usaha = $id_usaha;
-        $this->search = $nama_usaha;
+        $this->validate();
+
+        Transaksi::create([
+            'tanggal' => (new Carbon($this->tanggal))->toDateString(),
+            'keterangan' => $this->keterangan,
+            'nota' => $this->nota,
+            'id_usaha' => $this->id_usaha,
+        ]);
+
+        $this->closeModal();
+        $this->dispatch('page-refresh');
     }
 
-    #[On('add-modal')]
-    public function addModal()
+    public function updateJasa()
     {
-        $this->openModal('store', 'Tambah');
+        $this->validate();
+
+        Transaksi::where('id_transaksi', $this->id_transaksi)->update([
+            'tanggal' => (new Carbon($this->tanggal))->toDateString(),
+            'keterangan' => $this->keterangan,
+            'nota' => $this->nota,
+            'id_usaha' => $this->id_usaha,
+        ]);
+
+        $this->closeModal();
+        $this->dispatch('page-refresh');
+    }
+
+    #[On('add-modal-dagang')]
+    public function addModalDagang()
+    {
+        $this->openModal('storeDagang', 'Tambah');
+    }
+
+    #[On('add-modal-jasa')]
+    public function addModalJasa()
+    {
+        $this->openModal('storeJasa', 'Tambah');
     }
 
     #[On('edit-modal')]
-    public function editModal(Akun $akun)
+    public function editModal(Transaksi $transaksi)
     {
-        $this->id_akun = $akun->id_akun;
-        $this->nama = $akun->nama;
-        $this->id_usaha = $akun->id_usaha;
-        $this->search = $akun->usaha->nama ?? '';
-        $this->openModal('update', 'Edit');
+        $this->id_transaksi = $transaksi->id_transaksi;
+        $this->tanggal = (new Carbon($transaksi->tanggal))->toDateString();
+        $this->keterangan = $transaksi->keterangan;
+        $this->status = $transaksi->status;
+        $this->nota = $transaksi->nota;
+        $this->id_usaha = $transaksi->id_usaha;
+
+        if($this->statusMode == "Dagang") {
+            $this->openModal('updateDagang', 'Edit');
+        } else {
+            $this->openModal('updateJasa', 'Edit');
+        }
     }
 
     private function openModal($mode, $title)
@@ -91,34 +145,9 @@ class AddEditModal extends Component
         $this->resetValidation();
     }
 
-    public function showUsaha()
-    {
-        $this->showList = true;
-    }
-
-    public function closeUsaha()
-    {
-        $this->showList = false;
-    }
-
-    public function updatedSearch()
-    {
-        if($this->usaha->contains('nama', $this->search)) {
-            $this->id_usaha = $this->usaha->where('nama', $this->search)->first()->id_usaha;
-            $this->resetValidation();
-        } else if($this->search != '') {
-            $this->id_usaha = 'zxcvbnm,./';
-        } else {
-            $this->reset('id_usaha');
-            $this->resetValidation();
-        }
-    }
-
     public function render()
     {
-        $this->usaha = Usaha::where('nama', 'like', '%'.$this->search.'%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
-        return view('livewire.akun.add-edit-modal', [
-            'usaha' => $this->usaha
-        ]);
+        // $this->usaha = Usaha::where('nama', 'like', '%'.$this->search.'%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        return view('livewire.transaksi.add-edit-modal');
     }
 }

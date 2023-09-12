@@ -1,9 +1,10 @@
 <div>
 
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Transaksi Jasa</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Transaksi
+        {{ $nama }}</h2>
 
     <div class="mb-4 flex justify-between">
-        <button wire:click="$dispatch('add-modal')" type="button"
+        <button wire:click="$dispatch('add-modal-{{ strtolower($status) }}')" type="button"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
 
         <div class="relative w-1/4">
@@ -23,7 +24,6 @@
         </div>
     </div>
 
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -31,14 +31,11 @@
                     <th scope="col" class="w-1 px-6 py-3">
                         No
                     </th>
-                    <th scope="col" class="w-1 px-6 py-3">
+                    <th scope="col" class="px-6 py-3">
                         Tanggal
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Keterangan
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Jenis Dagang
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Total
@@ -68,7 +65,7 @@
     </div>
 
     <!-- Add data modal -->
-    {{-- @livewire('Transaksi.add-edit-modal') --}}
+    @livewire('Transaksi.add-edit-modal', ['status' => $status])
 
     {{-- Confirmation modal --}}
     <div id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
