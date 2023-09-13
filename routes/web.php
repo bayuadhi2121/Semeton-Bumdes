@@ -37,3 +37,24 @@ Route::get('/test', function() {
     return view('pages.detaillainnya.index', [
         'detaillainnya' => Person::paginate(5)]);
 });
+
+Route::get('/test2', function() {
+    return view('pages.detaildagang.index', [
+        'detaildagang' => Person::paginate(5)]);
+});
+
+Route::get('/test3', function() {
+    return view('pages.detailjasa.index', [
+        'detailjasa' => Person::paginate(5)]);
+});
+
+
+Route::get('/test4', function() {
+    return view('pages.hutang.index', [
+        'hutang' => Person::paginate(5)]);
+});
+
+Route::get('/test5', function() {
+    return view('pages.transaksilainnya.index', [
+        'transaksilainnya' => Person::paginate(5)]);
+});
