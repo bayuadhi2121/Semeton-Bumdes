@@ -5,17 +5,36 @@
 @endphp
 
 @section('common_content')
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Transaksi Lainnya</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi Lainnya</h2>
 
-    <div class="mb-4 flex justify-between">
-        <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
-            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+    <div class="mb-6 flex flex-row justify-between">
 
-        <div class="relative w-1/4">
-            <input type="text" id="simple-search"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
-                placeholder="Cari Transaksi..." required>
+        <dl class="text-gray-900 basis-3/4">
+            <div class="flex flex-col pb-3">
+                <dt class="text-gray-800 font-semibold">Nama Transaksi</dt>
+                <dd class="text-gray-800 ">yourname@flowbite.com</dd>
+            </div>
+            <div class="flex flex-col pb-3">
+                <dt class="text-gray-800 font-semibold">Keterangan</dt>
+                <dd class="text-gray-800 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque atque minima repudiandae exercitationem tempore quibusdam eaque dicta molestiae dolore.</dd>
+            </div>
+            
+        </dl>
+        
+        <div class="flex justify basis-1/4">
+            <div class="">
+                <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
+                class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+            </div>
+
+
+            <div class="">
+                <input type="text" id="simple-search"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
+                    placeholder="Cari Transaksi..." required>
+            </div>
         </div>
+        
     </div>
 
 
@@ -94,6 +113,45 @@
         </table>
     </div>
 
+    <form class="pt-6 w-2/5">
+        <div class="flex flex-row items-center justify-items-start pb-2">
+            <label class="text-gray-800 font-semibold basis-4/12 ">
+                Total Transaksi
+            </label>
+            <input type="text" value="keren" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2" disabled>
+
+
+        </div>
+        <div class="flex flex-row items-center justify-items-start pb-2">
+            <label class="text-gray-800 font-semibold basis-4/12 ">
+                Dibayarkan
+            </label>
+            <input type="text" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            <div class="basis-1/5">
+                
+                <button type="button" class= " text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-6 py-2.5 ml-2">Bayar</button>
+            </div>
+
+        </div>
+        <hr class="pb-2 border-gray-400 mr-3 w-9/12">
+        <div class="flex flex-row items-center justify-items-start pb-2">
+            <label class="text-gray-800 font-semibold basis-4/12 ">
+                Sisa
+            </label>
+            <input type="text" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            <div class="basis-1/5">
+                
+                <button type="button" class= " text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+            </div>
+
+        </div>
+        
+
+    </form>
+
+
+
+
     <div class="mt-3">
         {{ $detaillainnya->links() }}
     </div>
@@ -119,7 +177,7 @@
                     <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi Lainnya</h3>
                     <form class="">
                         <div id="input-box">
-                            <div id="input-data" class="flex flex-row pb-6">
+                            <div id="input-data" class="flex flex-row pb-4">
                                 <div class="basis-1/2 relative pr-2">
                                     <input wire:model.defer="person" type="text" id="nama" name="nama" list="person"
                                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
@@ -146,14 +204,24 @@
                                     <label for="kredit"
                                     class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Kredit</label>
                                 </div>
-                                <div class="relative basis-1/8 pb-2">
-                                    <button type="button" class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onclick="addRow()">+</button>
-                                </div>
                             </div>
                         </div>
-                        <button type="submit"
-                            class="w-full text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan
-                        </button>
+                        <div class="flex items-center justify-between">
+                            
+                            <button type="submit"
+                            class=" text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan              </button>
+                            
+                            <div class="pr-2">
+                                <button type="button" class=" text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onclick="addRow()">Tambah Baris</button>
+                                <button type="button" class=" text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center " onclick="removeRow()">Hapus Baris</button>
+                            </div>
+                            
+                           
+
+          
+                        </div>
+
+
                     </form>
                 </div>
             </div>
@@ -184,4 +252,24 @@
         </div>
     </div>
     
+
+    <script>
+        // Your JavaScript code here
+        
+        function addRow(){
+            newrow = document.getElementById("input-data").cloneNode(true);
+            form = document.getElementById("input-box")
+            form.appendChild(newrow)
+        }
+
+        function removeRow(){
+
+            form = document.getElementById("input-box");
+            if(form.childElementCount>1){
+
+                document.getElementById("input-box").lastElementChild.remove();
+            }
+        }
+    </script>
+
 @endsection

@@ -1,70 +1,42 @@
 @extends('layouts.common')
 
 @php
-    $num = $detail->firstItem();
+    $num = $detaildagang->firstItem();
 @endphp
 
 @section('common_content')
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi Dagang</h2>
 
-    <div class="mb-4 flex justify-between">
-        <div class="relative sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 ">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                    
-                </thead>
-                <tbody>
-                    <tr class="bg-white border-b ">
-                        <td scope="row" class="px-2 py-2 font-medium text-gray-700 whitespace-nowrap ">
-                            Id
-                        </td>
-                        <td class="px-5">
-                            Silver
-                        </td>
-                        
-                    </tr>
-                    <tr class="bg-white border-b ">
-                        <th scope="row" class="px-2 py-2 font-medium text-gray-700 whitespace-nowrap ">
-                            Nama Transaksi
-                        </th>
-                        <td class="px-5">
-                            Silver
-                        </td>
-                        
-                    </tr>
-                    <tr class="bg-white border-b ">
-                        <th scope="row" class="px-2 py-2 font-medium text-gray-700 whitespace-nowrap ">
-                            Keterangan
-                        </th>
-                        <td class="px-5">
-                            Silver
-                        </td>
-                        
-                    </tr>
-                    <tr class="bg-white border-b ">
-                        <th scope="row" class="px-2 py-2 font-medium text-gray-700 whitespace-nowrap ">
-                            Nota
-                        </th>
-                        <td class="px-5">
-                            Silver
-                        </td>
-                        
-                    </tr>
-                    
+    <div class="mb-6 flex flex-row justify-between">
 
-                </tbody>
-            </table>
+        <dl class="text-gray-900 basis-3/4">
+            <div class="flex flex-col pb-3">
+                <dt class="text-gray-800 font-semibold">Nama Transaksi</dt>
+                <dd class="text-gray-800 ">yourname@flowbite.com</dd>
+            </div>
+            <div class="flex flex-col pb-3">
+                <dt class="text-gray-800 font-semibold">Keterangan</dt>
+                <dd class="text-gray-800 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque atque minima repudiandae exercitationem tempore quibusdam eaque dicta molestiae dolore.</dd>
+            </div>
+            
+        </dl>
+        
+        <div class="flex justify basis-1/4">
+            <div class="">
+                <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
+                class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+            </div>
+
+
+            <div class="">
+                <input type="text" id="simple-search"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
+                    placeholder="Cari Transaksi..." required>
+            </div>
         </div>
-
-
-        <div class="relative w-1/4">
-            <input type="text" id="simple-search"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
-                placeholder="Cari Barang..." required>
-        </div>
+        
     </div>
-
-
+    
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -88,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($detail as $item)
+                @forelse ($detaildagang as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
@@ -122,8 +94,45 @@
         </table>
     </div>
 
+    <form class="pt-6 w-2/5">
+        <div class="flex flex-row items-center justify-items-start pb-2">
+            <label class="text-gray-800 font-semibold basis-4/12 ">
+                Total Transaksi
+            </label>
+            <input type="text" value="keren" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2" disabled>
+
+
+        </div>
+        <div class="flex flex-row items-center justify-items-start pb-2">
+            <label class="text-gray-800 font-semibold basis-4/12 ">
+                Dibayarkan
+            </label>
+            <input type="text" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            <div class="basis-1/5">
+                
+                <button type="button" class= " text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-6 py-2.5 ml-2">Bayar</button>
+            </div>
+
+        </div>
+        <hr class="pb-2 border-gray-400 mr-3 w-9/12">
+        <div class="flex flex-row items-center justify-items-start pb-2">
+            <label class="text-gray-800 font-semibold basis-4/12 ">
+                Sisa
+            </label>
+            <input type="text" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            <div class="basis-1/5">
+                
+                <button type="button" class= " text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+            </div>
+
+        </div>
+        
+
+    </form>
+
+
     <div class="mt-3">
-        {{ $detail->links() }}
+        {{ $detaildagang->links() }}
     </div>
 
     <!-- Add data modal -->
@@ -144,7 +153,7 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Data Barang</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi Barang</h3>
                     <form class="space-y-6" action="#" method="POST">
                         <div class="relative">
                             <input type="text" id="nama" name="nama"
@@ -160,26 +169,13 @@
                             <label for="harga"
                                 class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga Barang</label>
                         </div>
+                        
                         <div class="relative">
-                            <input type="text" id="untung" name="untung"
+                            <input type="text" id="jumlah" name="jumlah"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
-                            <label for="untung"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Untung</label>
-                        </div>
-                        <div class="relative">
-                            <input type="text" id="stok" name="stok"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="stok"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Stok</label>
-                        </div>
-                        <div class="relative">
-                            <input type="text" id="stok_min" name="stok_min"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="stok_min"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Stok Minimum</label>
+                            <label for="jumlah"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Jumlah</label>
                         </div>
 
                         <button type="submit"
