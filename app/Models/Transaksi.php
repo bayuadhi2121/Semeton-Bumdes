@@ -19,6 +19,8 @@ class Transaksi extends Model
 
     public $primaryKey = 'id_transaksi';
 
+    public $incrementing = false;
+
     public static function boot()
     {
         parent::boot();

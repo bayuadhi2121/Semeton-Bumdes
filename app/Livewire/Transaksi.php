@@ -7,7 +7,6 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
-use Livewire\Attributes\Computed;
 use App\Models\Transaksi as ModelsTransaksi;
 
 class Transaksi extends Component
@@ -20,13 +19,15 @@ class Transaksi extends Component
     #[Url()]
     public $usaha;
 
-    #[On('page-refresh', '$refresh')]
-
     public function mount()
     {
-        $usaha = Usaha::where('id_usaha', $this->usaha)->get(['nama', 'status'])->first();
-        $this->nama = $usaha->nama;
-        $this->status = $usaha->status;
+        try {
+            $usaha = Usaha::where('id_usaha', $this->usaha)->get(['nama', 'status'])->first();
+            $this->nama = $usaha->nama;
+            $this->status = $usaha->status;
+        } catch (\Throwable $th) {
+            abort(404);
+        }
     }
 
     public function resetSearch()
@@ -34,6 +35,7 @@ class Transaksi extends Component
         $this->reset('search');
     }
 
+    #[On('refresh-data')]
     public function updatingSearch()
     {
         $this->resetPage();
@@ -42,7 +44,7 @@ class Transaksi extends Component
     public function render()
     {
         return view('livewire.transaksi.index', [
-            'transaksi' => ModelsTransaksi::where('id_usaha', $this->usaha)->paginate(10)
+            'transaksi' => ModelsTransaksi::where('keterangan', 'like', '%'.$this->search ?? ''.'%')->where('id_usaha', $this->usaha)->paginate(10)
         ]);
     }
 }

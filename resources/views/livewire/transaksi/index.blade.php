@@ -65,7 +65,7 @@
     </div>
 
     <!-- Add data modal -->
-    @livewire('Transaksi.add-edit-modal', ['status' => $status])
+    @livewire('Transaksi.add-edit-modal', ['usaha' => $usaha, 'status' => $status])
 
     {{-- Confirmation modal --}}
     <div id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"

@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Transaksi;
 
-use Livewire\Attributes\Url;
 use Livewire\Component;
 use App\Models\Transaksi;
-use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 
@@ -13,11 +11,8 @@ class AddEditModal extends Component
 {
     use WithFileUploads;
 
-    public $show, $title, $mode, $statusMode;
+    public $show = false, $title, $mode, $statusMode;
     public $id_transaksi, $id_usaha, $tanggal, $keterangan = '', $status, $nota = '';
-
-    #[Url]
-    public $usaha;
 
     public function rules()
     {
@@ -26,16 +21,11 @@ class AddEditModal extends Component
         ];
     }
 
-    public function cek()
-    {
-        dd($this->usaha);
-    }
-
-    public function mount($status)
+    public function mount($usaha, $status)
     {
         $this->show = false;
         $this->statusMode =  $status;
-        $this->id_usaha = $this->usaha;
+        $this->id_usaha = $usaha;
     }
 
     public function storeDagang()
@@ -76,14 +66,14 @@ class AddEditModal extends Component
         $this->validate();
 
         Transaksi::create([
-            'tanggal' => (new Carbon($this->tanggal))->toDateString(),
+            'tanggal' => $this->tanggal,
             'keterangan' => $this->keterangan,
             'nota' => $this->nota,
             'id_usaha' => $this->id_usaha,
         ]);
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     public function updateJasa()
@@ -91,14 +81,14 @@ class AddEditModal extends Component
         $this->validate();
 
         Transaksi::where('id_transaksi', $this->id_transaksi)->update([
-            'tanggal' => (new Carbon($this->tanggal))->toDateString(),
+            'tanggal' => $this->tanggal,
             'keterangan' => $this->keterangan,
             'nota' => $this->nota,
             'id_usaha' => $this->id_usaha,
         ]);
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('add-modal-dagang')]
@@ -117,7 +107,7 @@ class AddEditModal extends Component
     public function editModal(Transaksi $transaksi)
     {
         $this->id_transaksi = $transaksi->id_transaksi;
-        $this->tanggal = (new Carbon($transaksi->tanggal))->toDateString();
+        $this->tanggal = $transaksi->tanggal;
         $this->keterangan = $transaksi->keterangan;
         $this->status = $transaksi->status;
         $this->nota = $transaksi->nota;
@@ -140,14 +130,12 @@ class AddEditModal extends Component
     #[On('close-modal')]
     public function closeModal()
     {
-        $this->show = false;
         $this->reset();
         $this->resetValidation();
     }
 
     public function render()
     {
-        // $this->usaha = Usaha::where('nama', 'like', '%'.$this->search.'%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.transaksi.add-edit-modal');
     }
 }
