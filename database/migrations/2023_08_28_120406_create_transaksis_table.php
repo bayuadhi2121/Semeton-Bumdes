@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('status', 15)->nullable();
             $table->string('nota')->nullable();
-            $table->string('id_usaha', 20);
+            $table->string('id_usaha', 20)->nullable();
             $table->timestamps();
 
             $table->foreign('id_usaha')->references('id_usaha')->on('usahas');

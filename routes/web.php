@@ -8,6 +8,7 @@ use App\Livewire\Transaksi;
 use App\Livewire\JenisPendapatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Livewire\Transaksilainnya;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::get('/barang', Barang::class)->name('barang');
 Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
 Route::get('/akun', Akun::class)->name('akun');
 Route::get('/transaksi', Transaksi::class)->name('transaksi');
+Route::get('/transaksilain', Transaksilainnya::class)->name('transaksilain');
