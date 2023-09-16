@@ -7,51 +7,42 @@
 @section('common_content')
     <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi Lainnya</h2>
 
-    <div class="mb-6 flex flex-row justify-between">
+   
+    <div class="mb-4 flex flex-row justify-between items-center">
+        <dt class="text-gray-800 font-semibold pr-2">Tanggal </dt>
+        <div class="w-full bg-gray-200 p-2 pl-4 mr-2">
 
-        <dl class="text-gray-900 basis-3/4">
-            <div class="flex flex-col pb-3">
-                <dt class="text-gray-800 font-semibold">Nama Transaksi</dt>
-                <dd class="text-gray-800 ">yourname@flowbite.com</dd>
-            </div>
-            <div class="flex flex-col pb-3">
-                <dt class="text-gray-800 font-semibold">Keterangan</dt>
-                <dd class="text-gray-800 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque atque minima repudiandae exercitationem tempore quibusdam eaque dicta molestiae dolore.</dd>
-            </div>
-            
-        </dl>
-        
-        <div class="flex justify basis-1/4">
-            <div class="">
-                <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
-                class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
-            </div>
-
-
-            <div class="">
-                <input type="text" id="simple-search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
-                    placeholder="Cari Transaksi..." required>
-            </div>
+            <dd class="text-gray-800">17 Agustus 1945</dd>
         </div>
-        
+        <dt class="text-gray-800 font-semibold pr-2">Keterangan</dt>
+        <div class="w-full bg-gray-200 p-2 pl-4 mr-2">
+
+            <dd class="text-gray-800">Audi</dd>
+        </div>
+    </div>
+
+
+    <div>
+
+        <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
+            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm mb-6 px-5 py-2.5 mr-2 mb-2">Tambah</button>
     </div>
 
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <thead class="text-xs text-gray-700 border-gray-400 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class=" w-1  px-6 py-3">
                         No
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 ">
                         Nama Akun
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 ">
                         Debit
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 ">
                         Kredit
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -62,20 +53,21 @@
             <tbody>
                 @forelse ($detaillainnya as $item)
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <th scope="row" class=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
                         </th>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 ">
                             {{ $item->tanggal }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 ">
                             {{ $item->keterangan }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 ">
                             {{ $item->stok }}
                         </td>
                         <td class="px-6 py-4 flex space-x-2">
-                            <button data-modal-target="add-data-modal" title="Edit" data-modal-show="add-data-modal">
+                            <button data-modal-target="add-data-modal" title="Edit" onclick="hideButton()"
+                                data-modal-show="add-data-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" class="w-6 h-6 text-cyan-500">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -83,7 +75,8 @@
                                 </svg>
                             </button>
 
-                            <button title="Hapus" data-modal-target="confirmation-modal" data-modal-show="confirmation-modal">
+                            <button title="Hapus" data-modal-target="confirmation-modal"
+                                data-modal-show="confirmation-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" class="w-6 h-6 text-red-500">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -92,8 +85,8 @@
                             </button>
 
                             <a href="#" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                                 </svg>
@@ -113,12 +106,15 @@
         </table>
     </div>
 
+    {{-- Perhitungan sisa --}}
     <form class="pt-6 w-2/5">
         <div class="flex flex-row items-center justify-items-start pb-2">
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Total Transaksi
             </label>
-            <input type="text" value="keren" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2" disabled>
+            <input type="text" value="200000" id="small-input"
+                class="total basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
+                disabled>
 
 
         </div>
@@ -126,10 +122,10 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Dibayarkan
             </label>
-            <input type="text" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            <input type="number" value="100" id="small-input"
+                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
             <div class="basis-1/5">
-                
-                <button type="button" class= " text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-6 py-2.5 ml-2">Bayar</button>
+
             </div>
 
         </div>
@@ -138,14 +134,17 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Sisa
             </label>
-            <input type="text" id="small-input" class="basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            <input type="text" id="small-input"
+                class="sisa basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
+                disabled>
             <div class="basis-1/5">
-                
-                <button type="button" class= " text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+
+                <button type="button"
+                    class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
             </div>
 
         </div>
-        
+
 
     </form>
 
@@ -162,15 +161,15 @@
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
-                <button type="button"
-                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                <button type="button "
+                    class="absolute tutup top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
                     data-modal-hide="add-data-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class=" sr-only">Close modal</span>
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
@@ -179,46 +178,57 @@
                         <div id="input-box">
                             <div id="input-data" class="flex flex-row pb-4">
                                 <div class="basis-1/2 relative pr-2">
-                                    <input wire:model.defer="person" type="text" id="nama" name="nama" list="person"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
-                                    
-                                    
+                                    <input wire:model.defer="person" type="text" id="nama" name="nama"
+                                        list="person"
+                                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                        placeholder=" " />
+
+
                                     <label for="nama"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Akun</label>
-                                    
+                                        class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
+                                        Akun</label>
+
                                     <datalist id="person">
                                         <option value="Person">
                                     </datalist>
-                                
+
                                 </div>
                                 <div class="relative basis-1/4 pr-2">
-                                    <input type="text" id="debit" name="debit" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
-                                
-                                    <label for="debit" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Debit</label>
-                                
+                                    <input type="text" id="debit" name="debit"
+                                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                        placeholder=" " />
+
+                                    <label for="debit"
+                                        class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Debit</label>
+
                                 </div>
                                 <div class="relative basis-1/4 pr-2">
                                     <input type="text" id="kredit" name="kredit"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
+                                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                        placeholder=" " />
                                     <label for="kredit"
-                                    class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Kredit</label>
+                                        class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Kredit</label>
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            
-                            <button type="submit"
-                            class=" text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan              </button>
-                            
-                            <div class="pr-2">
-                                <button type="button" class=" text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onclick="addRow()">Tambah Baris</button>
-                                <button type="button" class=" text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center " onclick="removeRow()">Hapus Baris</button>
-                            </div>
-                            
-                           
 
-          
+                            <button type="submit"
+                                class=" text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan
+                            </button>
+
+                            <div class="pr-2 plusminusbaris">
+                                <button type="button"
+                                    class=" text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    onclick="addRow()">Tambah Baris</button>
+                                <button type="button"
+                                    class=" text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                                    onclick="removeRow()">Hapus Baris</button>
+                            </div>
+
+
+
+
                         </div>
 
 
@@ -251,25 +261,61 @@
             </div>
         </div>
     </div>
-    
+
 
     <script>
         // Your JavaScript code here
-        
-        function addRow(){
+
+        function addRow() {
             newrow = document.getElementById("input-data").cloneNode(true);
             form = document.getElementById("input-box")
             form.appendChild(newrow)
         }
 
-        function removeRow(){
+        var tutupElement = document.querySelector('.tutup');
+
+        tutupElement.addEventListener('click', function() {
+            form = document.getElementById("input-box");
+            while (form.childElementCount > 1) {
+
+                document.getElementById("input-box").lastElementChild.remove();
+            }
+            elementToHide.style.display = 'block';
+        });
+
+
+        function removeRow() {
 
             form = document.getElementById("input-box");
-            if(form.childElementCount>1){
+            if (form.childElementCount > 1) {
 
                 document.getElementById("input-box").lastElementChild.remove();
             }
         }
-    </script>
 
+        // Get references to the edit button and the element to hide
+
+        var elementToHide = document.querySelector('.plusminusbaris');
+
+        function hideButton() {
+            elementToHide.style.display = 'none';
+        }
+
+
+        //perhitungan sisa
+        function calculateSisa() {
+
+            var totalValue = parseFloat(document.querySelector('.total').value) || 0;
+            var dibayarkanValue = parseFloat(document.querySelector('.dibayarkan').value) || 0;
+
+            var sisaValue = totalValue - dibayarkanValue;
+            var formattedSisaValue = sisaValue.toLocaleString();
+            document.querySelector('.sisa').value = sisaValue.toFixed(0);
+        }
+
+        document.querySelector('.dibayarkan').addEventListener('input', calculateSisa);
+
+
+        calculateSisa();
+    </script>
 @endsection

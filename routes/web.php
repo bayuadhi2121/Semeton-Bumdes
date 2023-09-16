@@ -32,4 +32,18 @@ Route::get('/pengelola', [PersonController::class, 'index'])->name('pengelola');
 Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
 // });
 
+Route::get('/test', function() {
+    return view('pages.detailjasa.index', [
+        'detailjasa' => Person::paginate(5)]);
+});
+
+Route::get('/test2', function() {
+    return view('pages.detaildagang.index', [
+        'detaildagang' => Person::paginate(5)]);
+});
+
+Route::get('/beban', function() {
+    return view('pages.detailbeban.index', [
+        'detailbeban' => Person::paginate(5)]);
+});
 
