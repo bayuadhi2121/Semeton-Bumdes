@@ -1,11 +1,11 @@
 @extends('layouts.common')
 
 @php
-    $num = $detailjasa->firstItem();
+    $num = $detailbeban->firstItem();
 @endphp
 
 @section('common_content')
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi Jasa</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Beban</h2>
 
     <div class="mb-4 flex flex-row justify-between items-center">
         <dt class="text-gray-800 font-semibold pr-2">Tanggal </dt>
@@ -36,13 +36,13 @@
                         No
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Jumlah
+                        Jenis Beban
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Harga
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Jumlah
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Total
@@ -54,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($detailjasa as $item)
+                @forelse ($detailbeban as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
@@ -91,14 +91,7 @@
                                 </svg>
                             </button>
 
-                            <a href="#" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                                </svg>
-
-                            </a>
+                            
                         </td>
                     </tr>
                     
@@ -108,10 +101,10 @@
                     </tr>
                 @endforelse
 
-                <tr>
+                {{-- <tr>
                     <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-800">Total Semua</td>
                     <td class="px-6 py-4 font-medium text-gray-800">Ini total</td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>
@@ -160,7 +153,7 @@
 
 
     <div class="mt-3">
-        {{ $detailjasa->links() }}
+        {{ $detailbeban->links() }}
     </div>
 
     <!-- Add data modal -->
@@ -181,21 +174,29 @@
                 </button>
 
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi Jasa</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Beban</h3>
                     <form class="space-y-6" action="#" method="POST">
-                        <div class="relative">
-                            <input type="text" id="nama" name="nama"
+                        <div class="basis-1/2 relative pr-2">
+                            <input wire:model.defer="person" type="text" id="jenis" name="jenis"
+                                list="person"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
-                            <label for="nama"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Jasa</label>
+
+
+                            <label for="jenis"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Jenis Beban</label>
+
+                            <datalist id="person">
+                                <option value="Person">
+                            </datalist>
+
                         </div>
                         <div class="relative">
                             <input type="text" id="harga" name="harga"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="harga"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga Jasa</label>
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga </label>
                         </div>
                         
                         <div class="relative">
