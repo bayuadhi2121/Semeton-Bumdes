@@ -1,33 +1,24 @@
 @extends('layouts.common')
 
 @php
-    $num = $detailjasa->firstItem();
+    $num = $beban->firstItem();
 @endphp
 
 @section('common_content')
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi Jasa</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Beban</h2>
 
-    <div class="mb-4 flex flex-row justify-between items-center">
-        <dt class="text-gray-800 font-semibold pr-2">Tanggal </dt>
-        <div class="w-full bg-gray-200 p-2 pl-4 mr-2">
-
-            <dd class="text-gray-800">17 Agustus 1945</dd>
-        </div>
-        <dt class="text-gray-800 font-semibold pr-2">Keterangan</dt>
-        <div class="w-full bg-gray-200 p-2 pl-4 mr-2">
-
-            <dd class="text-gray-800">Audi</dd>
-        </div>
-    </div>
-
-
-    <div>
-
+    <div class="mb-4 flex justify-between">
         <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
-            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm mb-6 px-5 py-2.5 mr-2 mb-2">Tambah</button>
+            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+
+        <div class="relative w-1/4">
+            <input type="text" id="simple-search"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
+                placeholder="Cari Barang..." required>
+        </div>
     </div>
 
-    
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -36,42 +27,46 @@
                         No
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama
+                        Tanggal
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Jumlah
+                        Nama Transaksi
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Harga
+                        Ket
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Total
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Nota
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Aksi
                     </th>
-
                 </tr>
             </thead>
             <tbody>
-                @forelse ($detailjasa as $item)
+                @forelse ($beban as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $num++ }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->nama }}
+                            {{ $item->tanggal }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->jumlah}}
+                            {{ $item->nama}}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->harga }}
+                            {{ $item->ket}}
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->total}}
                         </td>
-                        
+                        <td class="px-6 py-4">
+                            {{ $item->nota }}
+                        </td>
                         <td class="px-6 py-4 flex space-x-2">
                             <button data-modal-target="add-data-modal" title="Edit" onclick="hideButton()"
                                 data-modal-show="add-data-modal">
@@ -101,66 +96,17 @@
                             </a>
                         </td>
                     </tr>
-                    
                 @empty
                     <tr>
                         <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
                     </tr>
                 @endforelse
-
-                <tr>
-                    <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-800">Total Semua</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">Ini total</td>
-                </tr>
             </tbody>
         </table>
     </div>
 
-    {{-- Perhitungan sisa --}}
-    <form class="pt-6 w-2/5">
-        <div class="flex flex-row items-center justify-items-start pb-2">
-            <label class="text-gray-800 font-semibold basis-4/12 ">
-                Total Transaksi
-            </label>
-            <input type="text" value="200000" id="small-input"
-                class="total basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
-                disabled>
-
-
-        </div>
-        <div class="flex flex-row items-center justify-items-start pb-2">
-            <label class="text-gray-800 font-semibold basis-4/12 ">
-                Dibayarkan
-            </label>
-            <input type="number" value="100" id="small-input"
-                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
-            <div class="basis-1/5">
-
-            </div>
-
-        </div>
-        <hr class="pb-2 border-gray-400 mr-3 w-9/12">
-        <div class="flex flex-row items-center justify-items-start pb-2">
-            <label class="text-gray-800 font-semibold basis-4/12 ">
-                Sisa
-            </label>
-            <input type="text" id="small-input"
-                class="sisa basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
-                disabled>
-            <div class="basis-1/5">
-
-                <button type="button"
-                    class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
-            </div>
-
-        </div>
-
-
-    </form>
-
-
     <div class="mt-3">
-        {{ $detailjasa->links() }}
+        {{ $beban->links() }}
     </div>
 
     <!-- Add data modal -->
@@ -180,30 +126,51 @@
                     <span class="sr-only">Close modal</span>
                 </button>
 
+                
+
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi Jasa</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Data Beban</h3>
                     <form class="space-y-6" action="#" method="POST">
-                        <div class="relative">
-                            <input type="text" id="nama" name="nama"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="nama"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Jasa</label>
-                        </div>
-                        <div class="relative">
-                            <input type="text" id="harga" name="harga"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                placeholder=" " />
-                            <label for="harga"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga Jasa</label>
+                        
+                        <div class="relative max-w-sm">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                </svg>
+                            </div>
+                              <input datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 bg-transparent bg-cyan-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Tanggal">
                         </div>
                         
-                        <div class="relative">
-                            <input type="text" id="jumlah" name="jumlah"
+                        <div class="basis-1/2 relative pr-2">
+                            <input wire:model.defer="person" type="text" id="nama" name="nama"
+                                list="person"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
-                            <label for="jumlah"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Jumlah</label>
+
+
+                            <label for="nama"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
+                                Barang</label>
+
+                            <datalist id="person">
+                                <option value="Person">
+                            </datalist>
+
+                        </div>
+                        <div class="relative">
+                            <textarea rows="4" id="keterangan" name="keterangan"
+                            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                            placeholder=""></textarea>
+                            <label for="keterangan"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Keterangan</label>
+                        </div>
+                        <div class="relative ">
+                            
+                            
+                            {{-- <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload file</label> --}}
+                            <input class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-transparent bg-cyan-700" aria-describedby="file_input_help" id="file_input" type="file">
+                            <p class="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+
                         </div>
 
                         <button type="submit"
@@ -238,24 +205,4 @@
         </div>
     </div>
     
-
-    <script>
-        // Your JavaScript code here
-
-       //perhitungan sisa
-        function calculateSisa() {
-
-            var totalValue = parseFloat(document.querySelector('.total').value) || 0;
-            var dibayarkanValue = parseFloat(document.querySelector('.dibayarkan').value) || 0;
-
-            var sisaValue = totalValue - dibayarkanValue;
-            var formattedSisaValue = sisaValue.toLocaleString();
-            document.querySelector('.sisa').value = sisaValue.toFixed(0);
-        }
-
-        document.querySelector('.dibayarkan').addEventListener('input', calculateSisa);
-
-
-        calculateSisa();
-    </script>
 @endsection
