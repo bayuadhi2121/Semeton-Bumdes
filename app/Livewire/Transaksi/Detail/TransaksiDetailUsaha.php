@@ -12,11 +12,16 @@ use App\Models\Transaksi as ModelsTransaksi;
 
 class TransaksiDetailUsaha extends Component
 {
-    public $id_transaksi;
+    public $id_transaksi, $status;
 
     public function mount(Transaksi $transaksi)
     {
         $this->id_transaksi = $transaksi->id_transaksi;
+        if ($transaksi->dagang->status ?? null) {
+            $this->status = 'Barang';
+        } else {
+            $this->status = 'Jasa';
+        }
     }
 
     public function render()
