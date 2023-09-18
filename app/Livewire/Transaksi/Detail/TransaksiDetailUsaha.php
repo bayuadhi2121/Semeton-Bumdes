@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Transaksi\Detail;
 
+use App\Models\JualBeli;
 use App\Models\Transaksi;
 use App\Models\Usaha;
 use Livewire\Component;
@@ -23,10 +24,17 @@ class TransaksiDetailUsaha extends Component
             $this->status = 'Jasa';
         }
     }
+    #[On('refresh-data')]
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
+
         return view('livewire.transaksi.detail.usaha', [
+            'jualbeli' => JualBeli::where('id_transaksi', $this->id_transaksi)->get(),
             'transaksi' => Transaksi::where('id_transaksi', $this->id_transaksi)->first()
         ]);
     }

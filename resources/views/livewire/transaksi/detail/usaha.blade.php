@@ -17,8 +17,8 @@
 
     <div>
 
-        <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
-            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm mb-6 px-5 py-2.5 mr-2 mb-2">Tambah</button>
+        <button wire:click="$dispatch('add-modal')" type="button"
+            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
     </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -47,19 +47,20 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                $detaildagang = [];
-                @endphp
-                @forelse ($detaildagang as $item)
+                @forelse ($jualbeli as $item)
                 <tr class="bg-white border-b">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ $num++ }}
+                        {{-- {{ $num++ }} --}}
                     </th>
                     <td class="px-6 py-4">
-                        {{ $item->nama }}
+                        @if($status=='Jasa')
+                        {{ $item->jbjasa->jenispendapatan->nama ??" " }}
+                        @else
+                        {{ $item->jbdagang->barang->nama ??" " }}
+                        @endif
                     </td>
                     <td class="px-6 py-4">
-                        {{ $item->jumlah }}
+                        {{ $item->kuantitas }}
                     </td>
                     <td class="px-6 py-4">
                         {{ $item->harga }}
@@ -157,7 +158,7 @@
     </form>
     {{-- , ['usaha' => $usaha, 'status' => $status, 'mode' => $mode] --}}
     <!-- Add data modal -->
-    @livewire('transaksi.detail .add-edit-modal',['status'=>$status])
+    @livewire('transaksi.detail .add-edit-modal',['status'=>$status,'transaksi'=>$id_transaksi])
     {{-- Confirmation modal --}}
     <div id="confirmation-modal" tabindex="-1" data-modal-backdrop="static"
         class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
