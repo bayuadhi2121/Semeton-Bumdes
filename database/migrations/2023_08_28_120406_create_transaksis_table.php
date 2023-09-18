@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_transaksi', 20)->primary();
             $table->string('keterangan')->nullable();
             $table->date('tanggal');
-            $table->string('status', 15)->nullable();
+            $table->string('status', 15);
             $table->string('nota')->nullable();
             $table->string('id_usaha', 20)->nullable();
             $table->timestamps();

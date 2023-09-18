@@ -1,10 +1,6 @@
-@extends('layouts.common')
+@extends('layouts.app')
 
-@php
-    $num = $detaildagang->firstItem();
-@endphp
-
-@section('common_content')
+@section('bangke')
     <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi Dagang</h2>
 
     <div class="mb-4 flex flex-row justify-between items-center">
@@ -26,7 +22,7 @@
         <button type="button" data-modal-target="add-data-modal" data-modal-show="add-data-modal"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm mb-6 px-5 py-2.5 mr-2 mb-2">Tambah</button>
     </div>
-    
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -53,6 +49,9 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $detaildagang = [];
+                @endphp
                 @forelse ($detaildagang as $item)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -62,13 +61,13 @@
                             {{ $item->nama }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->jumlah}}
+                            {{ $item->jumlah }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->harga }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->total}}
+                            {{ $item->total }}
                         </td>
                         <td class="px-6 py-4 flex space-x-2">
                             <button data-modal-target="add-data-modal" title="Edit" onclick="hideButton()"
@@ -98,19 +97,22 @@
 
                             </a>
                         </td>
-                        
+
                     </tr>
-                    
+
+                    @if ($loop->last)
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-800">Total Semua</td>
+                            <td class="px-6 py-4 font-medium text-gray-800">Ini total</td>
+                        </tr>
+                    @endif
                 @empty
                     <tr>
                         <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
                     </tr>
                 @endforelse
 
-                <tr>
-                    <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-800">Total Semua</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">Ini total</td>
-                </tr>
+
             </tbody>
         </table>
     </div>
@@ -121,7 +123,7 @@
                 Total Transaksi
             </label>
             <input type="text" value="200000" id="small-input"
-                class="total basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
+                class="total basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
 
 
@@ -156,11 +158,6 @@
 
     </form>
 
-
-    <div class="mt-3">
-        {{ $detaildagang->links() }}
-    </div>
-
     <!-- Add data modal -->
     <div id="add-data-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -186,18 +183,20 @@
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="nama"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama Barang</label>
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nama
+                                Barang</label>
                         </div>
                         <div class="relative">
-                            <input type="text" id="harga" name="harga"
+                            <input type="number" id="harga" name="harga"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="harga"
-                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga Barang</label>
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Harga
+                                Barang</label>
                         </div>
-                        
+
                         <div class="relative">
-                            <input type="text" id="jumlah" name="jumlah"
+                            <input type="number" id="jumlah" name="jumlah"
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
                                 placeholder=" " />
                             <label for="jumlah"
@@ -235,13 +234,13 @@
             </div>
         </div>
     </div>
-    
+@endsection
 
-    
+@section('script')
     <script>
         // Your JavaScript code here
 
-       //perhitungan sisa
+        //perhitungan sisa
         function calculateSisa() {
 
             var totalValue = parseFloat(document.querySelector('.total').value) || 0;

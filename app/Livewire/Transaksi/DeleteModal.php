@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Akun;
+namespace App\Livewire\Transaksi;
 
-use App\Models\Akun;
 use Livewire\Component;
+use App\Models\Transaksi;
 use Livewire\Attributes\On;
 
 class DeleteModal extends Component
 {
     public $show;
-    public $id_akun, $nama_akun;
+    public $id_transaksi;
 
     public function mount()
     {
@@ -18,17 +18,16 @@ class DeleteModal extends Component
 
     public function destroy()
     {
-        Akun::where('id_akun', $this->id_akun)->delete();
+        Transaksi::where('id_transaksi', $this->id_transaksi)->delete();
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('delete-modal')]
-    public function delete($akun, $nama)
+    public function delete($transaksi)
     {
-        $this->id_akun = $akun;
-        $this->nama_akun = $nama;
+        $this->id_transaksi = $transaksi;
         $this->show = true;
     }
 
@@ -39,6 +38,6 @@ class DeleteModal extends Component
 
     public function render()
     {
-        return view('livewire.akun.delete-modal');
+        return view('livewire.transaksi.delete-modal');
     }
 }

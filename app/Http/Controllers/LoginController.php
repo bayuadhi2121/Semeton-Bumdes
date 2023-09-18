@@ -23,7 +23,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);                                    //request+validation value from view
 
-        if (Auth::attempt($credentials)) {     //authenticate user with credential. if creadential is valid(username and password match), fucntion attempt will authenticate user and store authentication status in session 
+        if (Auth::attempt($credentials)) {     //authenticate user with credential. if creadential is valid(username and password match), fucntion attempt will authenticate user and store authentication status in session
             $request->session()->regenerate(); //security reason for session
             return redirect()->intended('pengelola');
         }

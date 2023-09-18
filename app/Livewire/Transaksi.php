@@ -14,17 +14,36 @@ class Transaksi extends Component
     use WithPagination;
 
     public $search = '';
-    public $nama, $status;
+    public $nama, $mode;
 
     #[Url()]
-    public $usaha;
+    public $usaha, $status;
 
     public function mount()
     {
         try {
-            $usaha = Usaha::where('id_usaha', $this->usaha)->get(['nama', 'status'])->first();
-            $this->nama = $usaha->nama;
-            $this->status = $usaha->status;
+            switch ($this->status) {
+                case 'Usaha':
+                    $usaha = Usaha::where('id_usaha', $this->usaha)->get(['nama', 'status'])->first();
+                    $this->nama = $usaha->nama;
+                    $this->mode = $usaha->status;
+                    break;
+
+                case 'Lainnya':
+                    $this->nama = $this->status;
+                    $this->mode = $this->status;
+                    break;
+
+                case 'Beban':
+                    $usaha = Usaha::where('id_usaha', $this->usaha)->get(['nama'])->first();
+                    $this->nama = 'Beban '.$usaha->nama;
+                    $this->mode = $this->status;
+                    break;
+
+                default:
+                    abort(404);
+                    break;
+            }
         } catch (\Throwable $th) {
             abort(404);
         }
@@ -44,7 +63,7 @@ class Transaksi extends Component
     public function render()
     {
         return view('livewire.transaksi.index', [
-            'transaksi' => ModelsTransaksi::where('keterangan', 'like', '%'.$this->search ?? ''.'%')->where('id_usaha', $this->usaha)->paginate(10)
+            'transaksi' => ModelsTransaksi::where('id_usaha', $this->usaha)->where('status', $this->status)->where('keterangan', 'like', '%'. $this->search.'%')->paginate(10)
         ]);
     }
 }
