@@ -4,6 +4,7 @@ namespace App\Livewire\Transaksi;
 
 use Livewire\Component;
 use App\Models\Transaksi;
+use Livewire\Attributes\On;
 
 class Item extends Component
 {
@@ -16,6 +17,13 @@ class Item extends Component
         $this->transaksi = $transaksi;
     }
 
+    #[On('show')]
+    public function  showDetail($transaksi)
+    {
+        $this->redirect(route('transaksidetail', [
+            'transaksi' => $transaksi
+        ]));
+    }
     public function render()
     {
         return view('livewire.transaksi.item');
