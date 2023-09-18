@@ -11,96 +11,74 @@ class AddEditModal extends Component
 {
     use WithFileUploads;
 
-    public $show = false, $title, $mode, $statusMode;
-    public $id_transaksi, $id_usaha, $tanggal, $keterangan = '', $status, $nota = '';
+    public $show = false, $title, $mode;
+    public $trxStatus, $usahaStatus;
+    public $id_transaksi, $id_usaha, $tanggal, $keterangan = '', $dagangStatus, $nota = '';
 
     public function rules()
     {
         return [
-            'tanggal' => 'required',
+            'tanggal' => 'required|before:tomorrow',
+            'dagangStatus' => 'nullable|required_if:usahaStatus,Dagang',
         ];
     }
 
-    public function mount($usaha, $status)
+    protected $messages = [
+        'tanggal.before' => 'Tanggal tidak diizinkan.',
+        'dagangStatus' => 'Harus diisi.',
+    ];
+
+    public function mount($usaha, $status, $mode)
     {
         $this->show = false;
-        $this->statusMode =  $status;
+        $this->trxStatus = $status;
+        $this->usahaStatus = $mode;
         $this->id_usaha = $usaha;
     }
 
-    public function storeDagang()
-    {
-        // dd(strtotime($this->tanggal));
-        $this->validate();
-
-        Transaksi::create([
-            'tanggal' => strtotime($this->tanggal),
-            'keterangan' => $this->keterangan,
-            'status' => $this->status,
-            'nota' => $this->nota,
-            'id_usaha' => $this->id_usaha,
-        ]);
-
-        $this->closeModal();
-        $this->dispatch('page-refresh');
-    }
-
-    public function updateDagang()
+    public function store()
     {
         $this->validate();
 
-        Transaksi::where('id_transaksi', $this->id_transaksi)->update([
+        $transaksi = Transaksi::create([
             'tanggal' => $this->tanggal,
             'keterangan' => $this->keterangan,
-            'status' => $this->status,
+            'status' => $this->trxStatus,
             'nota' => $this->nota,
             'id_usaha' => $this->id_usaha,
         ]);
 
-        $this->closeModal();
-        $this->dispatch('page-refresh');
-    }
-
-    public function storeJasa()
-    {
-        $this->validate();
-
-        Transaksi::create([
-            'tanggal' => $this->tanggal,
-            'keterangan' => $this->keterangan,
-            'nota' => $this->nota,
-            'id_usaha' => $this->id_usaha,
-        ]);
+        if($this->usahaStatus == 'Dagang') {
+            $transaksi->dagang()->create(['status' => $this->dagangStatus])->save();
+        }
 
         $this->closeModal();
         $this->dispatch('refresh-data');
     }
 
-    public function updateJasa()
+    public function update()
     {
         $this->validate();
 
-        Transaksi::where('id_transaksi', $this->id_transaksi)->update([
+        $transaksi = Transaksi::where('id_transaksi', $this->id_transaksi)->first();
+        $transaksi->update([
             'tanggal' => $this->tanggal,
             'keterangan' => $this->keterangan,
             'nota' => $this->nota,
-            'id_usaha' => $this->id_usaha,
         ]);
+
+        if($this->usahaStatus == 'Dagang') {
+            $transaksi->dagang()->update(['status' => $this->dagangStatus]);
+        }
 
         $this->closeModal();
         $this->dispatch('refresh-data');
     }
 
-    #[On('add-modal-dagang')]
-    public function addModalDagang()
+    #[On('add-modal')]
+    public function addModal()
     {
-        $this->openModal('storeDagang', 'Tambah');
-    }
-
-    #[On('add-modal-jasa')]
-    public function addModalJasa()
-    {
-        $this->openModal('storeJasa', 'Tambah');
+        $this->openModal('store', 'Tambah');
     }
 
     #[On('edit-modal')]
@@ -109,15 +87,14 @@ class AddEditModal extends Component
         $this->id_transaksi = $transaksi->id_transaksi;
         $this->tanggal = $transaksi->tanggal;
         $this->keterangan = $transaksi->keterangan;
-        $this->status = $transaksi->status;
         $this->nota = $transaksi->nota;
-        $this->id_usaha = $transaksi->id_usaha;
 
-        if($this->statusMode == "Dagang") {
-            $this->openModal('updateDagang', 'Edit');
-        } else {
-            $this->openModal('updateJasa', 'Edit');
+        if(isset($transaksi->dagang->status)) {
+            $this->usahaStatus = 'Dagang';
+            $this->dagangStatus = $transaksi->dagang->status;
         }
+
+        $this->openModal('update', 'Edit');
     }
 
     private function openModal($mode, $title)
@@ -130,7 +107,7 @@ class AddEditModal extends Component
     #[On('close-modal')]
     public function closeModal()
     {
-        $this->reset();
+        $this->resetExcept('trxStatus', 'usahaStatus', 'id_usaha');
         $this->resetValidation();
     }
 

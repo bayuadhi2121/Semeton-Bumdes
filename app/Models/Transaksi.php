@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Dagang;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,5 +28,10 @@ class Transaksi extends Model
         self::creating(function ($model) {
             $model->id_transaksi = IdGenerator::generate(['table' => 'transaksis', 'field' => 'id_transaksi', 'length' => 20, 'prefix' => 'TRX-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
+    }
+
+    public function dagang()
+    {
+        return $this->hasOne(Dagang::class, 'id_transaksi');
     }
 }

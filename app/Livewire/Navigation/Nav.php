@@ -22,13 +22,14 @@ class Nav extends Component
     #[Computed]
     public function usaha()
     {
-        return Usaha::where('id_person', $this->id_person)->get();
+        return Usaha::where('id_person', $this->id_person)->select('id_usaha', 'nama')->get();
     }
 
-    public function showTransaksi($usaha)
+    public function showTransaksi($usaha, $status)
     {
         $this->redirect(route('transaksi', [
-            'usaha' => $usaha
+            'usaha' => $usaha,
+            'status' => $status
         ]));
     }
 

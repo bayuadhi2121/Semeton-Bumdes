@@ -10,6 +10,9 @@
             {{ $transaksi->keterangan }}
         </td>
         <td class="px-6 py-4">
+            total
+        </td>
+        <td class="px-6 py-4">
             {{ $transaksi->nota }}
         </td>
         <td class="px-6 py-4 flex space-x-2">
@@ -30,7 +33,7 @@
                 </svg>
             </button>
 
-            <a href="#" type="button">
+            <a href="{{ route('transaksidetail', ['transaksi' => $transaksi->id_transaksi]) }}" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"

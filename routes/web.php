@@ -8,7 +8,7 @@ use App\Livewire\Transaksi;
 use App\Livewire\JenisPendapatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Livewire\Transaksilainnya;
+use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,18 +20,29 @@ use App\Livewire\Transaksilainnya;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/cek1', function () {
+    return view('pages.detaildagang.index');
+});
+Route::get('/cek2', function () {
+    return view('pages.detailjasa.index');
+});
+Route::get('/cek3', function () {
+    return view('pages.detaillainnya.index');
+});
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/pengelola', Person::class)->name('pengelola');
-Route::get('/usaha', Usaha::class)->name('usaha');
-Route::get('/barang', Barang::class)->name('barang');
-Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
-Route::get('/akun', Akun::class)->name('akun');
-Route::get('/transaksi', Transaksi::class)->name('transaksi');
-Route::get('/transaksilain', Transaksilainnya::class)->name('transaksilain');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate')->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/pengelola', Person::class)->name('pengelola');
+    Route::get('/usaha', Usaha::class)->name('usaha');
+    Route::get('/barang', Barang::class)->name('barang');
+    Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
+    Route::get('/akun', Akun::class)->name('akun');
+    Route::get('/transaksi', Transaksi::class)->name('transaksi');
+    Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
+});
