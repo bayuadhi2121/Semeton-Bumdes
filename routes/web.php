@@ -33,8 +33,8 @@ Route::get('/usaha', [UsahaController::class, 'index'])->name('usaha');
 // });
 
 Route::get('/test', function() {
-    return view('pages.detailjasa.index', [
-        'detailjasa' => Person::paginate(5)]);
+    return view('pages.profil.index', [
+        'profil' => Person::paginate(5)]);
 });
 
 Route::get('/test2', function() {
@@ -46,4 +46,10 @@ Route::get('/beban', function() {
     return view('pages.detailbeban.index', [
         'detailbeban' => Person::paginate(5)]);
 });
+
+Route::get('/dashboard', function() {
+    return view('pages.dashboard.index', [
+        'usaha' => Person::paginate(5)]);
+});
+
 
