@@ -14,7 +14,7 @@ use App\Models\Transaksi as ModelsTransaksi;
 class TransaksiDetailUsaha extends Component
 {
     public $id_transaksi, $status;
-
+    use WithPagination;
     public function mount(Transaksi $transaksi)
     {
         $this->id_transaksi = $transaksi->id_transaksi;
@@ -34,7 +34,7 @@ class TransaksiDetailUsaha extends Component
     {
 
         return view('livewire.transaksi.detail.usaha', [
-            'jualbeli' => JualBeli::where('id_transaksi', $this->id_transaksi)->get(),
+            'jualbeli' => JualBeli::where('id_transaksi', $this->id_transaksi)->paginate(10),
             'transaksi' => Transaksi::where('id_transaksi', $this->id_transaksi)->first()
         ]);
     }
