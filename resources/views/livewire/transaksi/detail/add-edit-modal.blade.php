@@ -18,7 +18,7 @@
 
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi</h3>
-                    <form class="space-y-6" action="#" method="POST" wire:submit.prevent="store">
+                    <form class="space-y-6" action="#" method="POST" wire:submit.prevent="{{ $mode }}">
                         <div class="relative">
                             <input type="text" id="nama" wire:click="showPerson" wire:model.live='search'
                                 wire:model.live='nama' wire:click.outside="closePerson" id="pengelola"
