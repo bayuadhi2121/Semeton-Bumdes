@@ -4,6 +4,7 @@ namespace App\Livewire\Transaksi;
 
 use Livewire\Component;
 use App\Models\Transaksi;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 
 class DeleteModal extends Component
@@ -18,7 +19,11 @@ class DeleteModal extends Component
 
     public function destroy()
     {
-        Transaksi::where('id_transaksi', $this->id_transaksi)->delete();
+        $transaksi = Transaksi::where('id_transaksi', $this->id_transaksi)->first();
+        if($transaksi->nota) {
+            Storage::disk('public')->delete($transaksi->nota);
+        }
+        $transaksi->delete();
 
         $this->closeModal();
         $this->dispatch('refresh-data');

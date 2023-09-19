@@ -7,13 +7,17 @@
             {{ $transaksi->tanggal }}
         </td>
         <td class="px-6 py-4">
-            {{ $transaksi->keterangan }}
+            {{ $transaksi->keterangan ?? '-' }}
         </td>
         <td class="px-6 py-4">
             total
         </td>
         <td class="px-6 py-4">
-            {{ $transaksi->nota }}
+            @if ($transaksi->nota)
+                <a href="{{ $transaksi->nota }}" class="text-blue-500 hover:underline" target="blank">Lihat</a>
+            @else
+                -
+            @endif
         </td>
         <td class="px-6 py-4 flex space-x-2">
             <button wire:click="$dispatch('edit-modal', { transaksi: {{ $transaksi }} })">

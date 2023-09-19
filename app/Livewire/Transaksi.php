@@ -62,8 +62,14 @@ class Transaksi extends Component
 
     public function render()
     {
+        $transaksi = ModelsTransaksi::where('id_usaha', $this->usaha)->where('status', $this->status);
+
+        if($this->search != '') {
+            $transaksi = $transaksi->where('keterangan', 'like', '%'. $this->search.'%');
+        }
+
         return view('livewire.transaksi.index', [
-            'transaksi' => ModelsTransaksi::where('id_usaha', $this->usaha)->where('status', $this->status)->where('keterangan', 'like', '%'. $this->search.'%')->paginate(10)
+            'transaksi' => $transaksi->paginate(10)
         ]);
     }
 }
