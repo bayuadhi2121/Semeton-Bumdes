@@ -78,7 +78,7 @@
                     <td colspan="2" class="px-6 py-4 text-gray-800 font-medium text-center">Balance</td>
                 </tr> --}}
             </tbody>
-        </table>
+        z</table>
         </div>
         
 

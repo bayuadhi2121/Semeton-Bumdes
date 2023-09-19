@@ -47,9 +47,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
 });
 
-Route::get('/dashboard', function() {
-    return view('pages.dashboard.index', [
-        'usaha' => Person::paginate(5)]);
-});
-
 
