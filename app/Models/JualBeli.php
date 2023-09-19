@@ -20,7 +20,7 @@ class JualBeli extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->id_jualbeli = IdGenerator::generate(['table' => 'jual_belis', 'field' => 'id_jaulbeli', 'length' => 20, 'prefix' => 'JBL-' . date('ym'), 'reset_on_prefix_change' => true]);
+            $model->id_jualbeli = IdGenerator::generate(['table' => 'jual_belis', 'field' => 'id_jualbeli', 'length' => 20, 'prefix' => 'JBL-' . date('ym'), 'reset_on_prefix_change' => true]);
         });
     }
 
