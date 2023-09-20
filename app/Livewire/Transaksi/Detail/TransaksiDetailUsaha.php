@@ -63,76 +63,49 @@ class TransaksiDetailUsaha extends Component
 
         foreach ($transaksi->usaha->akun as $item) {
             $id_akun = $item->id_akun;
-            $record = [];
+            $record = [
+                'kredit' => 0,
+                'debit' => 0,
+                'id_akun' => '',
+                'id_transaksi' => $this->id_transaksi
+            ];
             //hutang
             if ($this->dibayarkan == 0) {
                 //jual
                 if ($transaksi->dagang->status = 'Jual') {
                     if (strpos($item->nama, 'Penjualan') !== false) {
-                        $record = [
-                            'kredit' => $this->total,
-                            'debit' => 0,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['kredit'] = $this->total;
+                        $record['id_akun'] = $id_akun;
                     } elseif (strpos($item->nama, 'Piutang') !== false) {
-                        $record = [
-                            'kredit' => 0,
-                            'debit' => $this->sisa,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['debit'] = $this->sisa;
+                        $record['id_akun'] = $id_akun;
                     }
                 } else {
                     if (strpos($item->nama, 'Pembelian') !== false) {
-                        $record = [
-                            'kredit' => 0,
-                            'debit' => $this->total,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['debit'] = $this->total;
+                        $record['id_akun'] = $id_akun;
                     } elseif (strpos($item->nama, 'Hutang') !== false) {
-                        $record = [
-                            'kredit' => $this->total,
-                            'debit' => 0,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['kredit'] = $this->total;
+                        $record['id_akun'] = $id_akun;
                     }
                 }
             } else {
 
                 if ($transaksi->dagang->status = 'Jual') {
                     if (strpos($item->nama, 'Penjualan') !== false) {
-                        $record = [
-                            'kredit' => $this->total,
-                            'debit' => 0,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['kredit'] = $this->total;
+                        $record['id_akun'] = $id_akun;
                     } elseif (strpos($item->nama, 'Kas') !== false) {
-                        $record = [
-                            'kredit' => 0,
-                            'debit' => $this->dibayarkan,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['debit'] = $this->dibayarkan;
+                        $record['id_akun'] = $id_akun;
                     }
                 } else {
                     if (strpos($item->nama, 'Pembelian') !== false) {
-                        $record = [
-                            'kredit' => 0,
-                            'debit' => $this->total,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['debit'] = $this->total;
+                        $record['id_akun'] = $id_akun;
                     } elseif (strpos($item->nama, 'Kas') !== false) {
-                        $record = [
-                            'kredit' => $this->dibayarkan,
-                            'debit' => 0,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['kredit'] = $this->dibayarkan;
+                        $record['id_akun'] = $id_akun;
                     }
                 }
             }
@@ -140,21 +113,13 @@ class TransaksiDetailUsaha extends Component
             if ($this->sisa != 0) {
                 if ($transaksi->dagang->status == 'Jual') {
                     if (strpos($item->nama, 'Piutang') !== false) {
-                        $record = [
-                            'kredit' => 0,
-                            'debit' => $this->sisa,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['debit'] = $this->sisa;
+                        $record['id_akun'] = $id_akun;
                     }
                 } else {
                     if (strpos($item->nama, 'Hutang') !== false) {
-                        $record = [
-                            'kredit' => $this->sisa,
-                            'debit' => 0,
-                            'id_akun' => $id_akun,
-                            'id_transaksi' => $this->id_transaksi
-                        ];
+                        $record['kredit'] = $this->sisa;
+                        $record['id_akun'] = $id_akun;
                     }
                 }
             }
@@ -174,48 +139,33 @@ class TransaksiDetailUsaha extends Component
 
         foreach ($transaksi->usaha->akun as $item) {
             $id_akun = $item->id_akun;
-            $record = [];
+            $record = [
+                'kredit' => 0,
+                'debit' => 0,
+                'id_akun' => '',
+                'id_transaksi' => $this->id_transaksi
+            ];
             if ($this->dibayarkan != 0) {
                 if (strpos($item->nama, 'Kas') !== false) {
-                    $record = [
-                        'kredit' => 0,
-                        'debit' => $this->dibayarkan,
-                        'id_akun' => $id_akun,
-                        'id_transaksi' => $this->id_transaksi
-                    ];
+                    $record['debit'] = $this->dibayarkan;
+                    $record['id_akun'] = $id_akun;
                 } elseif (strpos($item->nama, 'Pendapatan') !== false) {
-                    $record = [
-                        'kredit' => $this->total,
-                        'debit' => 0,
-                        'id_akun' => $id_akun,
-                        'id_transaksi' => $this->id_transaksi
-                    ];
+                    $record['kredit'] = $this->total;
+                    $record['id_akun'] = $id_akun;
                 }
             } else {
                 if ($this->sisa != 0 && strpos($item->nama, 'Piutang') !== false) {
-                    $record = [
-                        'kredit' => 0,
-                        'debit' => $this->sisa,
-                        'id_akun' => $id_akun,
-                        'id_transaksi' => $this->id_transaksi
-                    ];
+                    $record['debit'] = $this->sisa;
+                    $record['id_akun'] = $id_akun;
                 } elseif (strpos($item->nama, 'Pendapatan') !== false) {
-                    $record = [
-                        'kredit' => $this->total,
-                        'debit' => 0,
-                        'id_akun' => $id_akun,
-                        'id_transaksi' => $this->id_transaksi
-                    ];
+                    $record['kredit'] = $this->total;
+                    $record['id_akun'] = $id_akun;
                 }
             }
 
             if ($this->sisa != 0 && strpos($item->nama, 'Piutang') !== false) {
-                $record = [
-                    'kredit' => 0,
-                    'debit' => $this->sisa,
-                    'id_akun' => $id_akun,
-                    'id_transaksi' => $this->id_transaksi
-                ];
+                $record['debit'] = $this->sisa;
+                $record['id_akun'] = $id_akun;
             }
             try {
                 JurnalUmum::create($record);
