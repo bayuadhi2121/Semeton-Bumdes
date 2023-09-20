@@ -69,7 +69,7 @@ class Transaksi extends Component
         }
 
         return view('livewire.transaksi.index', [
-            'transaksi' => $transaksi->paginate(10)
+            'transaksi' => $transaksi->latest()->paginate(10)
         ]);
     }
 }

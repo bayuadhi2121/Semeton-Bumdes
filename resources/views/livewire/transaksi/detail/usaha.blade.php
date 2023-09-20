@@ -87,7 +87,7 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Dibayarkan
             </label>
-            <input type="number" placeholder="0" id="small-input" wire:model.live='dibayarkan' wire:ignore
+            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan' wire:ignore
                 class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
             <div class="basis-1/5">
                 @error('dibayarkan')
@@ -108,7 +108,6 @@
                 @if (!$transaksi->saved)
                 <button type="button"
                     class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
-                @else
                 @endif
             </div>
 

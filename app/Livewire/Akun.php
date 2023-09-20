@@ -28,7 +28,7 @@ class Akun extends Component
     public function render()
     {
         return view('livewire.akun.index', [
-            'akun' => ModelsAkun::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+            'akun' => ModelsAkun::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 }
