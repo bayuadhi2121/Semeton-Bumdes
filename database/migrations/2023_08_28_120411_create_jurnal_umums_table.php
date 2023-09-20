@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('kredit')->nullable();
             $table->integer('debit')->nullable();
             $table->String('id_akun', 20);
-            $table->String('id_transaksi', 15);
+            $table->String('id_transaksi', 20);
             $table->timestamps();
 
             $table->foreign('id_akun')->references('id_akun')->on('akuns');

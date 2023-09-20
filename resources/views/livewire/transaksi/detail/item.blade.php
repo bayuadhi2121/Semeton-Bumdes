@@ -20,6 +20,7 @@
             {{ $jualbeli->total }}
 
         </td>
+        @if (!$jualbeli->transaksi->saved)
         <td class="px-6 py-4 flex space-x-2">
             <button wire:click="$dispatch('edit-modal', { jualbeli: {{ $jualbeli }}, status: '{{ $status }}' })">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -36,6 +37,7 @@
                 </svg>
             </button>
         </td>
+        @endif
 
     </tr>
 </div>
