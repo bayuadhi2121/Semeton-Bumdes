@@ -67,10 +67,13 @@
                             <div>
                                 <label class="block mb-1 text-sm font-medium text-gray-900"
                                     for="file_input">Nota</label>
-                                <input
+                                <input wire:model="nota"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                    aria-describedby="file_input_help" id="file_input" type="file">
-                                <p class="mt-1 text-sm text-gray-500" id="file_input_help">PNG, JPG</p>
+                                    aria-describedby="file_input_help" type="file">
+                                <p class="mt-1 text-sm text-gray-500">PNG, JPG</p>
+                                @error('nota')
+                                    <span class="error text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <button type="submit"

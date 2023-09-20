@@ -6,20 +6,22 @@ use Livewire\Component;
 use App\Models\Transaksi;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class AddEditModal extends Component
 {
     use WithFileUploads;
 
     public $show = false, $title, $mode;
-    public $trxStatus, $usahaStatus;
-    public $id_transaksi, $id_usaha, $tanggal, $keterangan = '', $dagangStatus, $nota = '';
+    public $trxStatus, $usahaStatus, $notaPath;
+    public $id_transaksi, $id_usaha, $tanggal, $keterangan, $dagangStatus, $nota;
 
     public function rules()
     {
         return [
             'tanggal' => 'required|before:tomorrow',
             'dagangStatus' => 'nullable|required_if:usahaStatus,Dagang',
+            'nota' => 'nullable|image|max:3072'
         ];
     }
 
@@ -40,11 +42,15 @@ class AddEditModal extends Component
     {
         $this->validate();
 
+        if($this->nota != null) {
+            $this->notaPath = $this->nota->store('nota', 'public');
+        }
+
         $transaksi = Transaksi::create([
             'tanggal' => $this->tanggal,
             'keterangan' => $this->keterangan,
             'status' => $this->trxStatus,
-            'nota' => $this->nota,
+            'nota' => $this->notaPath,
             'id_usaha' => $this->id_usaha,
         ]);
 
@@ -60,11 +66,18 @@ class AddEditModal extends Component
     {
         $this->validate();
 
+        if($this->nota) {
+            if($this->notaPath) {
+                Storage::disk('public')->delete($this->notaPath);
+            }
+            $this->notaPath = $this->nota->store('nota', 'public');
+        }
+
         $transaksi = Transaksi::where('id_transaksi', $this->id_transaksi)->first();
         $transaksi->update([
             'tanggal' => $this->tanggal,
             'keterangan' => $this->keterangan,
-            'nota' => $this->nota,
+            'nota' => $this->notaPath,
         ]);
 
         if($this->usahaStatus == 'Dagang') {
@@ -87,7 +100,7 @@ class AddEditModal extends Component
         $this->id_transaksi = $transaksi->id_transaksi;
         $this->tanggal = $transaksi->tanggal;
         $this->keterangan = $transaksi->keterangan;
-        $this->nota = $transaksi->nota;
+        $this->notaPath = $transaksi->nota;
 
         if(isset($transaksi->dagang->status)) {
             $this->usahaStatus = 'Dagang';
