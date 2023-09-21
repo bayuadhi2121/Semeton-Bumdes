@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Livewire\Transaksi;
+namespace App\Livewire\Transaksi\Detail;
 
+use App\Models\JualBeli;
 use Livewire\Component;
-use App\Models\Transaksi;
-use Illuminate\Support\Facades\Storage;
+
 use Livewire\Attributes\On;
 
 class DeleteModal extends Component
 {
     public $show;
-    public $id_transaksi;
+    public $id_jualbeli;
 
     public function mount()
     {
@@ -19,20 +19,16 @@ class DeleteModal extends Component
 
     public function destroy()
     {
-        $transaksi = Transaksi::where('id_transaksi', $this->id_transaksi)->first();
-        if($transaksi->nota) {
-            Storage::disk('public')->delete($transaksi->nota);
-        }
-        $transaksi->delete();
+        JualBeli::where('id_jualbeli', $this->id_jualbeli)->delete();
 
         $this->closeModal();
         $this->dispatch('refresh-data');
     }
 
     #[On('delete-modal')]
-    public function delete($transaksi)
+    public function delete(JualBeli $jualbeli)
     {
-        $this->id_transaksi = $transaksi;
+        $this->id_jualbeli = $jualbeli->id_jualbeli;
         $this->show = true;
     }
 
@@ -40,9 +36,8 @@ class DeleteModal extends Component
     {
         $this->show = false;
     }
-
     public function render()
     {
-        return view('livewire.transaksi.delete-modal');
+        return view('livewire.transaksi.detail.delete-modal');
     }
 }

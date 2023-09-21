@@ -1,26 +1,34 @@
 <div>
     <tr class="bg-white border-b">
-
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-            {{ $number }}
+            {{-- {{ $num++ }} --}}
         </th>
         <td class="px-6 py-4">
-            {{ $jenispendapatan->nama }}
+            @if($status=='Jasa')
+            {{ $jualbeli->jbjasa->jenispendapatan->nama ??" " }}
+            @else
+            {{ $jualbeli->jbdagang->barang->nama ??" " }}
+            @endif
         </td>
         <td class="px-6 py-4">
-            {{ $jenispendapatan->usaha->nama ?? " " }}
+            {{ $jualbeli->kuantitas }}
+        </td>
+        <td class="px-6 py-4">
+            {{ $jualbeli->harga }}
+        </td>
+        <td class="px-6 py-4">
+            {{ $jualbeli->total }}
+
         </td>
         <td class="px-6 py-4 flex space-x-2">
-            <button wire:click="$dispatch('edit-modal', { jenisPendapatan: {{ $jenispendapatan }} })">
+            <button wire:click="$dispatch('edit-modal', { jualbeli: {{ $jualbeli }}, status: '{{ $status }}' })">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6 text-cyan-500">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                 </svg>
             </button>
-
-            <button
-                wire:click="$dispatch('delete-modal', { jenisPendapatan: '{{ $jenispendapatan->id_jpendapatan }}', nama: '{{ $jenispendapatan->nama }}' })">
+            <button wire:click="$dispatch('delete-modal', { jualbeli: '{{ $jualbeli->id_jualbeli }}' })">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6 text-red-500">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -28,5 +36,6 @@
                 </svg>
             </button>
         </td>
+
     </tr>
 </div>
