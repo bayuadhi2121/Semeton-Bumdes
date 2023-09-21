@@ -47,4 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
 });
 
+Route::get('/laporan', function() {
+    return view('pages.laporan.index');
+});
+
+
 
