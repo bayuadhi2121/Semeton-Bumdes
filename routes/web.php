@@ -52,4 +52,9 @@ Route::get('/dashboard', function() {
         'usaha' => Person::paginate(5)]);
 });
 
+Route::get('/laporan', function() {
+    return view('pages.laporan.index');
+});
+
+
 
