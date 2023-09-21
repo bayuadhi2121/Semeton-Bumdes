@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Usaha;
 
+use App\Models\Akun;
 use App\Models\Usaha;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Livewire\Attributes\On;
+
+use function Livewire\store;
 
 class AddEditModal extends Component
 {
@@ -43,39 +46,6 @@ class AddEditModal extends Component
 
         $this->closeModal();
         $this->dispatch('page-refresh');
-    }
-
-    public function update()
-    {
-        $this->validate();
-
-        Usaha::where('id_usaha', $this->id_usaha)->update([
-            'nama' => $this->nama,
-            'status' => $this->status,
-            'id_person' => $this->id_person,
-        ]);
-
-        $this->closeModal();
-        $this->dispatch('page-refresh');
-    }
-
-    public function setPerson($id_person, $nama_person)
-    {
-        $this->id_person = $id_person;
-        $this->search = $nama_person;
-    }
-
-    public function createPerson()
-    {
-        $nama = ucwords($this->search);
-        $result = Person::create([
-            'nama' => $nama,
-            'username' => str_replace(" ", "", strtolower($this->search)),
-            'status' => 'Akuntan'
-        ]);
-
-        $this->id_person = $result->id_person;
-        $this->search = $nama;
     }
 
     public function storeAkun(Usaha $usaha)
@@ -125,6 +95,54 @@ class AddEditModal extends Component
         }
     }
 
+    public function update()
+    {
+        $this->validate();
+
+        $usaha = Usaha::find($this->id_usaha);
+        $akun = Akun::where('id_usaha', $this->id_usaha)->get();
+
+        // if ($akun) {
+        //     foreach ($akun as $item) {
+        //         $item->delete();
+        //     }
+        // }    
+        $usaha->update([
+            'nama' => $this->nama,
+            'status' => $this->status,
+            'id_person' => $this->id_person,
+        ]);
+        // dd($akun);
+
+        if ($this->status == 'Barang') {
+        }
+        // $this->storeAkun($usaha);
+        $this->closeModal();
+        $this->dispatch('page-refresh');
+    }
+
+
+    public function setPerson($id_person, $nama_person)
+    {
+        $this->id_person = $id_person;
+        $this->search = $nama_person;
+    }
+
+    public function createPerson()
+    {
+        $nama = ucwords($this->search);
+        $result = Person::create([
+            'nama' => $nama,
+            'username' => str_replace(" ", "", strtolower($this->search)),
+            'status' => 'Akuntan'
+        ]);
+
+        $this->id_person = $result->id_person;
+        $this->search = $nama;
+    }
+
+
+
     #[On('add-modal')]
     public function addModal()
     {
@@ -169,10 +187,10 @@ class AddEditModal extends Component
 
     public function updatedSearch()
     {
-        if($this->person->contains('nama', $this->search)) {
+        if ($this->person->contains('nama', $this->search)) {
             $this->id_person = $this->person->where('nama', $this->search)->first()->id_person;
             $this->resetValidation();
-        } else if($this->search != '') {
+        } else if ($this->search != '') {
             $this->id_person = 'zxcvbnm,./';
         } else {
             $this->reset('id_person');
@@ -182,7 +200,7 @@ class AddEditModal extends Component
 
     public function render()
     {
-        $this->person = Person::where('nama', 'like', '%'.$this->search.'%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->person = Person::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.usaha.add-edit-modal', [
             'pengelola' => $this->person
         ]);

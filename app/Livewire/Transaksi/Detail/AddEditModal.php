@@ -25,7 +25,7 @@ class AddEditModal extends Component
         return [
             'nama' => 'required',
             'harga' => 'required|numeric',
-            'jumlah' => 'required|numeric',
+            'jumlah' => 'required|numeric|',
         ];
     }
     #[On('add-modal')]

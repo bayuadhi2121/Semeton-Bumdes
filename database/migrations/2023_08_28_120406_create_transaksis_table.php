@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('status', 15);
             $table->string('nota')->nullable();
+            $table->boolean('saved')->default(false);
             $table->string('id_usaha', 20)->nullable();
             $table->timestamps();
 

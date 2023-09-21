@@ -48,14 +48,9 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                $total=0;
-                @endphp
+
                 @forelse ($jualbeli as $item)
 
-                @php
-                $total=$total+$item->total
-                @endphp
                 @livewire('transaksi.detail.item', ['number' => $jualbeli->firstItem() + $loop->index, 'jualbeli' =>
                 $item,'status'=>$status],
                 key(null))
@@ -77,7 +72,7 @@
         </table>
     </div>
 
-    <form class="pt-6 w-2/5">
+    <form class="pt-6 w-2/5" wire:click.prevent='action'>
         <div class="flex flex-row items-center justify-items-start pb-2">
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Total Transaksi
@@ -92,10 +87,12 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Dibayarkan
             </label>
-            <input type="number" placeholder="0" id="small-input" wire:model.live='dibayarkan'
+            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan' wire:ignore
                 class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
             <div class="basis-1/5">
-
+                @error('dibayarkan')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
         </div>
@@ -108,9 +105,10 @@
                 class="sisa basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
             <div class="basis-1/5">
-
+                @if (!$transaksi->saved)
                 <button type="button"
                     class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+                @endif
             </div>
 
         </div>
@@ -124,22 +122,6 @@
     @livewire('transaksi.detail.delete-modal')
 
     <script>
-        // Your JavaScript code here
 
-        //perhitungan sisa
-        function calculateSisa() {
-
-            var totalValue = parseFloat(document.querySelector('.total').value) || 0;
-            var dibayarkanValue = parseFloat(document.querySelector('.dibayarkan').value) || 0;
-
-            var sisaValue = totalValue - dibayarkanValue;
-            var formattedSisaValue = sisaValue.toLocaleString();
-            document.querySelector('.sisa').value = sisaValue.toFixed(0);
-        }
-
-        document.querySelector('.dibayarkan').addEventListener('input', calculateSisa);
-
-
-        calculateSisa();
     </script>
 </div>

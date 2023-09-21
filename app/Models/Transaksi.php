@@ -34,4 +34,8 @@ class Transaksi extends Model
     {
         return $this->hasOne(Dagang::class, 'id_transaksi');
     }
+    public function usaha()
+    {
+        return $this->belongsTo(Usaha::class, 'id_usaha');
+    }
 }
