@@ -46,3 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi', Transaksi::class)->name('transaksi');
     Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
 });
+
+
+
