@@ -115,7 +115,7 @@
             </li>
 
             <li>
-                @livewire('navigation.nav')
+                @livewire('navigation.nav', ['title' => 'Transaksi', 'status' => 'Usaha'])
             </li>
 
             <li>
@@ -133,6 +133,11 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Transaksi Lainnya </span>
                 </a>
             </li>
+
+            <li>
+                @livewire('navigation.nav', ['title' => 'Beban', 'status' => 'Beban'])
+            </li>
+
             <li>
                 <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
