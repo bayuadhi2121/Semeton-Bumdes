@@ -28,4 +28,9 @@ class Akun extends Model
     {
         return $this->belongsTo(Usaha::class, 'id_usaha');
     }
+
+    public function jurnalumum()
+    {
+        return $this->hasMany(JurnalUmum::class, 'id_jumum');
+    }
 }
