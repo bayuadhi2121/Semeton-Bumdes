@@ -33,6 +33,8 @@ class TransaksiDetailUsaha extends Component
         if ($transaksi->dagang->status ?? null) {
             $this->status = 'Barang';
             $this->statusDagang = $transaksi->dagang->status;
+        } elseif ($transaksi->status == 'Lainnya') {
+            $this->status = $transaksi->status;
         } else {
             $this->status = 'Jasa';
         }
@@ -214,6 +216,7 @@ class TransaksiDetailUsaha extends Component
     public function render()
     {
         $this->calculateTotal();
+
         return view('livewire.transaksi.detail.usaha', [
             'jualbeli' => JualBeli::where('id_transaksi', $this->id_transaksi)->latest()->paginate(10),
             'transaksi' => Transaksi::where('id_transaksi', $this->id_transaksi)->first()
