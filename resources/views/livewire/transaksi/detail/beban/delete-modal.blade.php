@@ -1,4 +1,5 @@
 <div>
+    {{-- tampilkan modal jika variabel show pada livewire bernilai true --}}
     @if ($show)
         <div
             class="fixed top-0 left-0 right-0 z-50 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-50 flex justify-center items-center">
@@ -10,7 +11,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <h3 class="mb-5 text-lg font-normal text-gray-500">Hapus {{ $nama_akun }}?</h3>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500">Hapus {{ $nama }}?</h3>
                         <button wire:click='destroy' type="button"
                             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                             Lanjut

@@ -4,8 +4,6 @@ namespace App\Livewire\Transaksi;
 
 use Livewire\Component;
 use App\Models\Transaksi;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Url;
 
 class Item extends Component
 {

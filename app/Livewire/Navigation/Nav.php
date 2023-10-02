@@ -16,11 +16,9 @@ class Nav extends Component
 
     #[On('page-refresh', '$refresh')]
 
-    public function mount($title, $status)
+    public function mount()
     {
         $this->id_person = Auth::user()->id_person;
-        $this->title = $title;
-        $this->status = $status;
     }
 
     #[Computed]

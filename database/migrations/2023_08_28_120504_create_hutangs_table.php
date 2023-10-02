@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('id_hutang', 20);
             $table->integer('bayar')->length(50);
             $table->integer('total')->length(50);
+            $table->boolean('is_hutang')->default(true);
             $table->timestamps();
 
             $table->foreign('id_transaksi')->references('id_transaksi')->on('transaksis')->onDelete('cascade');

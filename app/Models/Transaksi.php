@@ -34,4 +34,34 @@ class Transaksi extends Model
     {
         return $this->hasOne(Dagang::class, 'id_transaksi');
     }
+
+    public function jualbeli()
+    {
+        return $this->hasMany(JualBeli::class, 'id_transaksi');
+    }
+
+    public function usaha()
+    {
+        return $this->belongsTo(Usaha::class, 'id_usaha');
+    }
+
+    public function akun()
+    {
+        return $this->hasManyThrough(Akun::class, Usaha::class, 'id_usaha', 'id_usaha', 'id_usaha', 'id_usaha');
+    }
+
+    public function beban()
+    {
+        return $this->hasManyThrough(Beban::class, JualBeli::class, 'id_transaksi', 'id_jualbeli', 'id_transaksi', 'id_jualbeli');
+    }
+
+    public function jumum()
+    {
+        return $this->hasMany(JurnalUmum::class, 'id_transaksi');
+    }
+
+    public function hutang()
+    {
+        return $this->hasMany(Hutang::class, 'id_transaksi');
+    }
 }

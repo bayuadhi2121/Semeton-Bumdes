@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('memilikis', function (Blueprint $table) {
+        Schema::create('bebans', function (Blueprint $table) {
+            $table->string('id_jualbeli', 20);
             $table->string('id_jbiaya', 20);
-            $table->string('id_usaha', 20);
             $table->timestamps();
 
             $table->foreign('id_jbiaya')->references('id_jbiaya')->on('jenis_biayas')->onDelete('cascade');
-            $table->foreign('id_usaha')->references('id_usaha')->on('usahas')->onDelete('cascade');
+            $table->foreign('id_jualbeli')->references('id_jualbeli')->on('jual_belis')->onDelete('cascade');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('memilikis');
+        Schema::dropIfExists('bebans');
     }
 };
