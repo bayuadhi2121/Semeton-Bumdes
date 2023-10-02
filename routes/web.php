@@ -53,3 +53,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
     Route::get('/transaksi/{transaksi}', TransaksiDetailLainnya::class)->name('transaksidetaillain');
 });
+
+Route::get('/neraca', function () {
+    return view('pages.neraca.index');
+});
+
+Route::get('/labarugi', function () {
+    return view('pages.labarugi.index');
+});
+
+Route::get('/perubahanmodal', function () {
+    return view('pages.perubahanmodal.index');
+});
