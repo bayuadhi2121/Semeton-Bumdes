@@ -13,13 +13,13 @@ class Akun extends Component
 
     public $search = '';
 
-    #[On('page-refresh', '$refresh')]
+
 
     public function resetSearch()
     {
         $this->reset('search');
     }
-
+    #[On('refresh-data')]
     public function updatingSearch()
     {
         $this->resetPage();

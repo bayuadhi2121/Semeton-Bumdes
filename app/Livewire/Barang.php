@@ -13,13 +13,15 @@ class Barang extends Component
 
     public $search = '';
 
-    #[On('page-refresh', '$refresh')]
+
 
     public function resetSearch()
     {
         $this->reset('search');
     }
 
+
+    #[On('refresh-data')]
     public function updatingSearch()
     {
         $this->resetPage();
@@ -28,7 +30,7 @@ class Barang extends Component
     public function render()
     {
         return view('livewire.barang.index', [
-            'barang' => ModelsBarang::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+            'barang' => ModelsBarang::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 }

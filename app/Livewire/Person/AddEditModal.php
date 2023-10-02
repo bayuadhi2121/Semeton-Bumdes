@@ -34,7 +34,7 @@ class AddEditModal extends Component
         Person::create($validatedData);
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     public function update()
@@ -48,7 +48,7 @@ class AddEditModal extends Component
         ]);
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('add-modal')]

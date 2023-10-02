@@ -42,7 +42,7 @@ class AddEditModal extends Component
     {
         $this->validate();
 
-        if($this->nota != null) {
+        if ($this->nota != null) {
             $this->notaPath = $this->nota->store('nota', 'public');
         }
 
@@ -54,7 +54,7 @@ class AddEditModal extends Component
             'id_usaha' => $this->id_usaha,
         ]);
 
-        if($this->usahaStatus == 'Dagang') {
+        if ($this->usahaStatus == 'Dagang') {
             $transaksi->dagang()->create(['status' => $this->dagangStatus])->save();
         }
 
@@ -66,8 +66,8 @@ class AddEditModal extends Component
     {
         $this->validate();
 
-        if($this->nota) {
-            if($this->notaPath) {
+        if ($this->nota) {
+            if ($this->notaPath) {
                 Storage::disk('public')->delete($this->notaPath);
             }
             $this->notaPath = $this->nota->store('nota', 'public');
@@ -80,7 +80,7 @@ class AddEditModal extends Component
             'nota' => $this->notaPath,
         ]);
 
-        if($this->usahaStatus == 'Dagang') {
+        if ($this->usahaStatus == 'Dagang') {
             $transaksi->dagang()->update(['status' => $this->dagangStatus]);
         }
 
@@ -102,7 +102,7 @@ class AddEditModal extends Component
         $this->keterangan = $transaksi->keterangan;
         $this->notaPath = $transaksi->nota;
 
-        if(isset($transaksi->dagang->status)) {
+        if (isset($transaksi->dagang->status)) {
             $this->usahaStatus = 'Dagang';
             $this->dagangStatus = $transaksi->dagang->status;
         }

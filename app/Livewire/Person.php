@@ -13,8 +13,6 @@ class Person extends Component
 
     public $search = '';
 
-    // refresh halaman jika page-refresh dipanggil
-    #[On('page-refresh', '$refresh')]
 
     // hapus value dari search input
     public function resetSearch()
@@ -23,6 +21,9 @@ class Person extends Component
     }
 
     // reset halaman jika terjadi update data pada search input
+
+
+    #[On('refresh-data')]
     public function updatingSearch()
     {
         $this->resetPage();
@@ -31,7 +32,7 @@ class Person extends Component
     public function render()
     {
         return view('livewire.person.index', [
-            'pengelola' => ModelsPerson::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+            'pengelola' => ModelsPerson::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 }

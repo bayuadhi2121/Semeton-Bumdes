@@ -13,13 +13,14 @@ class JenisPendapatan extends Component
 
     public $search = '';
 
-    #[On('page-refresh', '$refresh')]
 
     public function resetSearch()
     {
         $this->reset('search');
     }
 
+
+    #[On('refresh-data')]
     public function updatingSearch()
     {
         $this->resetPage();
@@ -28,7 +29,7 @@ class JenisPendapatan extends Component
     public function render()
     {
         return view('livewire.jenis-pendapatan.index', [
-            'jenispendapatan' => ModelsJenisPendapatan::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+            'jenispendapatan' => ModelsJenisPendapatan::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 }
