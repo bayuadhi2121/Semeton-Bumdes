@@ -14,9 +14,22 @@ class Item extends Component
     {
         $this->number = $number;
         $this->transaksi = $transaksi;
-        $this->link = 'detail'.strtolower($transaksi->status);
     }
 
+    #[On('show')]
+    public function  showDetail($transaksi)
+    {
+        $status = Transaksi::find($transaksi);
+        if ($status->status == 'Lainnya') {
+            $this->redirect(route('transaksidetaillain', [
+                'transaksi' => $transaksi
+            ]));
+        } else {
+            $this->redirect(route('transaksidetail', [
+                'transaksi' => $transaksi
+            ]));
+        }
+    }
     public function render()
     {
         return view('livewire.transaksi.item');

@@ -40,6 +40,6 @@ class Usaha extends Model
 
     public function akun()
     {
-        return $this->hasMany(Akun::class, 'id_akun');
+        return $this->hasMany(Akun::class, 'id_usaha');
     }
 }

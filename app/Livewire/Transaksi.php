@@ -36,7 +36,7 @@ class Transaksi extends Component
 
                 case 'Beban':
                     $usaha = Usaha::where('id_usaha', $this->usaha)->get(['nama'])->first();
-                    $this->nama = 'Beban '.$usaha->nama;
+                    $this->nama = 'Beban ' . $usaha->nama;
                     $this->mode = $this->status;
                     break;
 
@@ -64,12 +64,12 @@ class Transaksi extends Component
     {
         $transaksi = ModelsTransaksi::where('id_usaha', $this->usaha)->where('status', $this->status);
 
-        if($this->search != '') {
-            $transaksi = $transaksi->where('keterangan', 'like', '%'. $this->search.'%');
+        if ($this->search != '') {
+            $transaksi = $transaksi->where('keterangan', 'like', '%' . $this->search . '%');
         }
 
         return view('livewire.transaksi.index', [
-            'transaksi' => $transaksi->paginate(10)
+            'transaksi' => $transaksi->latest()->paginate(10)
         ]);
     }
 }

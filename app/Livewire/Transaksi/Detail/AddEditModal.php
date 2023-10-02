@@ -16,7 +16,7 @@ use function Livewire\store;
 
 class AddEditModal extends Component
 {
-    public $status, $id_transaksi, $id_jpendapatan, $id_barang;
+    public $status, $id_transaksi, $id_jpendapatan, $id_barang, $id_jualbeli;
     public $show, $showList, $title, $mode, $search = '';
     public $harga, $jumlah, $nama;
     public Collection $dropdown;
@@ -25,7 +25,7 @@ class AddEditModal extends Component
         return [
             'nama' => 'required',
             'harga' => 'required|numeric',
-            'jumlah' => 'required|numeric',
+            'jumlah' => 'required|numeric|',
         ];
     }
     #[On('add-modal')]
@@ -67,9 +67,11 @@ class AddEditModal extends Component
             'total' => $this->harga * $this->jumlah
         ]);
         if ($this->status == 'Jasa') {
+
             Jbjasa::create([
+                'id_jualbeli' => $jb->id_jualbeli,
                 'id_jpendapatan' => $this->id_jpendapatan,
-                'id_jualbeli' => $jb->id_jualbeli
+
             ]);
         } else {
             Jbdagang::create([
@@ -81,7 +83,44 @@ class AddEditModal extends Component
         $this->closeModal();
         $this->dispatch('refresh-data');
     }
-
+    public function update()
+    {
+        $this->validate();
+        $jb = JualBeli::where('id_jualbeli', $this->id_jualbeli)->first();
+        $jb->update([
+            'harga' => $this->harga,
+            'kuantitas' => $this->jumlah,
+            'total' => $this->harga * $this->jumlah
+        ]);
+        if ($this->status == 'Jasa') {
+            Jbjasa::where('id_jualbeli', $jb->id_jualbeli)->update([
+                'id_jpendapatan' => $this->id_jpendapatan
+            ]);
+        } else {
+            Jbdagang::where('id_jualbeli', $jb->id_jualbeli)->update([
+                'id_barang' => $this->id_barang
+            ]);
+        }
+        $this->closeModal();
+        $this->dispatch('refresh-data');
+    }
+    #[On('edit-modal')]
+    public function editModal(JualBeli $jualbeli, $status)
+    {
+        if ($status == 'Jasa') {
+            $this->search = $jualbeli->jbjasa->jenispendapatan->nama;
+            $this->id_jpendapatan = $jualbeli->jbjasa->id_jpendapatan;
+        } else {
+            $this->search = $jualbeli->jbdagang->barang->nama;
+            $this->id_barang = $jualbeli->jbdagang->id_barang;
+        }
+        $this->nama = $this->search;
+        $this->id_transaksi = $jualbeli->id_transaksi;
+        $this->id_jualbeli = $jualbeli->id_jualbeli;
+        $this->harga = $jualbeli->harga;
+        $this->jumlah = $jualbeli->kuantitas;
+        $this->openModal('update', 'Edit');
+    }
     private function openModal($mode, $title)
     {
         $this->show = true;

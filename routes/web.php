@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Livewire\Transaksi\Detail\TransaksiDetailBeban;
 use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
+use App\Livewire\Transaksi\Detaillainnya\TransaksiDetailLainnya;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/cek1', function () {
     return view('pages.detaildagang.index');
 });
@@ -48,4 +50,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi/{transaksi}/Usaha', TransaksiDetailUsaha::class)->name('detailusaha');
     Route::get('/transaksi/{transaksi}/Lainnya', TransaksiDetailUsaha::class)->name('detaillainnya');
     Route::get('/transaksi/{transaksi}/Beban', TransaksiDetailBeban::class)->name('detailbeban');
+    Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
+    Route::get('/transaksi/{transaksi}', TransaksiDetailLainnya::class)->name('transaksidetaillain');
+});
+
+Route::get('/neraca', function () {
+    return view('pages.neraca.index');
+});
+
+Route::get('/labarugi', function () {
+    return view('pages.labarugi.index');
+});
+
+Route::get('/perubahanmodal', function () {
+    return view('pages.perubahanmodal.index');
 });

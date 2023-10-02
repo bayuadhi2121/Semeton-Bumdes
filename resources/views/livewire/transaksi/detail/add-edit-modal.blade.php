@@ -16,15 +16,14 @@
                         <span class="sr-only">Close modal</span>
                     </button>
 
-                    <div class="px-6 py-6 lg:px-8">
-                        <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi</h3>
-                        <form class="space-y-6" action="#" method="POST" wire:submit.prevent="store">
-                            <div class="relative">
-                                <input type="text" id="nama" wire:click="showPerson" wire:model.live='search'
-                                    wire:model.live='nama' wire:click.outside="closePerson" id="pengelola"
-                                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
-                                    placeholder=" " />
-
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900">Detail Transaksi</h3>
+                    <form class="space-y-6" action="#" method="POST" wire:submit.prevent="{{ $mode }}">
+                        <div class="relative">
+                            <input type="text" id="nama" wire:click="showPerson" wire:model.live='search'
+                                wire:model.live='nama' wire:click.outside="closePerson" id="pengelola"
+                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-cyan-600 peer"
+                                placeholder=" " />
 
                                 @if ($dropdown->contains('nama', $search))
                                     <div
