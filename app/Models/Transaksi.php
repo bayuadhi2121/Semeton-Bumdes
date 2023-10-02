@@ -55,13 +55,13 @@ class Transaksi extends Model
         return $this->hasManyThrough(Beban::class, JualBeli::class, 'id_transaksi', 'id_jualbeli', 'id_transaksi', 'id_jualbeli');
     }
 
-    public function jumum()
-    {
-        return $this->hasMany(JurnalUmum::class, 'id_transaksi');
-    }
-
     public function hutang()
     {
         return $this->hasMany(Hutang::class, 'id_transaksi');
+    }
+
+    public function jurnalumum()
+    {
+        return $this->hasMany(JurnalUmum::class, 'id_transaksi');
     }
 }

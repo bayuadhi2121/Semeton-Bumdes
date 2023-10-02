@@ -24,7 +24,8 @@ class JurnalUmum extends Model
         });
     }
 
-    public function akun() {
+    public function akun()
+    {
         return $this->belongsTo(Akun::class, 'id_akun');
     }
 }

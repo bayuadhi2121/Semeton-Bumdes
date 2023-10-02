@@ -89,7 +89,7 @@ class TransaksiDetailBeban extends Component
         }
 
         // store data ke jurnal umum
-        $this->transaksi->jumum()->CreateMany($jumum);
+        $this->transaksi->jurnalumum()->CreateMany($jumum);
     }
 
     #[On('refresh-data')]
