@@ -32,7 +32,7 @@ class ResetDeleteModal extends Component
         Person::where('id_person', $this->id_person)->delete();
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('reset-modal')]

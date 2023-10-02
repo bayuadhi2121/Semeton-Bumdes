@@ -8,6 +8,7 @@ use App\Livewire\Transaksi;
 use App\Livewire\JenisPendapatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Livewire\Hutang;
 use App\Livewire\Transaksi\Detail\TransaksiDetailBeban;
 use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
 use App\Livewire\Transaksi\Detaillainnya\TransaksiDetailLainnya;
@@ -47,11 +48,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
     Route::get('/akun', Akun::class)->name('akun');
     Route::get('/transaksi', Transaksi::class)->name('transaksi');
+    Route::get('/hutang', Hutang::class)->name('hutang');
     Route::get('/transaksi/{transaksi}/Usaha', TransaksiDetailUsaha::class)->name('detailusaha');
-    Route::get('/transaksi/{transaksi}/Lainnya', TransaksiDetailUsaha::class)->name('detaillainnya');
+    Route::get('/transaksi/{transaksi}/Lainnya', TransaksiDetailLainnya::class)->name('detaillainnya');
     Route::get('/transaksi/{transaksi}/Beban', TransaksiDetailBeban::class)->name('detailbeban');
-    Route::get('/transaksi/{transaksi}', TransaksiDetailUsaha::class)->name('transaksidetail');
-    Route::get('/transaksi/{transaksi}', TransaksiDetailLainnya::class)->name('transaksidetaillain');
 });
 
 Route::get('/neraca', function () {

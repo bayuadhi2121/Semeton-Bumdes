@@ -106,12 +106,6 @@ class AddEditModal extends Component
 
         $usaha = Usaha::find($this->id_usaha);
         $akun = Akun::where('id_usaha', $this->id_usaha)->get();
-
-        // if ($akun) {
-        //     foreach ($akun as $item) {
-        //         $item->delete();
-        //     }
-        // }    
         $usaha->update([
             'nama' => $this->nama,
             'status' => $this->status,

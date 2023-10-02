@@ -14,18 +14,15 @@ class Nav extends Component
 
     public $title, $status;
 
+
     #[On('page-refresh', '$refresh')]
 
     public function mount()
     {
+        // dd($status);
         $this->id_person = Auth::user()->id_person;
     }
 
-    #[Computed]
-    public function usaha()
-    {
-        return Usaha::where('id_person', $this->id_person)->select('id_usaha', 'nama')->get();
-    }
 
     public function showTransaksi($usaha)
     {
@@ -37,6 +34,8 @@ class Nav extends Component
 
     public function render()
     {
-        return view('livewire.navigation.nav');
+        return view('livewire.navigation.nav', [
+            'usaha' => Usaha::where('id_person', $this->id_person)->select('id_usaha', 'nama')->get()
+        ]);
     }
 }

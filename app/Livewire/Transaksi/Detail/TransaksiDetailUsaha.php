@@ -4,6 +4,7 @@ namespace App\Livewire\Transaksi\Detail;
 
 use App\Models\Akun;
 use App\Models\Barang;
+use App\Models\Hutang;
 use App\Models\JualBeli;
 use App\Models\JurnalUmum;
 use App\Models\Transaksi;
@@ -127,16 +128,30 @@ class TransaksiDetailUsaha extends Component
                 }
             }
             try {
-
                 JurnalUmum::create($record);
             } catch (Exception $e) {
             }
         }
 
         $this->cekBarang();
+        $this->hutang($this->total, $this->dibayarkan, $transaksi);
         $transaksi->update([
             'saved' => true
         ]);
+    }
+    public function hutang(string $total, string $dibayar, Transaksi $transaksi)
+    {
+        $is_hutang = true;
+        if ($dibayar != $total) {
+            if ($transaksi->status == 'Dagang' && $transaksi->dagang->status == 'Beli' || $transaksi->status == 'Usaha') {
+                $is_hutang = false;
+            }
+            Hutang::create([
+                'id_transaksi' => $transaksi->id_transaksi,
+                'is_hutang' => $is_hutang,
+                'total' => $total - $dibayar
+            ]);
+        }
     }
     public function cekBarang()
     {
@@ -198,6 +213,8 @@ class TransaksiDetailUsaha extends Component
             } catch (Exception $e) {
             }
         }
+
+        $this->hutang($this->total, $this->dibayarkan, $transaksi);
         $transaksi->update([
             'saved' => true
         ]);

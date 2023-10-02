@@ -21,7 +21,7 @@ class DeleteModal extends Component
         JenisPendapatan::where('id_jpendapatan', $this->id_jenis_pendapatan)->delete();
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('delete-modal')]

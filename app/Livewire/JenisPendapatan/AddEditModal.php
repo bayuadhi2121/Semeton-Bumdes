@@ -38,7 +38,7 @@ class AddEditModal extends Component
         ]);
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     public function update()
@@ -51,7 +51,7 @@ class AddEditModal extends Component
         ]);
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     public function setUsaha($id_usaha, $nama_usaha)
@@ -103,10 +103,10 @@ class AddEditModal extends Component
 
     public function updatedSearch()
     {
-        if($this->usaha->contains('nama', $this->search)) {
+        if ($this->usaha->contains('nama', $this->search)) {
             $this->id_usaha = $this->usaha->where('nama', $this->search)->first()->id_usaha;
             $this->resetValidation();
-        } else if($this->search != '') {
+        } else if ($this->search != '') {
             $this->id_usaha = 'zxcvbnm,./';
         } else {
             $this->reset('id_usaha');
@@ -116,7 +116,7 @@ class AddEditModal extends Component
 
     public function render()
     {
-        $this->usaha = Usaha::where('nama', 'like', '%'.$this->search.'%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->usaha = Usaha::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.jenis-pendapatan.add-edit-modal', [
             'usaha' => $this->usaha
         ]);

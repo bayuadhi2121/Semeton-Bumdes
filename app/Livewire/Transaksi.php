@@ -54,6 +54,7 @@ class Transaksi extends Component
         $this->reset('search');
     }
 
+
     #[On('refresh-data')]
     public function updatingSearch()
     {

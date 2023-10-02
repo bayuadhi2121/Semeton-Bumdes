@@ -21,7 +21,7 @@ class DeleteModal extends Component
         Barang::where('id_barang', $this->id_barang)->delete();
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('delete-modal')]

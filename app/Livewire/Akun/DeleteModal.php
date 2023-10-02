@@ -3,6 +3,7 @@
 namespace App\Livewire\Akun;
 
 use App\Models\Akun;
+use Exception;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
@@ -18,10 +19,14 @@ class DeleteModal extends Component
 
     public function destroy()
     {
-        Akun::where('id_akun', $this->id_akun)->delete();
+        try {
+            Akun::where('id_akun', $this->id_akun)->delete();
+        } catch (Exception $e) {
+        }
+
 
         $this->closeModal();
-        $this->dispatch('page-refresh');
+        $this->dispatch('refresh-data');
     }
 
     #[On('delete-modal')]

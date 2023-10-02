@@ -12,7 +12,8 @@ use Livewire\Attributes\On;
 class AddEditModal extends Component
 {
     public $show, $showList, $title, $mode, $search = '';
-    public $id_akun, $debit, $kredit, $transaksi, $id_jumum;
+    public $id_akun = [], $debit = [''], $kredit = [], $transaksi, $id_jumum;
+    // public $inputs = [''];
     public Collection $person;
 
     public function rules()
@@ -64,19 +65,7 @@ class AddEditModal extends Component
     {
         $this->openModal('store', 'Tambah');
     }
-    public function store()
-    {
-        $this->validate();
-        JurnalUmum::create([
-            'id_transaksi' => $this->transaksi,
-            'id_akun' => $this->id_akun,
-            'debit' => $this->debit,
-            'kredit' => $this->kredit,
-        ]);
 
-        $this->closeModal();
-        $this->dispatch('refresh-data');
-    }
     #[On('edit-modal')]
     public function editModal(JurnalUmum $jurnalumum)
     {
@@ -90,7 +79,7 @@ class AddEditModal extends Component
 
     public function setPerson($id_akun, $nama_person)
     {
-        $this->id_akun = $id_akun;
+        $this->id_akun[] = $id_akun;
         $this->search = $nama_person;
     }
 
@@ -109,6 +98,7 @@ class AddEditModal extends Component
         $this->resetValidation();
     }
 
+
     public function update()
     {
         $this->validate();
@@ -120,6 +110,26 @@ class AddEditModal extends Component
             'debit' => $this->debit,
             'kredit' => $this->kredit,
         ]);
+
+        $this->closeModal();
+        $this->dispatch('refresh-data');
+    }
+    public function addRow()
+    {
+        $this->debit[] = '';
+    }
+    public function removeRow($index)
+    {
+        unset($this->debit[$index]);
+        $this->debit = array_values($this->debit);
+    }
+    public function store()
+    {
+        // $jumum = JurnalUmum::create();
+        dd($this->debit);
+        foreach ($this->debit as $input) {
+        }
+
         $this->closeModal();
         $this->dispatch('refresh-data');
     }

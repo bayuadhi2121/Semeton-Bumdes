@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('hutangs', function (Blueprint $table) {
             $table->string('id_transaksi', 20);
-            $table->string('id_hutang', 20);
-            $table->integer('bayar')->length(50);
+            $table->string('id_hutang', 20)->primary();
+            $table->integer('bayar')->length(50)->default(0);
             $table->integer('total')->length(50);
             $table->boolean('is_hutang')->default(true);
             $table->timestamps();

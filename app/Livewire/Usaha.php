@@ -29,7 +29,7 @@ class Usaha extends Component
     public function render()
     {
         return view('livewire.usaha.index', [
-            'usaha' => ModelsUsaha::where('nama', 'like', '%'.$this->search.'%')->paginate(10)
+            'usaha' => ModelsUsaha::where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 }
