@@ -38,4 +38,14 @@ class JualBeli extends Model
     {
         return $this->hasOne(Jbjasa::class, 'id_jualbeli');
     }
+
+    public function beban()
+    {
+        return $this->hasOne(Beban::class, 'id_jualbeli');
+    }
+
+    public function jbiaya()
+    {
+        return $this->hasOneThrough(JenisBiaya::class, Beban::class, 'id_jualbeli', 'id_jbiaya', 'id_jualbeli', 'id_jbiaya');
+    }
 }

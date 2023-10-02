@@ -64,6 +64,11 @@ class AddEditModal extends Component
 
                 [
                     'id_usaha' => $usaha->id_usaha,
+                    'nama' => 'Hutang ' . $usaha->nama
+                ],
+
+                [
+                    'id_usaha' => $usaha->id_usaha,
                     'nama' => 'Piutang ' . $usaha->nama
                 ],
             ]);
