@@ -12,6 +12,8 @@ use App\Livewire\Hutang;
 use App\Livewire\Transaksi\Detail\TransaksiDetailBeban;
 use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
 use App\Livewire\Transaksi\Detaillainnya\TransaksiDetailLainnya;
+use App\Livewire\JurnalUmum;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi/{transaksi}/Usaha', TransaksiDetailUsaha::class)->name('detailusaha');
     Route::get('/transaksi/{transaksi}/Lainnya', TransaksiDetailLainnya::class)->name('detaillainnya');
     Route::get('/transaksi/{transaksi}/Beban', TransaksiDetailBeban::class)->name('detailbeban');
+    Route::get('/jurnalumum', JurnalUmum::class)->name('jurnal');
 });
 
 Route::get('/neraca', function () {
