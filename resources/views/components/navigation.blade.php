@@ -84,7 +84,9 @@
                         <a href="{{ route('barang') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Barang</a>
                     </li>
                     <li>
-                        <a href="{{ route('jenispendapatan') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">JenisPendapatan</a>
+                        <a href="{{ route('jenispendapatan') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jenis
+                            Pendapatan</a>
                     </li>
                     <li>
                         <a href="{{ route('akun') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Akun</a>

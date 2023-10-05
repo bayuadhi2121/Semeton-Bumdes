@@ -10,7 +10,7 @@
             {{ $transaksi->keterangan ?? '-' }}
         </td>
         <td class="px-6 py-4">
-            total
+            {{ $transaksi->jualbeli->sum('total') }}
         </td>
         <td class="px-6 py-4">
             @if ($transaksi->nota)
