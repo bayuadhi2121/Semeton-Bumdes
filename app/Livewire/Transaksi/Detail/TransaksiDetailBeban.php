@@ -90,6 +90,11 @@ class TransaksiDetailBeban extends Component
 
         // store data ke jurnal umum
         $this->transaksi->jurnalumum()->CreateMany($jumum);
+
+        // tandai transaksi sudah disimpan
+        $this->transaksi->update([
+            'saved' => true
+        ]);
     }
 
     #[On('refresh-data')]
