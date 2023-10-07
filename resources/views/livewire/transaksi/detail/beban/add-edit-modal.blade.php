@@ -56,25 +56,30 @@
                                     @if ($showList)
                                         <div class="absolute w-full bottom-16">
                                             <div class="bg-white p-2 border-2 shadow-lg rounded-lg mt-2">
-                                                @foreach ($jbiaya as $item)
+                                                @forelse ($jbiaya as $item)
                                                     <div wire:click="setBeban('{{ $item->id_jbiaya }}', '{{ $item->nama }}')"
                                                         class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
                                                         {{ $item->nama }}
                                                     </div>
-                                                @endforeach
+                                                @empty
+                                                    @if (!$jbiaya->contains('nama', $nama) && $nama != '')
+                                                        <div wire:click="createBeban"
+                                                            class="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="2"
+                                                                stroke="currentColor" class="text-gray-600 w-4 h-4">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                            <span>{{ $nama }}</span>
+                                                        </div>
+                                                    @else
+                                                        <div class="flex items-center space-x-2 py-2 px-3 rounded-lg">
+                                                            <span>Tidak ada data</span>
+                                                        </div>
+                                                    @endif
+                                                @endforelse
 
-                                                @if (sizeOf($jbiaya) == 0 || (!$jbiaya->contains('nama', $nama) && $nama != ''))
-                                                    <div wire:click="createBeban"
-                                                        class="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                                            class="text-gray-600 w-4 h-4">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                        </svg>
-                                                        <span>{{ $nama }}</span>
-                                                    </div>
-                                                @endif
                                             </div>
                                         </div>
                                     @endif

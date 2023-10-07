@@ -92,8 +92,11 @@
                 disabled>
 
             <div class="basis-1/5">
-                <button wire:click.prevent='saveTransaksi' type="submit"
-                    class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+                @if (!$transaksi->saved)
+                    <button wire:click.prevent='saveTransaksi' type="submit"
+                        class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+                @endif
+
             </div>
 
         </div>
