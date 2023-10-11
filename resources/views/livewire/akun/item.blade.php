@@ -19,8 +19,7 @@
                 </svg>
             </button>
 
-            <button
-                wire:click="$dispatch('delete-modal', { akun: '{{ $akun->id_akun }}', nama: '{{ $akun->nama }}' })">
+            <button wire:click="$dispatch('delete-modal', { akun: '{{ $akun->id_akun }}', nama: '{{ $akun->nama }}' })">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6 text-red-500">
                     <path stroke-linecap="round" stroke-linejoin="round"

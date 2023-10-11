@@ -57,7 +57,7 @@ class Transaksi extends Model
 
     public function hutang()
     {
-        return $this->hasMany(Hutang::class, 'id_transaksi');
+        return $this->hasOne(Hutang::class, 'id_transaksi');
     }
 
     public function jurnalumum()
