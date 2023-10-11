@@ -109,6 +109,32 @@ class TransaksiDetailLainnya extends Component
     {
         $this->validate();
 
+        $hutang = [];
+        foreach ($this->jumum as $item) {
+            $result = Akun::where('id_akun', $item['id_akun'])->first();
+            $akun = explode(" ", $result->nama);
+
+            if($akun[0] == "Piutang") {
+                $hutang[] = [
+                    'bayar' => 0,
+                    'total' => $item['kredit'] + $item['debit'],
+                    'is_hutang' => false
+                ];
+            }
+
+            if($akun[0] == "Hutang") {
+                $hutang[] = [
+                    'bayar' => 0,
+                    'total' => $item['kredit'] + $item['debit'],
+                    'is_hutang' => true
+                ];
+            }
+        }
+
+        if(sizeof($hutang) > 0) {
+            $this->transaksi->hutang()->createMany($hutang);
+        }
+
         $this->transaksi->jurnalumum()->createMany($this->jumum);
 
         $this->transaksi->update([
@@ -118,13 +144,13 @@ class TransaksiDetailLainnya extends Component
 
     public function render()
     {
-        $this->akun = Akun::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(3)->orderBy('nama')->get();
+        $this->akun = Akun::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->orderBy('nama')->get();
         $this->totalDebit = array_sum(array_column($this->jumum, 'debit'));
         $this->totalKredit =  array_sum(array_column($this->jumum, 'kredit'));
         $balance = ($this->totalDebit == $this->totalKredit && $this->totalDebit != 0 && $this->totalKredit != 0);
 
         return view('livewire.transaksi.detail.lainnya.index', [
-            'akun' => $this->akun,
+            'akuns' => Akun::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(3)->orderBy('nama')->get(),
             'balance' => $balance
         ]);
     }
