@@ -8,6 +8,17 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
                 placeholder="Cari Hutang..." required>
         </div>
+        
+        <div class="inline-flex rounded-md shadow-sm" role="group">
+            <button type="button" id="button1 " class="rounded-l-lg px-4 py-2 text-sm font-medium text-white bg-cyan-900 border border-gray-200  hover:bg-cyan-900">
+            Hutang
+            </button>
+          
+            <button type="button" class="rounded-r-md px-4 py-2 text-sm font-medium text-white bg-cyan-400 border border-gray-200  hover:bg-cyan-900">
+            Piutang
+            </button>
+        </div>
+  
     </div>
 
 
