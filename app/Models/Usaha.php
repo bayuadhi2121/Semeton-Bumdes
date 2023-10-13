@@ -4,7 +4,8 @@ namespace App\Models;
 
 use App\Models\Akun;
 use App\Models\Person;
-
+use App\Models\JualBeli;
+use App\Models\Transaksi;
 use App\Models\JenisPendapatan;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -41,5 +42,15 @@ class Usaha extends Model
     public function akun()
     {
         return $this->hasMany(Akun::class, 'id_usaha');
+    }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_usaha');
+    }
+
+    public function totaljualbeli()
+    {
+        return $this->hasManyThrough(JualBeli::class, Transaksi::class, 'id_usaha', 'id_transaksi', 'id_usaha', 'id_transaksi')->where('transaksis.saved', true);
     }
 }

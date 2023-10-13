@@ -10,13 +10,13 @@
                 placeholder="Cari Jenis Pendapatan..." required>
 
             @if ($search != '')
-                <button wire:click="resetSearch()"
-                    class="text-gray-500 absolute right-2 bottom-4 font-medium rounded-lg text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+            <button wire:click="resetSearch()"
+                class="text-gray-500 absolute right-2 bottom-4 font-medium rounded-lg text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
             @endif
         </div>
     </div>
@@ -42,11 +42,11 @@
             </thead>
             <tbody>
                 @forelse ($akun as $item)
-                    @livewire('Akun.item', ['number' => $akun->firstItem() + $loop->index, 'akun' => $item], key(null))
+                @livewire('Akun.item', ['number' => $akun->firstItem() + $loop->index, 'akun' => $item], key(null))
                 @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>

@@ -5,14 +5,19 @@ use App\Livewire\Usaha;
 use App\Livewire\Barang;
 use App\Livewire\Hutang;
 use App\Livewire\Person;
+use App\Livewire\Dashboard;
 use App\Livewire\Transaksi;
 use App\Livewire\JenisPendapatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Livewire\Laporan;
 use App\Livewire\Transaksi\Detail\TransaksiDetailBeban;
 use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
 use App\Livewire\Transaksi\Detail\TransaksiDetailLainnya;
 use App\Livewire\JurnalUmum;
+use App\Livewire\Laporan\LaporanLaba;
+use App\Livewire\Laporan\LaporanModal;
+use App\Livewire\Laporan\LaporanNeraca;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +30,8 @@ use App\Livewire\JurnalUmum;
 |
 */
 
-Route::get('/cek1', function () {
-    return view('pages.detaildagang.index');
+Route::get('/neraca', function () {
+    return view('pages.neraca.index');
 });
 Route::get('/cek2', function () {
     return view('pages.detailjasa.index');
@@ -43,13 +48,18 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('authentic
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
+    // Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/pengelola', Person::class)->name('pengelola');
     Route::get('/usaha', Usaha::class)->name('usaha');
     Route::get('/barang', Barang::class)->name('barang');
     Route::get('/jenispendapatan', JenisPendapatan::class)->name('jenispendapatan');
     Route::get('/akun', Akun::class)->name('akun');
     Route::get('/transaksi', Transaksi::class)->name('transaksi');
+    Route::get('/laporan', Laporan::class)->name('laporan');
     Route::get('/hutang', Hutang::class)->name('hutang');
+    Route::get('/laporan/neraca', LaporanNeraca::class)->name('neraca');
+    Route::get('/laporan/modal', LaporanModal::class)->name('modal');
+    Route::get('/laporan/laba/{jenis}', LaporanLaba::class)->name('laba');
     Route::get('/transaksi/{transaksi}/Usaha', TransaksiDetailUsaha::class)->name('detailusaha');
     Route::get('/transaksi/{transaksi}/Lainnya', TransaksiDetailLainnya::class)->name('detaillainnya');
     Route::get('/transaksi/{transaksi}/Beban', TransaksiDetailBeban::class)->name('detailbeban');
