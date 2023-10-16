@@ -4,243 +4,333 @@
     <div class="p-6">
         <div class=""></div>
         <h2 class="text-center text-2xl font-medium pb-4">LAPORAN LABA RUGI <br>BUMDES PUTRI NYALE KUTA</h2>
-        <table class="min-w-full border text-sm table-auto border-neutral-500">
+        <table class="min-w-full border text-sm table-auto border-neutral-400 ml-1">
             <tbody>
-                {{-- Judul --}}
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500 bg-cyan-400">
-                    URAIAN
-                    </td>
+
+                {{-- PENDAPATAN JASA--}}
+                <tr class="border-b border-neutral-400">
+                    <td colspan="4" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">A. Pendapatan Jasa</td>
+                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
                 </tr>
-                {{-- HEADER --}}
-                <tr class="border-b border-neutral-500 bg-cyan-200">
-                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-500">
-                    No
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 py-2 font-medium border-neutral-500">
-                    4. PENDAPATAN
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 py-2 font-medium border-neutral-500">
-                    Rp.
-                    </td>
+
+                {{-- ANAK PENDAPATAN JASA --}}
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pendapatan Homestay</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp3.000.000 </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                 </tr>
-                {{-- PENDAPATAN --}}
-                {{-- PENDAPATAN 4.1 --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 font-medium py-2 border-neutral-500">
-                    4.1 
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Pendapatan Operasional
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                    Rp.
-                    </td>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pendapatan Pengelolaan Sampah</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp3.000.000 </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                 </tr>
-                {{-- silakan looping --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 py-2 border-neutral-500">
-                    4.1.1 
-                    </td>
-                    <td class="border-r px-2  py-2 border-neutral-500">
-                        Penjualan Gas
-                    </td>
-                    <td class=" border-r px-2  py-2 border-neutral-500">
-                    Rp.
-                    </td>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pendapatan Fotocopy</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp3.000.000 </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                 </tr>
-                {{-- stop looping --}}
-                {{-- TOTAL PENDPATAN OPERASIONAL --}}
-                <tr class="border-b border-neutral-500 font-medium bg-cyan-200" >
-                    <td colspan="2" class="text-center whitespace-nowrap border-r py-2  border-neutral-500 ">
-                    Total Pendapatan Operasional
+
+
+
+            
+                {{-- TOTAL PENDAPATAN JASA--}}
+                <tr class="border-b border-neutral-400 font-medium" >
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Total Pendapatan Jasa</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp9.000.000 
                     </td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-500">
-                        Rp.
-                        </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp9.000.000 </td>
+                    
                 </tr>
                 {{-- GAP KOSONG --}}
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500">
+                <tr class="border-b border-neutral-400 text-center " >
+                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400"></td>
+                </tr>
+                
+                {{-- ---------------------------------------- --}}
+                
+                {{-- PENDAPATAN LAINNYA--}}
+                <tr class="border-b border-neutral-400">
+                    <td colspan="4" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">B. Pendapatan Lainnya</td>
+                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
+                </tr>
+
+                {{-- ANAK PENDAPATAN LAINNYA --}}
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pendapatan Bank</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp500.000 </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pendapatan Bagi Hasil</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pendapatan Sumbangan</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+
+                {{-- TOTAL PENDAPATAN LAINNYA--}}
+                <tr class="border-b border-neutral-400 font-medium" >
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Total Pendapatan Lainnya</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp9.000.000 </td>
                     
-                    </td>
-                </tr>
-
-                {{-- PENDAPATAN 4.2 --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 font-medium py-2 border-neutral-500">
-                    4.2 
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium  py-2 border-neutral-500">
-                        Pendapatan Non-Operasional
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium  py-2 border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-                {{-- silakan looping --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 py-2 border-neutral-500">
-                    4.2.1 
-                    </td>
-                    <td class="border-r px-2  py-2 border-neutral-500">
-                        Bunga Bank
-                    </td>
-                    <td class=" border-r px-2  py-2 border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-                {{-- stop looping --}}
-
-
-                {{-- TOTAL PENDPATAN NON-OPERASIONAL --}}
-                <tr class="border-b border-neutral-500 font-medium bg-cyan-200" >
-                    <td colspan="2" class="text-center whitespace-nowrap border-r py-2  border-neutral-500 ">Total Pendapatan Non Operasional</td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-500">Rp.</td>
-                </tr>
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500"></td>
-                </tr>
-               
-
-                {{-- TOTAL PENDAPATAN --}}
-                <tr class="border-b border-neutral-500 bg-cyan-300" >
-                    <td colspan="2" class="whitespace-nowrap border-r text-center  py-2 font-bold border-neutral-500 ">
-                    TOTAL PENDAPATAN
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-bold py-2 border-neutral-500">Rp.</td>
-                </tr>
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500">
-                    
-                    </td>
-                </tr>
-
-
-                {{-- HEADER BIAYA --}}
-                <tr class="border-b border-neutral-500 bg-cyan-200">
-                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-500">
-                    No
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 py-2 font-medium border-neutral-500">
-                    5. BIAYA
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 py-2 font-medium border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-                {{-- BIAYA --}}
-                {{-- BIAYA 5.1 --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 font-medium py-2 border-neutral-500">
-                    5.1 
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Biaya Operasional
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-                {{-- silakan looping --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 py-2 border-neutral-500">
-                    5.1.1 
-                    </td>
-                    <td class="border-r px-2  py-2 border-neutral-500">
-                        ATK
-                    </td>
-                    <td class=" border-r px-2  py-2 border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-                {{-- stop looping --}}
-                {{-- TOTAL Biaya OPERASIONAL --}}
-                <tr class="border-b border-neutral-500 font-medium bg-cyan-200" >
-                    <td colspan="2" class="text-center whitespace-nowrap border-r py-2  border-neutral-500 ">
-                    Total Biaya Operasional
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-500">
-                        Rp.
-                        </td>
                 </tr>
                 {{-- GAP KOSONG --}}
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500">
+                <tr class="border-b border-neutral-400 text-center " >
+                    <td colspan="4" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400"></td>
+                </tr>
+
+                {{-- ---------------------------------------- --}}
+                
+                {{-- PENDAPATAN DAGANG--}}
+                <tr class="border-b border-neutral-400">
+                    <td colspan="4" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">C. Pendapatan Dagang</td>
+                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
+                </tr>
+
+                {{-- ANAK PENDAPATAN Dagang --}}
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400 font-medium">1. Usaha Kain Tenun</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">  </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Penjualan</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp500.000</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Persediaan Barang dagang awal</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pembelian</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Barang Tersedia Terjual</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Persedian Barang Dagang Akhir</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Harga Pokok Penjualan</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+
+                {{-- LABA RUGI--}}
+                <tr class="border-b border-neutral-400 font-medium" >
+                    <td class="whitespace-nowrap border-r pl-6 px-2  py-2 border-neutral-400">Laba/Rugi</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp9.000.000 </td>
                     
-                    </td>
                 </tr>
-                {{-- PENDAPATAN 5.2 --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 font-medium py-2 border-neutral-500">
-                    5.2 
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium  py-2 border-neutral-500">
-                        Biaya Non-Operasional
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium  py-2 border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-
-                {{-- silakan looping --}}
-                <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r pl-1 pr-0 py-2 border-neutral-500">
-                    5.2.1 
-                    </td>
-                    <td class="border-r px-2  py-2 border-neutral-500">
-                        Pajak Bunga Bank
-                    </td>
-                    <td class=" border-r px-2  py-2 border-neutral-500">
-                    Rp.
-                    </td>
-                </tr>
-                {{-- stop looping --}}
-
-
-                {{-- TOTAL Biaya NON-OPERASIONAL --}}
-                <tr class="border-b border-neutral-500 font-medium bg-cyan-200" >
-                    <td colspan="2" class="text-center whitespace-nowrap border-r py-2  border-neutral-500 ">Total Biaya Non Operasional</td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-500">Rp.</td>
-                </tr>
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500"></td>
-                </tr>
-
-
-                {{-- TOTAL BIAYA --}}
-                <tr class="border-b border-neutral-500 bg-cyan-300" >
-                    <td colspan="2" class="whitespace-nowrap border-r text-center  py-2 font-bold border-neutral-500 ">
-                    TOTAL BIAYA
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-bold py-2 border-neutral-500">Rp.</td>
-                </tr>
-                <tr class="border-b border-neutral-500 text-center " >
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-500">
+                <tr class="border-b border-neutral-400 font-medium" >
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total Pendapatan Dagang(1+2)</td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
                     
-                    </td>
                 </tr>
-                {{-- Laba Rugi --}}
-                <tr class="border-b border-neutral-500 bg-cyan-300" >
-                    <td colspan="2" class="whitespace-nowrap border-r text-center  py-2 font-bold border-neutral-500 ">
-                    LABA / RUGI (PENDPATAN-BIAYA)
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-bold py-2 border-neutral-500">Rp.</td>
+                <tr class="border-b border-neutral-400 text-center " >
+                    <td colspan="4" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400"></td>
                 </tr>
+                <tr class="border-b border-neutral-400">
+                    <td colspan="3" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">D. Laba Kotor (A+B+C)</td>
+                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
+                </tr>
+                {{-- GAP KOSONG --}}
+                <tr class="border-b border-neutral-400 text-center " >
+                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400"></td>
+                </tr>
+
+                {{-- BEBAN--}}
+                <tr class="border-b border-neutral-400">
+                    <td colspan="4" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">E. Beban</td>
+                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
+                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
+                </tr>
+
+                {{-- ANAK BEBAN --}}
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400 font-medium">1. Beban Operasional</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">  </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Angkut Penjualan</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp500.000</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Angkut Pembelian</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Gaji</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Barang Perlengkapan</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Listrik</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Sewa</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Operasional dan Penasehat</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Penyusutan Inventaris</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Operasional Lainnya</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+            
+                <tr class="border-b border-neutral-400 font-medium" >
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Total Beban Operasional</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">                     </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp9.000.000 </td>
+                </tr>   
+
+                 {{-- GAP KOSONG --}}
+                 <tr class="border-b border-neutral-400 text-center " >
+                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400"></td>
+                </tr>
+ 
+                {{-- ANAK BEBAN --}}
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400 font-medium">2. Beban Lain-Lain</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Bunga</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp500.000</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Denda</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban Administrasi Bank</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp500.000</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class=" border-b border-neutral-400">
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Beban lain-lainnya</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                </tr>
+                <tr class="border-b border-neutral-400 font-medium" >
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Total Beban Lain-lain</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">                     </td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp9.000.000 </td>
+                </tr>   
+                
+
+                {{-- GAP KOSONG --}}
+                <tr class="border-b border-neutral-400 text-center " >
+                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400"></td>
+                </tr>
+                {{-- TOTAL BEBAN --}}
+                <tr class="border-b border-neutral-400 font-medium bg-cyan-300" >
+                    <td colspan="3" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total Beban (1+2)</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">23123</td>
+                    
+                </tr>
+                <tr class="border-b border-neutral-400 font-medium bg-cyan-300" >
+                    <td colspan="3" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Laba/Rugi Bersih (D+E)</td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">232323</td>
+                    
+                </tr>
+                
+
+
             </tbody>
         </table>
 
         {{-- TANDA TANGAN --}}
-        <div class="flex justify-between mt-4">
+        <div class="flex justify-between mt-4 text-center">
             <div>
-                <p>Diperiksa Oleh</p>
-                <p class="mb-8 pb-8">Ketua Bumdes</p>
-                <p class="mt-8 pt-8">(EMUR)</p>
+                <p>Mengetahui</p>
+                <p class="mb-8 pb-8">Komisaris</p>
+                <p class="mt-8 pt-8">.........................</p>
             </div>
             <div>
-                <p>Dibuat Oleh</p>
+                <p>Mengetahui</p>
+                <p class="mb-8 pb-8">Ketua Bumdes</p>
+                <p class="mt-8 pt-8">.........................</p>
+            </div>
+            <div>
+                <p>Yang Melaporkan</p>
                 <p class="mb-8 pb-8">Bendahara</p>
-                <p class="mt-8 pt-8">(FETRILIA VIOLANDA)</p>
+                <p class="mt-8 pt-8">.........................</p>
             </div>
         </div>
 @endsection

@@ -30,8 +30,8 @@ use App\Livewire\Laporan\LaporanNeraca;
 |
 */
 
-Route::get('/cek1', function () {
-    return view('pages.detaildagang.index');
+Route::get('/neraca', function () {
+    return view('pages.neraca.index');
 });
 Route::get('/cek2', function () {
     return view('pages.detailjasa.index');
@@ -66,14 +66,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/jurnalumum', JurnalUmum::class)->name('jurnal');
 });
 
-Route::get('/neraca', function () {
-    return view('pages.neraca.index');
-});
 
-Route::get('/labarugi', function () {
-    return view('pages.labarugi.index');
-});
-
-Route::get('/perubahanmodal', function () {
-    return view('pages.perubahanmodal.index');
-});

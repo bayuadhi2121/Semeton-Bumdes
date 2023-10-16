@@ -1,7 +1,7 @@
-@extends('layouts.common')
+@extends('layouts.base')
 
-@section('common_content')
-<h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Laporan Keuangan Bumdes</h2>
+@section('content')
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Laporan Keuangan Bumdes</h2>
 
 <h2 class="text-2xl font-medium text-center">Bumdes Kuta</h2>
 <h2 class="text-lg font-medium mb-5 pb-1 text-center">Pertanggungjawaban Keuangan Bumdes</h2>
