@@ -16,7 +16,7 @@ class Laporan extends Component
     }
     public function print()
     {
-        if ($this->laporan == 'jasa') {
+        if ($this->laporan != 'neraca' || $this->laporan != 'modal') {
             $route = 'laba';
             return redirect()->to(route($route, ['jenis' => $this->laporan]));
         }
