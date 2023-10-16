@@ -39,6 +39,5 @@ class LaporanLaba extends Component
         $this->usaha = $query
             ->groupBy('jurnal_umums.id_akun', 'akuns.nama')
             ->get();
-        dd($this->usaha);
     }
 }
