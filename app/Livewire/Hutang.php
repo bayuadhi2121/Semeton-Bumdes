@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Usaha;
 use Livewire\Component;
+use App\Models\Transaksi;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
@@ -33,11 +34,19 @@ class Hutang extends Component
 
         foreach ($result as $usaha) {
             foreach ($usaha->transaksi as $transaksi) {
-                if ($transaksi->hutang != [] && $transaksi->hutang->total != $transaksi->hutang->bayar && $transaksi->is_hutang == $this->is_hutang) {
+                if ($transaksi->hutang != [] && $transaksi->hutang->total != $transaksi->hutang->bayar && $transaksi->hutang->is_hutang == $this->is_hutang) {
                     $hutangs[] = $transaksi->hutang;
                 }
             }
         }
+
+        $result = Transaksi::where('status', 'Lainnya')->where('saved', true)->get();
+        foreach ($result as $transaksi) {
+            if ($transaksi->hutang != [] && $transaksi->hutang->total != $transaksi->hutang->bayar && $transaksi->hutang->is_hutang == $this->is_hutang) {
+                $hutangs[] = $transaksi->hutang;
+            }
+        }
+
         $paginator = collect($hutangs);
 
         return view('livewire.hutang.index', [

@@ -11,7 +11,16 @@ class Dashboard extends Component
 {
     public function render()
     {
-        $hutangpiutang = Hutang::selectRaw('hutangs.is_hutang, sum(hutangs.total-hutangs.bayar) AS total')->groupBy('hutangs.is_hutang')->orderBy('is_hutang')->get()->toArray();
+        $hutang = 0;
+        $piutang = 0;
+        $hutangpiutang = Hutang::selectRaw('hutangs.is_hutang, sum(hutangs.total-hutangs.bayar) AS total')->groupBy('hutangs.is_hutang')->get()->toArray();
+        foreach($hutangpiutang as $item) {
+            if($item['is_hutang']) {
+                $hutang = $item['total'];
+            } else {
+                $piutang = $item['total'];
+            }
+        }
 
         $biaya = Transaksi::selectRaw('usahas.status, sum(jual_belis.total) AS total')
         ->where('saved', true)
@@ -44,8 +53,6 @@ class Dashboard extends Component
         ->orderBy('dagangs.status')
         ->get()->toArray();
 
-        // dd($usahas);
-
         foreach($usahas as $key=>$usaha) {
             if($key % 2 == 1) continue;
             $usahadagang[] = [
@@ -56,8 +63,8 @@ class Dashboard extends Component
 
         return view('livewire.dashboard.index', [
             'usaha' => collect(array_merge($usahajasa, $usahadagang))->sort(),
-            'hutang' => $hutangpiutang[1]['total'] ?? 0,
-            'piutang' => $hutangpiutang[0]['total'] ?? 0,
+            'hutang' => $hutang,
+            'piutang' => $piutang,
             'biaya_jasa' => $biaya[1]['total'] ?? 0,
             'biaya_dagang' => $biaya[0]['total'] ?? 0,
             'biaya_lainnya' => $lainnya[0]['total'] ?? 0
