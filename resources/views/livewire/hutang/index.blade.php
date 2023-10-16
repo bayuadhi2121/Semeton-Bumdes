@@ -1,5 +1,6 @@
 <div>
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Hutang</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Hutang
+        {{ !$is_hutang ? 'Pelanggan' : 'Bumdes' }}</h2>
 
     <div class="mb-4 flex justify-between">
 
@@ -8,17 +9,25 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
                 placeholder="Cari Hutang..." required>
         </div>
-        
+
         <div class="inline-flex rounded-md shadow-sm" role="group">
-            <button type="button" id="button1 " class="rounded-l-lg px-4 py-2 text-sm font-medium text-white bg-cyan-900 border border-gray-200  hover:bg-cyan-900">
-            Hutang
+            <button wire:click='setHutang()' type="button" @class([
+                'rounded-l-md px-4 py-2 text-sm font-medium text-white border border-gray-200 hover:bg-cyan-900',
+                'bg-cyan-400' => $is_hutang,
+                'bg-cyan-900' => !$is_hutang,
+            ])>
+                Hutang Pelanggan
             </button>
-          
-            <button type="button" class="rounded-r-md px-4 py-2 text-sm font-medium text-white bg-cyan-400 border border-gray-200  hover:bg-cyan-900">
-            Piutang
+
+            <button wire:click='setHutang(1)' type="button" @class([
+                'rounded-r-md px-4 py-2 text-sm font-medium text-white border border-gray-200 hover:bg-cyan-900',
+                'bg-cyan-400' => !$is_hutang,
+                'bg-cyan-900' => $is_hutang,
+            ])>
+                Hutang Bumdes
             </button>
         </div>
-  
+
     </div>
 
 
@@ -45,13 +54,12 @@
             </thead>
             <tbody>
                 @forelse ($hutang as $item)
-
-                @livewire('hutang.item', ['number' => $hutang->firstItem() + $loop->index, 'hutang' => $item],key(null))
+                    @livewire('hutang.item', ['number' => $hutang->firstItem() + $loop->index, 'hutang' => $item], key(null))
 
                 @empty
-                <tr>
-                    <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
-                </tr>
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

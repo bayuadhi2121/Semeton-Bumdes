@@ -14,13 +14,12 @@
         </div>
     </div>
 
-
-    <div>
-
-        <button wire:click="$dispatch('add-modal')" type="button"
-            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm mb-6 px-5 py-2.5 mr-2 mb-2">Tambah</button>
-    </div>
-
+    @if (!$hasItem)
+        <div>
+            <button wire:click="$dispatch('add-modal')" type="button"
+                class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm mb-6 px-5 py-2.5 mr-2 mb-2">Tambah</button>
+        </div>
+    @endif
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
