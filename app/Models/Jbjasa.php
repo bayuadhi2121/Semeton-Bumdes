@@ -14,7 +14,7 @@ class Jbjasa extends Model
 
     public function jenispendapatan()
     {
-        return $this->belongsTo(Jenispendapatan::class, 'id_jpendapatan');
+        return $this->belongsTo(JenisPendapatan::class, 'id_jpendapatan');
     }
 
     public function jualbeli()
