@@ -51,7 +51,7 @@ class TransaksiDetailBeban extends Component
         // ambil id akun yang berpengaruh pada transaksi beban di usaha yang berkaitan
         $akun = Akun::where('id_usaha', $this->transaksi->id_usaha)->pluck('id_akun', 'nama')->toArray();
         $idKas = $akun['Kas ' . $this->namaUsaha];
-        $idHutang = $akun['Hutang ' . $this->namaUsaha];
+        $idHutang = $akun['Hutang ' . array_search ($biayas[0]->id_akun, $akun)];
 
         $jumum = [];
 
@@ -100,10 +100,16 @@ class TransaksiDetailBeban extends Component
     #[On('refresh-data')]
     public function render()
     {
+        $hasItem = false;
+        if(count($this->transaksi->jualbeli)) {
+            $hasItem = true;
+        }
+
         $this->updatePembayaran();
 
         return view('livewire.transaksi.detail.beban.index', [
-            'jualbeli' => JualBeli::where('id_transaksi', $this->transaksi->id_transaksi)->get() // ambil semua data jual beli pada transaksi yang ditentukan
+            'jualbeli' => JualBeli::where('id_transaksi', $this->transaksi->id_transaksi)->get(), // ambil semua data jual beli pada transaksi yang ditentukan
+            'hasItem' => $hasItem
         ]);
     }
 }

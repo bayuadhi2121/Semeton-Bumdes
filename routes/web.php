@@ -50,7 +50,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('authentic
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-    // Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/pengelola', Person::class)->name('pengelola');
     Route::get('/usaha', Usaha::class)->name('usaha');
     Route::get('/barang', Barang::class)->name('barang');

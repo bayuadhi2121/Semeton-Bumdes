@@ -116,13 +116,18 @@ class AddEditModal extends Component
             'id_usaha' => $this->id_usaha
         ]);
 
+        // buat akun untuk hutan beban
+        Akun::create([
+            'nama' => 'Hutang Biaya ' . $nama_beban . ' ' . $this->nama_usaha,
+            'id_usaha' => $this->id_usaha
+        ]);
+
         // baru buat jenis biayanya
         $jbiaya = JenisBiaya::create([
             'nama' => $nama_beban,
             'id_usaha' => $this->id_usaha,
             'id_akun' => $akun->id_akun
         ]);
-
 
         // update data buat ditampilin di view form-nya
         $this->id_jbiaya = $jbiaya->id_jbiaya;
