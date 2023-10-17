@@ -79,18 +79,22 @@
                                     @endif
                                 @endif
 
+                                @php
+                                    $indexData = $loop->index;
+                                @endphp
+
                                 @if ($showList[$loop->index])
                                     <div class="absolute w-full z-50">
                                         <div class="bg-white p-2 border-2 shadow-lg rounded-lg mt-2">
                                             @forelse ($akuns as $item)
-                                                <div wire:click="setAkun('{{ $loop->parent->index }}', '{{ $item->id_akun }}', '{{ $item->nama }}')"
+                                                <div wire:click="setAkun('{{ $indexData }}', '{{ $item->id_akun }}', '{{ $item->nama }}')"
                                                     class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
                                                     {{ $item->nama }}
                                                 </div>
 
                                                 @if ($loop->last)
-                                                    @if (!$akun->contains('nama', ucwords($nama[$loop->parent->index])) && $nama[$loop->parent->index] != '')
-                                                        <div wire:click="createAkun('{{ $loop->parent->index }}')"
+                                                    @if (!$akun->contains('nama', ucwords($nama[$indexData])) && $nama[$indexData] != '')
+                                                        <div wire:click="createAkun('{{ $indexData }}')"
                                                             class="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24" stroke-width="2"
@@ -98,13 +102,13 @@
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                             </svg>
-                                                            <span>{{ ucwords($nama[$loop->parent->index]) }}</span>
+                                                            <span>{{ ucwords($nama[$indexData]) }}</span>
                                                         </div>
                                                     @endif
                                                 @endif
                                             @empty
-                                                @if (!$akun->contains('nama', ucwords($nama[$loop->parent->index])) && $nama[$loop->parent->index] != '')
-                                                    <div wire:click="createAkun('{{ $loop->parent->index }}')"
+                                                @if (!$akun->contains('nama', ucwords($nama[$indexData])) && $nama[$indexData] != '')
+                                                    <div wire:click="createAkun('{{ $indexData }}')"
                                                         class="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -112,7 +116,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
-                                                        <span>{{ $nama[$loop->parent->index] }}</span>
+                                                        <span>{{ $nama[$indexData] }}</span>
                                                     </div>
                                                 @else
                                                     <div class="flex items-center space-x-2 py-2 px-3 rounded-lg">

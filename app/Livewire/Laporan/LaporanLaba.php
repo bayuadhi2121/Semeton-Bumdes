@@ -16,7 +16,6 @@ class LaporanLaba extends Component
     {
         $this->jenis = $jenis;
     }
-    #[Layout('layouts.laporan')]
     public function render()
     {
 

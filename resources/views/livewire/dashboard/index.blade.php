@@ -15,7 +15,7 @@
             </div>
             <div>
                 <p class="text-base">Hutang</p>
-                <p class="text-base font-semibold">@currency($hutang ?? 0)</p>
+                <p class="text-base font-semibold">@currency($hutang)</p>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
             </div>
             <div>
                 <p class="text-base">Piutang</p>
-                <p class="text-base font-semibold">@currency($piutang ?? 0)</p>
+                <p class="text-base font-semibold">@currency($piutang)</p>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
             </div>
             <div>
                 <p class="text-base">Biaya Jasa</p>
-                <p class="text-base font-semibold">Rp. 0</p>
+                <p class="text-base font-semibold">@currency($biaya_jasa)</p>
             </div>
         </div>
 
@@ -65,7 +65,7 @@
             </div>
             <div>
                 <p class="text-base">Biaya Dagang</p>
-                <p class="text-base font-semibold">Rp. 0</p>
+                <p class="text-base font-semibold">@currency($biaya_dagang)</p>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
             </div>
             <div>
                 <p class="text-base">Total Lainnya</p>
-                <p class="text-base font-semibold">Rp. 0</p>
+                <p class="text-base font-semibold">@currency($biaya_lainnya)</p>
             </div>
         </div>
     </div>
@@ -91,28 +91,6 @@
             <div>
                 <h2 class="text-xl font-medium mb-5 pb-4 flex flex-inline border-cyan-500">Grafik Kas/Pendapatan</h2>
                 <canvas id="myLineChart" class="mt-4"></canvas>
-
-                <div class="flex mt-4 items-center">
-                    <div class="relative mr-2">
-                        <input type="date" id="floating_outlined"
-                            class="px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " />
-                        <label for="floating_outlined"
-                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-neutral-100 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Awal</label>
-                    </div>
-                    <div class="relative mr-2">
-                        <input type="date" id="floating_outlined"
-                            class="px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " />
-                        <label for="floating_outlined"
-                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-neutral-100 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Akhir</label>
-                    </div>
-                    <div>
-                        <button type="submit"
-                            class="text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Filter</button>
-                    </div>
-
-                </div>
             </div>
 
         </div>
@@ -120,7 +98,7 @@
         {{-- Tabel  --}}
         <div class="basis-1/2 ml-4 bg-neutral-100 rounded-lg p-6">
             <h2 class="text-xl font-medium mb-5 pb-1 flex flex-inline border-cyan-500">Usaha Aktif</h2>
-            <table class="w-full text-sm text-left text-gray-500">
+            <table class="w-full bg-white rounded-lg text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 border-gray-400 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class=" w-1  px-6 py-3">
@@ -137,15 +115,15 @@
                 </thead>
                 <tbody>
                     @forelse ($usaha as $item)
-                        <tr class="bg-white border-b">
+                        <tr class="border-b">
                             <th scope="row" class=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $loop->iteration }}
                             </th>
                             <td class="px-6 py-4 ">
-                                {{ $item->nama }}
+                                {{ $item['nama'] }}
                             </td>
                             <td class="px-6 py-4 ">
-                                @currency($item->total ?? 0)
+                                @currency($item['total'] ?? 0)
                             </td>
                         </tr>
                     @empty
@@ -153,9 +131,6 @@
                             <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
                         </tr>
                     @endforelse
-                    {{-- <tr>
-                    <td colspan="2" class="px-6 py-4 text-gray-800 font-medium text-center">Balance</td>
-                </tr> --}}
                 </tbody>
             </table>
         </div>
@@ -169,7 +144,8 @@
         // Sample data for two lines
         var data = {
             labels: ['January', 'February', 'March', 'April', 'May'],
-            datasets: [{
+            datasets: [
+                {
                     label: 'Line 1',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',

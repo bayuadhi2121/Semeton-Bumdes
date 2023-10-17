@@ -19,7 +19,8 @@ class Laporan extends Component
         if ($this->laporan == 'neraca' || $this->laporan == 'modal') {
             return redirect()->to(route($this->laporan));
         }
-        $route = 'laba';
-        return redirect()->to(route($route, ['jenis' => $this->laporan]));
+        return redirect()->to(route(
+            strtolower($this->laporan)
+        ));
     }
 }
