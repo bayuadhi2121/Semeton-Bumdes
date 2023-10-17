@@ -114,8 +114,6 @@ class TransaksiDetailLainnya extends Component
             $result = Akun::where('id_akun', $item['id_akun'])->first();
             $akun = explode(" ", $result->nama);
 
-            dump($akun);
-
             if($akun[0] == "Piutang") {
                 $hutang[] = [
                     'bayar' => 0,
