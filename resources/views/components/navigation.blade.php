@@ -33,7 +33,8 @@
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                         <ul class="px-2 py-2 text-sm text-gray-700" aria-labelledby="dropdown-user">
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">Profil</a>
+                                <a href="{{ route('profile') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">Profil</a>
                             </li>
                             <li>
                                 <div class="block px-4 py-2 hover:bg-gray-100 hover:rounded-lg">
@@ -61,7 +62,7 @@
 </nav>
 
 <aside id="sidebar-multi-level-sidebar"
-    class="fixed top-0 left-0 z-30 w-64 h-screen pt-16 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+    class="fixed top-0 left-0 z-40 w-64 h-screen pt-16 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto">
         <ul class="space-y-2 font-medium">
