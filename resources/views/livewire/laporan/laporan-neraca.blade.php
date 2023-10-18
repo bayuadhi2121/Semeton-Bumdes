@@ -83,7 +83,8 @@
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Persediaan Barang
                                 Dagang</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $barangdagang->total
+                                ?? 0 }}</td>
                         </tr>
 
 

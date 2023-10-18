@@ -16,7 +16,6 @@ class LaporanLaba extends Component
     {
         $this->jenis = $jenis;
     }
-    #[Layout('layouts.laporan')]
     public function render()
     {
 
@@ -39,6 +38,5 @@ class LaporanLaba extends Component
         $this->usaha = $query
             ->groupBy('jurnal_umums.id_akun', 'akuns.nama')
             ->get();
-        dd($this->usaha);
     }
 }
