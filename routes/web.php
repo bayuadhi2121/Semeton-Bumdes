@@ -5,12 +5,13 @@ use App\Livewire\Usaha;
 use App\Livewire\Barang;
 use App\Livewire\Hutang;
 use App\Livewire\Person;
+use App\Livewire\Laporan;
+use App\Livewire\Profile;
 use App\Livewire\Dashboard;
 use App\Livewire\Transaksi;
 use App\Livewire\JenisPendapatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Livewire\Laporan;
 use App\Livewire\Transaksi\Detail\TransaksiDetailBeban;
 use App\Livewire\Transaksi\Detail\TransaksiDetailUsaha;
 use App\Livewire\Transaksi\Detail\TransaksiDetailLainnya;
@@ -50,6 +51,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('authentic
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/profile', Profile::class)->name('profile');
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/pengelola', Person::class)->name('pengelola');
     Route::get('/usaha', Usaha::class)->name('usaha');
