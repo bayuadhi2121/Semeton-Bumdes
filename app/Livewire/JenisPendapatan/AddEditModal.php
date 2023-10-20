@@ -19,7 +19,7 @@ class AddEditModal extends Component
     {
         return [
             'nama' => 'required|min:3',
-            'id_usaha' => 'nullable|exists:usahas,id_usaha'
+            'search' => 'nullable|exists:usahas,id_usaha'
         ];
     }
 
