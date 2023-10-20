@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class LaporanNeraca extends Component
 {
-    public $akunKas, $piutang, $komputer, $perlengkapan, $umum; //variabel asset lancar
+    public $akunKas, $piutang, $komputer, $perlengkapan, $umum, $barangdagang; //variabel asset lancar
     public $gedung, $tanah, $kendaraan, $penyusutan, $assettetap; //variabel asset tak lancar
     public $assetlain; //variabel asset lain
     public $hutangUsaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
@@ -75,6 +75,7 @@ class LaporanNeraca extends Component
         $this->queryKas('Aset Tetap', 'asettetap');
         $this->queryKas('Perlengkapan', 'perlengkapan');
         $this->queryKas('Aset Lain', 'assetlain');
+        $this->queryKas('Barang Dagang', 'barangdagang');
         $this->queryHutang('Gaji dan Tunjangan', 'gaji');
         $this->queryHutang('Pihak Ketiga Jk. Pendek', 'pihakk3jkpendek');
         $this->queryHutang('Jangka Pendek Lainnya', 'jkpendeklain');
