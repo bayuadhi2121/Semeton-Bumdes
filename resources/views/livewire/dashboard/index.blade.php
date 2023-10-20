@@ -1,7 +1,7 @@
 <div>
     <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Dashboard</h2>
 
-    <div class="grid grid-cols-5 gap-2 pt-1 mb-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-2 pt-1 mb-3">
 
         <div class="bg-neutral-100 rounded-lg p-4 flex">
             <div class="pr-2">
@@ -85,9 +85,9 @@
     </div>
 
     {{-- {{ $usaha->jualbeli }} --}}
-    <div class="flex">
+    <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
         {{-- Line Chart --}}
-        <div class="basis-1/2 bg-neutral-100 rounded-lg p-6">
+        <div class="md:basis-1/2 bg-neutral-100 rounded-lg p-6">
             <div>
                 <h2 class="text-xl font-medium mb-5 pb-4 flex flex-inline border-cyan-500">Grafik Kas/Pendapatan</h2>
                 <canvas id="myLineChart" class="mt-4"></canvas>
@@ -96,7 +96,7 @@
         </div>
 
         {{-- Tabel  --}}
-        <div class="basis-1/2 ml-4 bg-neutral-100 rounded-lg p-6">
+        <div class="md:basis-1/2 bg-neutral-100 rounded-lg p-6">
             <h2 class="text-xl font-medium mb-5 pb-1 flex flex-inline border-cyan-500">Usaha Aktif</h2>
             <table class="w-full bg-white rounded-lg text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 border-gray-400 uppercase bg-gray-50">
@@ -144,8 +144,7 @@
         // Sample data for two lines
         var data = {
             labels: ['January', 'February', 'March', 'April', 'May'],
-            datasets: [
-                {
+            datasets: [{
                     label: 'Line 1',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
