@@ -3,6 +3,7 @@
 namespace App\Livewire\Laporan;
 
 use App\Models\JurnalUmum;
+use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -14,10 +15,14 @@ class LaporanNeraca extends Component
     public $hutangUsaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
     public $bank, $modal, $hasil, $pihak3, $pajak, $modalakhir;
     #[Layout('layouts.laporan')]
-    public function mount()
+    public $awal, $akhir;
+    public function mount($awal, $akhir)
     {
         $this->setValue();
+        $this->awal =  Carbon::parse($awal)->startOfDay();
+        $this->akhir = Carbon::parse($akhir)->endOfDay();
     }
+
     public function render()
     {
         return view('livewire.laporan.laporan-neraca');
@@ -28,16 +33,19 @@ class LaporanNeraca extends Component
         $this->akunKas = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->select('jurnal_umums.id_akun', 'akuns.nama')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('jurnal_umums.created_at', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%Kas%')
             ->groupBy('jurnal_umums.id_akun', 'akuns.nama')
             ->get();
         $this->hutangUsaha = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('jurnal_umums.created_at', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%Hutang%')
             ->whereNotNull('akuns.id_usaha')
             ->first();
         $this->modalakhir = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('jurnal_umums.created_at', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%Modal Akhir%')
             ->whereNotNull('akuns.id_usaha')
             ->first();
@@ -46,6 +54,7 @@ class LaporanNeraca extends Component
     {
         $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('jurnal_umums.created_at', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%' . $keyword . '%')
             ->first();
 
@@ -55,6 +64,7 @@ class LaporanNeraca extends Component
     {
         $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('jurnal_umums.created_at', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%' . $keyword . '%')
             ->whereNotNull('akuns.id_usaha')
             ->first();

@@ -4,7 +4,7 @@
     <h2 class="text-2xl font-medium text-center">Bumdes Kuta</h2>
     <h2 class="text-lg font-medium mb-5 pb-1 text-center">Pertanggungjawaban Keuangan Bumdes</h2>
 
-    <form wire:submit.prevent='print' class="flex" method="POST" data-target="_blank">
+    <form wire:submit.prevent='print' class="flex" method="POST">
 
         <div class="basis-1/2 p-4 bg-neutral-100 rounded-lg m-2">
 
@@ -39,32 +39,41 @@
                 <label for="default-radio-5" class="ml-2 text-base font-medium text-gray-900 ">Laporan Perubahan
                     Modal</label>
             </div>
-
+            @error('laporan')
+            <span class="error text-sm text-red-500">{{ $message }}</span>
+            @enderror
 
         </div>
+
         <div class="basis-1/2 p-4 bg-neutral-100 rounded-lg m-2">
             <h3 class="text-base font-medium text-gray-900">Rentang tanggal </h3>
             <div class="flex mt-4 items-center">
                 <div class="relative mr-2">
-                    <input type="date" id="floating_outlined"
+                    <input type="date" id="floating_outlined" wire:model="awal"
                         class="px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
+                    @error('awal')
+                    <span class="error text-sm text-red-500">{{ $message }}</span>
+                    @enderror
                     <label for="floating_outlined"
                         class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-neutral-100 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Awal</label>
+
                 </div>
+
                 <div class="relative mr-2">
-                    <input type="date" id="floating_outlined"
+                    <input type="date" id="floating_outlined" wire:model.live="akhir"
                         class="px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
                     <label for="floating_outlined"
                         class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-neutral-100 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Akhir</label>
                 </div>
 
-
-
+                @error('akhir')
+                <span class="error text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
-            <h3 class="text-base pt-2 text-gray-900 mb-2">Nama file: </h3>
-            <div>
+            {{-- <h3 class="text-base pt-2 text-gray-900 mb-2">Nama file: </h3> --}}
+            <div class="py-2">
                 <button type="submit"
                     class="text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cetak</button>
             </div>

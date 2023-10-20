@@ -76,7 +76,7 @@ class TransaksiDetailUsaha extends Component
             //hutang
             if ($this->dibayarkan == 0) {
                 //jual
-                if ($transaksi->dagang->status = 'Jual') {
+                if ($transaksi->dagang->status == 'Jual') {
                     if (strpos($item->nama, 'Penjualan') !== false) {
                         $record['kredit'] = $this->total;
                         $record['id_akun'] = $id_akun;
@@ -85,6 +85,7 @@ class TransaksiDetailUsaha extends Component
                         $record['id_akun'] = $id_akun;
                     }
                 } else {
+
                     if (strpos($item->nama, 'Pembelian') !== false) {
                         $record['debit'] = $this->total;
                         $record['id_akun'] = $id_akun;
@@ -95,7 +96,7 @@ class TransaksiDetailUsaha extends Component
                 }
             } else {
 
-                if ($transaksi->dagang->status = 'Jual') {
+                if ($transaksi->dagang->status == 'Jual') {
                     if (strpos($item->nama, 'Penjualan') !== false) {
                         $record['kredit'] = $this->total;
                         $record['id_akun'] = $id_akun;

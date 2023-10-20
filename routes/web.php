@@ -59,11 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi', Transaksi::class)->name('transaksi');
     Route::get('/laporan', Laporan::class)->name('laporan');
     Route::get('/hutang', Hutang::class)->name('hutang');
-    Route::get('/laporan/neraca', LaporanNeraca::class)->name('neraca');
-    Route::get('/laporan/modal', LaporanModal::class)->name('modal');
-    Route::get('/laporan/laba/jasa', Jasa::class)->name('jasa');
-    Route::get('/laporan/laba/dagang', Dagang::class)->name('dagang');
-    Route::get('/laporan/laba/gabungan', Gabungan::class)->name('gabungan');
+    Route::get('/laporan/neraca/{awal}/{akhir}', LaporanNeraca::class)->name('neraca');
+    Route::get('/laporan/modal/{awal}/{akhir}', LaporanModal::class)->name('modal');
+    Route::get('/laporan/laba/jasa/{awal}/{akhir}', Jasa::class)->name('jasa');
+    Route::get('/laporan/laba/dagang/{awal}/{akhir}', Dagang::class)->name('dagang');
+    Route::get('/laporan/laba/gabungan/{awal}/{akhir}', Gabungan::class)->name('gabungan');
     Route::get('/transaksi/{transaksi}/Usaha', TransaksiDetailUsaha::class)->name('detailusaha');
     Route::get('/transaksi/{transaksi}/Lainnya', TransaksiDetailLainnya::class)->name('detaillainnya');
     Route::get('/transaksi/{transaksi}/Beban', TransaksiDetailBeban::class)->name('detailbeban');
