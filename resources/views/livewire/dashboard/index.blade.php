@@ -89,8 +89,8 @@
         {{-- Line Chart --}}
         <div class="md:basis-1/2 bg-neutral-100 rounded-lg p-6">
             <div>
-                <h2 class="text-xl font-medium mb-5 pb-4 flex flex-inline border-cyan-500">Grafik Kas/Pendapatan</h2>
-                <canvas id="myLineChart" class="mt-4"></canvas>
+                <h2 class="text-xl font-mediums flex flex-inline border-cyan-500">Grafik Kas/Pendapatan</h2>
+                <div class="mt-4" id="myChart"></div>
             </div>
 
         </div>
@@ -138,44 +138,42 @@
 
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        // Sample data for two lines
-        var data = {
-            labels: ['January', 'February', 'March', 'April', 'May'],
-            datasets: [{
-                    label: 'Line 1',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    data: [10, 20, 15, 25, 30],
+        function generateChart() {
+            var options = {
+                chart: {
+                    type: 'line',
+                    height: 400,
+                    toolbar: {
+                        show: false
+                    }
                 },
-                {
-                    label: 'Line 2',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    data: [15, 25, 20, 30, 35],
+                dataLabels: {
+                    enabled: true,
                 },
-            ],
-        };
+                series: JSON.parse(@json($data)),
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    categories: @json($labels),
+                    title: {
+                        text: 'Bulan'
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    offsetX: 40
+                }
+            }
 
-        // Chart configuration
-        var config = {
-            type: 'line',
-            data: data,
-            options: {
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                    },
-                    y: {
-                        beginAtZero: true,
-                    },
-                },
-            },
-        };
+            var chart = new ApexCharts(document.getElementById('myChart'), options);
 
-        // Create the chart
-        var myChart = new Chart(document.getElementById('myLineChart'), config);
+            chart.render();
+        }
+
+        generateChart();
     </script>
 </div>
