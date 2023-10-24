@@ -3,8 +3,17 @@
         {{ $nama }}</h2>
 
     <div class="mb-4 flex justify-between">
+        @if($nama == 'Lainnya')
+        @can('bendahara')
         <button wire:click="$dispatch('add-modal')" type="button"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+        @endcan
+        @else
+        @if (!auth()->user()->can('ketua') && !auth()->user()->can('bendahara'))
+        <button wire:click="$dispatch('add-modal')" type="button"
+            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+        @endif
+        @endif
 
         <div class="relative w-1/4">
             <input type="text" id="simple-search" wire:model.live="search"
@@ -12,13 +21,13 @@
                 placeholder="Cari Transaksi..." required>
 
             @if ($search != '')
-                <button wire:click="resetSearch()"
-                    class="text-gray-500 absolute right-2 bottom-4 font-medium rounded-lg text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+            <button wire:click="resetSearch()"
+                class="text-gray-500 absolute right-2 bottom-4 font-medium rounded-lg text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
             @endif
         </div>
     </div>
@@ -49,11 +58,12 @@
             </thead>
             <tbody>
                 @forelse ($transaksi as $item)
-                    @livewire('Transaksi.item', ['number' => $transaksi->firstItem() + $loop->index, 'transaksi' => $item], key(null))
+                @livewire('Transaksi.item', ['number' => $transaksi->firstItem() + $loop->index, 'transaksi' => $item],
+                key(null))
                 @empty
-                    <tr>
-                        <td colspan="7" class="px-6 py-4 font-medium text-center">Data Kosong</td>
-                    </tr>
+                <tr>
+                    <td colspan="7" class="px-6 py-4 font-medium text-center">Data Kosong</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>

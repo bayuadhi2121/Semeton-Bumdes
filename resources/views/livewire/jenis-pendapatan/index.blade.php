@@ -3,7 +3,7 @@
     </h2>
 
     <div class="mb-4 flex justify-between">
-        @can('bendahara')
+        @can('akuntan')
         <button wire:click="$dispatch('add-modal')" type="button"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
         @else
