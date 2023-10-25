@@ -19,7 +19,13 @@ class AddEditModal extends Component
     {
         return [
             'nama' => 'required|min:3',
-            'search' => 'nullable|exists:usahas,id_usaha'
+            'search' => 'required|exists:usahas,id_usaha'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'search.required' => 'usaha wajib diisi.',
         ];
     }
 
@@ -104,7 +110,7 @@ class AddEditModal extends Component
     public function updatedSearch()
     {
         if ($this->usaha->contains('nama', $this->search)) {
-            $this->id_usaha = $this->usaha->where('nama', $this->search)->first()->id_usaha;
+            $this->id_usaha = $this->usaha->where('id_person', auth()->user()->id_person)->where('nama', $this->search)->first()->id_usaha;
             $this->resetValidation();
         } else if ($this->search != '') {
             $this->id_usaha = 'zxcvbnm,./';
@@ -116,7 +122,7 @@ class AddEditModal extends Component
 
     public function render()
     {
-        $this->usaha = Usaha::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->usaha = Usaha::where('nama', 'like', '%' . $this->search . '%')->where('id_person', auth()->user()->id_person)->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.jenis-pendapatan.add-edit-modal', [
             'usaha' => $this->usaha
         ]);

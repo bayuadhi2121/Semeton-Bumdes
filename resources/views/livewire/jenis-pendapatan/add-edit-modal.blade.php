@@ -78,7 +78,7 @@
                                 </div>
                                 @endif
                             </div>
-                            @error('id_usaha')
+                            @error('search')
                             <span class="error text-sm text-red-500">
                                 {!! $message !!}
                             </span>
