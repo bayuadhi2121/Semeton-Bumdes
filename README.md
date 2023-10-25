@@ -1,13 +1,11 @@
 # Table of contents
 
-<!--ts-->
-
--   [Semeton Bumdes](#semeton-bumdes)
--   [Contributors](#contributors)
--   [Screenshot Website](#screenshot-website)
-_ [Dashboard Page](#dashboard-page)
-_ [Usaha Page](#usaha-page) \* [Pengelola Page](#pengelola-page)
-<!--te-->
+   * [Semeton Bumdes](#semeton-bumdes)
+   * [Contributors](#contributors)
+   * [Screenshot Website](#screenshot-website)
+     * [Dashboard Page](#dashboard-page)
+     * [Usaha Page](#usaha-page)
+     * [Pengelola Page](#pengelola-page)
 
 # Semeton Bumdes
 
