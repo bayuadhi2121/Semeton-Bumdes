@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\Person as ModelsPerson;
+use Illuminate\Support\Facades\Auth;
 
 class Person extends Component
 {
