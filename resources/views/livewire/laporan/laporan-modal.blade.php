@@ -25,7 +25,7 @@
                         Saldo Modal Awal
                     </td>
                     <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Rp.
+                        Rp.{{ $modalAwal->nilai }}
                     </td>
                 </tr>
 
