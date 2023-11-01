@@ -32,7 +32,7 @@ class LaporanModal extends Component
     public function render()
     {
         $this->setLaba();
-        dd($this->awal->year);
+        $this->modal('modalAwal');
         return view('livewire.laporan.laporan-modal');
     }
     public function setLaba()
@@ -102,7 +102,7 @@ class LaporanModal extends Component
     }
     public function modal($propertyName)
     {
-        $propertyValue = Modal::whereBetween('tahun', [$this->awal, $this->akhir])
+        $propertyValue = Modal::where('tahun', $this->awal->year - 1)
             ->first();
 
         $this->$propertyName = $propertyValue;
