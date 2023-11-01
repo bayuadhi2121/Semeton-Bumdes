@@ -3,6 +3,7 @@
 namespace App\Livewire\Laporan;
 
 use App\Models\JurnalUmum;
+use App\Models\Modal;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -17,6 +18,8 @@ class LaporanModal extends Component
     public $labakotor;
     public $lababersih;
 
+    public $modalAwal;
+
     public $prive;
     public $awal, $akhir;
     public function mount($awal, $akhir)
@@ -29,7 +32,9 @@ class LaporanModal extends Component
     public function render()
     {
         $this->setLaba();
-        return view('livewire.laporan.laporan-modal', []);
+        $this->modalAwal = Modal::where('tahun', Carbon::now()->subYear()->year)->get();
+        dd($this->modalAwal);
+        return view('livewire.laporan.laporan-modal');
     }
     public function setLaba()
     {
