@@ -17,7 +17,7 @@ class JurnalUmum extends Component
             ->join('usahas', 'usahas.id_usaha', '=', 'transaksis.id_usaha');
 
         if (Auth::user()->status == 'Bendahara') {
-            $result->where('usahas.id_person', null);
+            $result->where('transaksis.status', 'Lainnya');
         } elseif (Auth::user()->status == 'Akuntan') {
             $result->where('usahas.id_person', Auth::user()->id_person);
         }
