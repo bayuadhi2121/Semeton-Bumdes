@@ -32,7 +32,7 @@ class LaporanModal extends Component
     public function render()
     {
         $this->setLaba();
-        dd($this->awal);
+        dd($this->awal->year);
         return view('livewire.laporan.laporan-modal');
     }
     public function setLaba()
