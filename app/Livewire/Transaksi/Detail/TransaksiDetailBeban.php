@@ -51,7 +51,6 @@ class TransaksiDetailBeban extends Component
         // ambil id akun yang berpengaruh pada transaksi beban di usaha yang berkaitan
         $akun = Akun::where('id_usaha', $this->transaksi->id_usaha)->pluck('id_akun', 'nama')->toArray();
         $idKas = $akun['Kas ' . $this->namaUsaha];
-        $idHutang = $akun['Hutang ' . array_search ($biayas[0]->id_akun, $akun)];
 
         $jumum = [];
 
@@ -66,6 +65,8 @@ class TransaksiDetailBeban extends Component
 
         // cek apakah hutang atau tidak
         if($this->sisa > 0) {
+            $idHutang = $akun['Hutang ' . array_search ($biayas[0]->id_akun, $akun)];
+
             $jumum[] = [
                 'kredit' => $this->sisa,
                 'debit' => 0,
