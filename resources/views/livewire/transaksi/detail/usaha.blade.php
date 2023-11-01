@@ -77,7 +77,7 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Total Transaksi
             </label>
-            <input type="text" value="{{ $total }}" id="small-input" wire:model.live='total'
+            <input type="text" value="{{ $total }}" id="small-input" wire:model='total'
                 class="total basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
 
@@ -87,7 +87,7 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Dibayarkan
             </label>
-            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan' wire:ignore
+            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan'
                 class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
             <div class="basis-1/5">
                 @error('dibayarkan')
