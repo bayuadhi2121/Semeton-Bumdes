@@ -59,7 +59,8 @@ $num = $transaksilainnya->firstItem();
                     {{ $item->stok }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ $item->nota }}
+                    {{-- {{ $item->nota }} --}}
+                    <img src="{{ asset('storage/' . $item->nota) }}" alt="Image">
                 </td>
                 <td class="px-6 py-4 flex space-x-2">
                     <button data-modal-target="add-data-modal" title="Edit" data-modal-show="add-data-modal">
