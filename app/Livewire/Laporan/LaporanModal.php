@@ -32,8 +32,7 @@ class LaporanModal extends Component
     public function render()
     {
         $this->setLaba();
-        $this->modalAwal = Modal::where('tahun', Carbon::now()->subYear()->year)->get();
-        dd($this->modalAwal);
+        dd($this->awal);
         return view('livewire.laporan.laporan-modal');
     }
     public function setLaba()
@@ -97,6 +96,13 @@ class LaporanModal extends Component
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('jurnal_umums.created_at', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%' . $jenis . ' ' . $keyword . '%')
+            ->first();
+
+        $this->$propertyName = $propertyValue;
+    }
+    public function modal($propertyName)
+    {
+        $propertyValue = Modal::whereBetween('tahun', [$this->awal, $this->akhir])
             ->first();
 
         $this->$propertyName = $propertyValue;
