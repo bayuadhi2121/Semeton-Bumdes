@@ -3,6 +3,7 @@
 namespace App\Livewire\Laporan;
 
 use App\Models\JurnalUmum;
+use App\Models\Modal;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -16,6 +17,8 @@ class LaporanNeraca extends Component
     public $bank, $modal, $hasil, $pihak3, $pajak, $modalakhir;
     #[Layout('layouts.laporan')]
     public $awal, $akhir;
+
+    public $modalAwal;
     public function mount($awal, $akhir)
     {
         $this->setValue();
@@ -71,6 +74,13 @@ class LaporanNeraca extends Component
 
         $this->$propertyName = $propertyValue;
     }
+    public function modal($propertyName)
+    {
+        $propertyValue = Modal::where('tahun', $this->awal->year - 1)
+            ->first();
+
+        $this->$propertyName = $propertyValue;
+    }
 
     public function setValue()
     {
@@ -97,5 +107,7 @@ class LaporanNeraca extends Component
         $this->queryHutang('Hasil', 'hasil');
         $this->queryHutang('Kepada Pihak Ketiga', 'pihak3');
         $this->queryHutang('Pajak', 'pajak');
+
+        $this->modal('modalAwal');
     }
 }
