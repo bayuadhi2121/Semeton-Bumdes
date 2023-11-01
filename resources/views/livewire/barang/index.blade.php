@@ -20,6 +20,7 @@
                 </svg>
             </button>
             @endif
+            @endcan
         </div>
     </div>
 
