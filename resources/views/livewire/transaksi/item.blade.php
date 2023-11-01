@@ -15,7 +15,7 @@
         </td>
         <td class="px-6 py-4">
             @if ($transaksi->nota)
-            <a href="{{ asset('storage/' . $item->nota) }}" class="text-blue-500 hover:underline"
+            <a href="{{ asset('storage/' . $transaksi->nota) }}" class="text-blue-500 hover:underline"
                 target="blank">Lihat</a>
             @else
             -
