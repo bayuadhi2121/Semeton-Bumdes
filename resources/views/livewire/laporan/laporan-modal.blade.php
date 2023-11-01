@@ -33,12 +33,6 @@
                     <td rowspan="3" class="whitespace-nowrap border-r pl-1 pr-0 font-medium py-2 border-neutral-500">
                         2
                     </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Perubahan Modal
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Rp.
-                    </td>
                 </tr>
                 <tr class=" border-b border-neutral-500">
                     <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
