@@ -22,7 +22,7 @@ class JurnalUmum extends Component
             $result->where('usahas.id_person', Auth::user()->id_person);
         }
 
-        $result = $result->select('akuns.*', 'jurnal_umums.*')->get();
+        $result = $result->select('akuns.*', 'jurnal_umums.*')->orderBy('jurnal_umums.updated_at', 'desc')->get();
 
         return view('livewire.jurnal-umum.jurnal-umum', [
             'jurnal' => $result
