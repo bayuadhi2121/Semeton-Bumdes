@@ -14,7 +14,7 @@ class JurnalUmum extends Component
         $result = DB::table('jurnal_umums')
             ->join('akuns', 'akuns.id_akun', '=', 'jurnal_umums.id_akun')
             ->join('transaksis', 'transaksis.id_transaksi', '=', 'jurnal_umums.id_transaksi')
-            ->join('usahas', 'usahas.id_usaha', '=', 'transaksis.id_usaha');
+            ->leftjoin('usahas', 'usahas.id_usaha', '=', 'transaksis.id_usaha');
 
         if (Auth::user()->status == 'Bendahara') {
             $result->where('transaksis.status', 'Lainnya');
@@ -23,7 +23,7 @@ class JurnalUmum extends Component
         }
 
         $result = $result->select('akuns.*', 'jurnal_umums.*')->get();
-        // dd($result);
+
         return view('livewire.jurnal-umum.jurnal-umum', [
             'jurnal' => $result
         ]);
