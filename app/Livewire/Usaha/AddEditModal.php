@@ -94,23 +94,26 @@ class AddEditModal extends Component
             ]);
         }
     }
-
+    public function deleteAkun($akun)
+    {
+        foreach ($akun as $item) {
+            $item->delete();
+            // dd($item);
+        }
+    }
     public function update()
     {
         $this->validate();
 
         $usaha = Usaha::find($this->id_usaha);
         $akun = Akun::where('id_usaha', $this->id_usaha)->get();
+        $this->deleteAkun($akun);
         $usaha->update([
             'nama' => $this->nama,
             'status' => $this->status,
             'id_person' => $this->id_person,
         ]);
-        // dd($akun);
-
-        if ($this->status == 'Barang') {
-        }
-        // $this->storeAkun($usaha);
+        $this->storeAkun($usaha);
         $this->closeModal();
         $this->dispatch('page-refresh');
     }
