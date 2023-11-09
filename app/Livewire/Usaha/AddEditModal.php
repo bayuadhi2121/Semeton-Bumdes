@@ -94,12 +94,52 @@ class AddEditModal extends Component
             ]);
         }
     }
-    public function deleteAkun($akun)
+    public function updateAkun($akun, $usaha, $nama, $id_person)
     {
         foreach ($akun as $item) {
-            $item->delete();
-            // dd($item);
+            if ($item->usaha->status == 'Jasa') {
+                if (str_contains($item->nama, 'Kas')) {
+                    $item->update([
+                        'nama' => 'Kas ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Pendapatan')) {
+                    $item->update([
+                        'nama' => 'Pendapatan ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Piutang')) {
+                    $item->update([
+                        'nama' => 'Piutang ' . $nama
+                    ]);
+                }
+            } else {
+                if (str_contains($item->nama, 'Kas')) {
+                    $item->update([
+                        'nama' => 'Kas ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Pembelian')) {
+                    $item->update([
+                        'nama' => 'Pembelian ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Penjualan')) {
+                    $item->update([
+                        'nama' => 'Penjualan ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Hutang')) {
+                    $item->update([
+                        'nama' => 'Hutang ' . $nama
+                    ]);
+                } else {
+                    $item->update([
+                        'nama' => 'Piutang ' . $nama
+                    ]);
+                }
+            }
         }
+        $usaha->update([
+            'nama' => $this->nama,
+            'status' => $this->status,
+            'id_person' => $this->id_person,
+        ]);
     }
     public function update()
     {
@@ -107,13 +147,8 @@ class AddEditModal extends Component
 
         $usaha = Usaha::find($this->id_usaha);
         $akun = Akun::where('id_usaha', $this->id_usaha)->get();
-        $this->deleteAkun($akun);
-        $usaha->update([
-            'nama' => $this->nama,
-            'status' => $this->status,
-            'id_person' => $this->id_person,
-        ]);
-        $this->storeAkun($usaha);
+        $this->updateAkun($akun, $usaha, $this->nama, $this->id_person);
+
         $this->closeModal();
         $this->dispatch('page-refresh');
     }
