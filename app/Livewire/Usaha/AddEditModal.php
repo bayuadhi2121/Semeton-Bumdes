@@ -94,7 +94,7 @@ class AddEditModal extends Component
             ]);
         }
     }
-    public function updateAkun($akun, $usaha, $nama, $id_person)
+    public function updateUsaha($akun, $usaha, $nama, $id_person)
     {
         foreach ($akun as $item) {
             if ($item->usaha->status == 'Jasa') {
@@ -147,8 +147,7 @@ class AddEditModal extends Component
 
         $usaha = Usaha::find($this->id_usaha);
         $akun = Akun::where('id_usaha', $this->id_usaha)->get();
-        $this->updateAkun($akun, $usaha, $this->nama, $this->id_person);
-
+        $this->updateUsaha($akun, $usaha, $this->nama, $this->id_person);
         $this->closeModal();
         $this->dispatch('page-refresh');
     }
