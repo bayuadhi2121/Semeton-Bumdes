@@ -24,14 +24,14 @@ class DeleteModal extends Component
         if ($transaksi->nota) {
             Storage::disk('public')->delete($transaksi->nota);
         }
-        if ($transaksi->status == 'Usaha') {
+        if ($transaksi->status == 'Usaha' && $transaksi->jualbeli != null) {
             foreach ($transaksi->jualbeli as $item) {
                 if ($transaksi->dagang->status == 'Jual') {
                     $item->jbdagang->barang->update([
                         'stok' => $item->barang->stok + $item->jualbeli->stok
                     ]);
-                } elseif ($transaksi->dagang->status == 'Beli') {
-                    $transaksi->jbdagang->dagang->barang->update([
+                } else if ($transaksi->dagang->status == 'Beli') {
+                    $item->jbdagang->barang->update([
                         'stok' => $item->barang->stok - $item->jualbeli->stok
                     ]);
                 }
