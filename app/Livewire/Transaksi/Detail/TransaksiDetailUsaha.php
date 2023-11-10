@@ -219,14 +219,14 @@ class TransaksiDetailUsaha extends Component
             'saved' => true
         ]);
     }
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName); // Real-time validation
+    // public function updated($propertyName)
+    // {
+    //     $this->validateOnly($propertyName); // Real-time validation
 
-        if (in_array($propertyName, ['dibayarkan', 'sisa'])) {
-            $this->sisa = (int)$this->dibayarkan - (int)$this->total;
-        }
-    }
+    //     if (in_array($propertyName, ['dibayarkan', 'sisa'])) {
+    //         $this->sisa = (int)$this->dibayarkan - (int)$this->total;
+    //     }
+    // }
 
 
 
