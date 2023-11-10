@@ -25,7 +25,6 @@ class DeleteModal extends Component
             Storage::disk('public')->delete($transaksi->nota);
         }
         if ($transaksi->status == 'Usaha') {
-            dd($transaksi->jualbeli);
             $total = $transaksi->jualbeli->kuantitas;
             $stok = $transaksi->dagang->barang->stok;
             if ($transaksi->dagang->status == 'Jual') {
