@@ -101,15 +101,16 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Sisa
             </label>
-            <input type="text" id="small-input" wire:model.live='sisa'
+            <input type="text" id="small-input" wire:model='sisa'
                 class="sisa basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
+            @if (!$transaksi->saved)
             <div class="basis-1/5">
-                @if (!$transaksi->saved)
                 <button type="button"
                     class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
-                @endif
+
             </div>
+            @endif
 
         </div>
 

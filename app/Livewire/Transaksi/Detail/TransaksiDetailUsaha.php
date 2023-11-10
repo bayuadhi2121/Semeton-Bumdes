@@ -232,7 +232,7 @@ class TransaksiDetailUsaha extends Component
 
     public function render()
     {
-        $this->calculateTotal();
+        // $this->calculateTotal();
 
         return view('livewire.transaksi.detail.usaha', [
             'jualbeli' => JualBeli::where('id_transaksi', $this->id_transaksi)->latest()->paginate(10),
