@@ -72,7 +72,7 @@
         </table>
     </div>
 
-    <form class="pt-6 w-2/5" wire:click.prevent='action'>
+    <form class="pt-6 w-2/5" wire:submit.prevent='action'>
         <div class="flex flex-row items-center justify-items-start pb-2">
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Total Transaksi
