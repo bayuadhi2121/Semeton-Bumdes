@@ -87,12 +87,13 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Dibayarkan
             </label>
-            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan'
-                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
-            @if (!$transaksi->saved)
-            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan'
+            @if ($transaksi->saved)
+            <input type="number" placeholder="{{ $dibayarkan }}" id="small-input" wire:model='dibayarkan'
                 class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
+            @else
+            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan'
+                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
             @endif
             <div class="basis-1/5">
                 @error('dibayarkan')
@@ -111,7 +112,7 @@
                 disabled>
             @if (!$transaksi->saved)
             <div class="basis-1/5">
-                <button type="button"
+                <button type="submit"
                     class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
 
             </div>
