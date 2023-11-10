@@ -31,7 +31,7 @@ class DeleteModal extends Component
                         'stok' => $item->jbdagang->barang->stok + $item->jualbeli->stok
                     ]);
                 } else if ($transaksi->dagang->status == 'Beli') {
-                    dd($item->jbdagang->barang);
+                    dd($item->jbdagang->barang->stok);
                     $item->jbdagang->barang->update([
                         'stok' => $item->jbdagang->barang->stok - $item->jualbeli->stok
                     ]);
