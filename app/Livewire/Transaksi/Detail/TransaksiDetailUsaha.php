@@ -77,19 +77,19 @@ class TransaksiDetailUsaha extends Component
             if ($this->dibayarkan == 0) {
                 //jual
                 if ($transaksi->dagang->status == 'Jual') {
-                    if (strpos($item->nama, 'Penjualan') !== false) {
+                    if (strpos($item->nama, 'Penjualan ' . $item->usaha->nama) !== false) {
                         $record['kredit'] = $this->total;
                         $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Piutang') !== false) {
+                    } elseif (strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
                         $record['debit'] = $sisa;
                         $record['id_akun'] = $id_akun;
                     }
                 } else {
 
-                    if (strpos($item->nama, 'Pembelian') !== false) {
+                    if (strpos($item->nama, 'Pembelian ' . $item->usaha->nama) !== false) {
                         $record['debit'] = $this->total;
                         $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Hutang') !== false) {
+                    } elseif (strpos($item->nama, 'Hutang ' . $item->usaha->nama) !== false) {
                         $record['kredit'] = $this->total;
                         $record['id_akun'] = $id_akun;
                     }
@@ -97,18 +97,18 @@ class TransaksiDetailUsaha extends Component
             } else {
 
                 if ($transaksi->dagang->status == 'Jual') {
-                    if (strpos($item->nama, 'Penjualan') !== false) {
+                    if (strpos($item->nama, 'Penjualan ' . $item->usaha->nama) !== false) {
                         $record['kredit'] = $this->total;
                         $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Kas') !== false) {
+                    } elseif (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
                         $record['debit'] = $this->dibayarkan;
                         $record['id_akun'] = $id_akun;
                     }
                 } else {
-                    if (strpos($item->nama, 'Pembelian') !== false) {
+                    if (strpos($item->nama, 'Pembelian ' . $item->usaha->nama) !== false) {
                         $record['debit'] = $this->total;
                         $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Kas') !== false) {
+                    } elseif (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
                         $record['kredit'] = $this->dibayarkan;
                         $record['id_akun'] = $id_akun;
                     }
@@ -117,12 +117,12 @@ class TransaksiDetailUsaha extends Component
 
             if ($this->sisa != 0) {
                 if ($transaksi->dagang->status == 'Jual') {
-                    if (strpos($item->nama, 'Piutang') !== false) {
+                    if (strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
                         $record['debit'] = $sisa;
                         $record['id_akun'] = $id_akun;
                     }
                 } else {
-                    if (strpos($item->nama, 'Hutang') !== false) {
+                    if (strpos($item->nama, 'Hutang ' . $item->usaha->nama) !== false) {
                         $record['kredit'] = $sisa;
                         $record['id_akun'] = $id_akun;
                     }
@@ -177,7 +177,6 @@ class TransaksiDetailUsaha extends Component
     {
         $this->validate();
         $transaksi = Transaksi::find($this->id_transaksi);
-
         $sisa = abs($this->sisa);
         foreach ($transaksi->usaha->akun as $item) {
             $id_akun = $item->id_akun;
@@ -188,24 +187,24 @@ class TransaksiDetailUsaha extends Component
                 'id_transaksi' => $this->id_transaksi
             ];
             if ($this->dibayarkan != 0) {
-                if (strpos($item->nama, 'Kas') !== false) {
+                if (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
                     $record['debit'] = $this->dibayarkan;
                     $record['id_akun'] = $id_akun;
-                } elseif (strpos($item->nama, 'Pendapatan') !== false) {
+                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) !== false) {
                     $record['kredit'] = $this->total;
                     $record['id_akun'] = $id_akun;
                 }
             } else {
-                if ($this->sisa != 0 && strpos($item->nama, 'Piutang') !== false) {
+                if ($this->sisa != 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
                     $record['debit'] = $sisa;
                     $record['id_akun'] = $id_akun;
-                } elseif (strpos($item->nama, 'Pendapatan') !== false) {
+                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) !== false) {
                     $record['kredit'] = $this->total;
                     $record['id_akun'] = $id_akun;
                 }
             }
 
-            if ($this->sisa != 0 && strpos($item->nama, 'Piutang') !== false) {
+            if ($this->sisa != 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
                 $record['debit'] = $sisa;
                 $record['id_akun'] = $id_akun;
             }

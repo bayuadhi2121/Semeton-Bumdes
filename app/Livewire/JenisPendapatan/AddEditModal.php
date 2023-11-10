@@ -19,7 +19,7 @@ class AddEditModal extends Component
     {
         return [
             'nama' => 'required|min:3',
-            'search' => 'required|exists:usahas,id_usaha'
+            'search' => 'required|exists:usahas,nama'
         ];
     }
     public function messages()
@@ -39,7 +39,7 @@ class AddEditModal extends Component
         $this->validate();
 
         JenisPendapatan::create([
-            'nama' => $this->nama,
+            'nama' => $this->search,
             'id_usaha' => $this->id_usaha,
         ]);
 

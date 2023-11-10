@@ -68,11 +68,9 @@
                                             {{ $item->nama }}
                                         </div>
                                         @empty
-                                        <a href="{{ route('usaha') }}">
-                                            <div class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
-                                                Tambah Data Usaha
-                                            </div>
-                                        </a>
+                                        <div class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
+                                            Tidak ada Usaha
+                                        </div>
                                         @endempty
                                     </div>
                                 </div>
