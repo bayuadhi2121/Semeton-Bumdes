@@ -24,7 +24,7 @@ class DeleteModal extends Component
         if ($transaksi->nota) {
             Storage::disk('public')->delete($transaksi->nota);
         }
-        if ($transaksi->dagang->status && $transaksi->status == 'Usaha') {
+        if ($transaksi->status == 'Usaha') {
             foreach ($transaksi->jualbeli as $item) {
                 if ($transaksi->dagang->status == 'Jual') {
                     $item->jbdagang->barang->update([
