@@ -219,20 +219,13 @@ class TransaksiDetailUsaha extends Component
             'saved' => true
         ]);
     }
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName); // Real-time validation
 
-    //     if (in_array($propertyName, ['dibayarkan', 'sisa'])) {
-    //         $this->sisa = (int)$this->dibayarkan - (int)$this->total;
-    //     }
-    // }
 
 
 
     public function render()
     {
-        // $this->calculateTotal();
+        $this->calculateTotal();
 
         return view('livewire.transaksi.detail.usaha', [
             'jualbeli' => JualBeli::where('id_transaksi', $this->id_transaksi)->latest()->paginate(10),
