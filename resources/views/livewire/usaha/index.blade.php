@@ -2,7 +2,7 @@
     <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Usaha</h2>
 
     <div class="mb-4 flex justify-between">
-        @can('akuntan')
+        @can('ketua')
         <button wire:click="$dispatch('add-modal')" type="button"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
         @else
