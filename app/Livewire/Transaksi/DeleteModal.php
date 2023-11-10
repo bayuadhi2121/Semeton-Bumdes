@@ -20,8 +20,19 @@ class DeleteModal extends Component
     public function destroy()
     {
         $transaksi = Transaksi::where('id_transaksi', $this->id_transaksi)->first();
-        if($transaksi->nota) {
+        $total = $transaksi->jualbeli->kuantitas;
+        $stok = $transaksi->dagang->barang->stok;
+        if ($transaksi->nota) {
             Storage::disk('public')->delete($transaksi->nota);
+        }
+        if ($transaksi->status == 'Jual') {
+            $transaksi->dagang->barang->update([
+                'stok' => $stok + $total
+            ]);
+        } else {
+            $transaksi->dagang->barang->update([
+                'stok' => $stok - $total
+            ]);
         }
         $transaksi->delete();
 
