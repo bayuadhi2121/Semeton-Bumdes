@@ -25,20 +25,16 @@ class DeleteModal extends Component
             Storage::disk('public')->delete($transaksi->nota);
         }
         if ($transaksi->status == 'Usaha') {
-            $total = 0;
-            foreach ($transaksi->jualbeli as $item) {
-
-                $total = $total + $item->kuantitas;
-            }
-            $stok = $transaksi->dagang->barang->stok;
-            if ($transaksi->dagang->status == 'Jual') {
-                $transaksi->dagang->barang->update([
-                    'stok' => $stok + $total
-                ]);
-            } elseif ($transaksi->dagang->status == 'Beli') {
-                $transaksi->dagang->barang->update([
-                    'stok' => $stok - $total
-                ]);
+            foreach ($transaksi->jualbeli->jbdagang as $item) {
+                if ($transaksi->dagang->status == 'Jual') {
+                    $item->barang->update([
+                        'stok' => $item->barang->stok + $item->jualbeli->stok
+                    ]);
+                } elseif ($transaksi->dagang->status == 'Beli') {
+                    $transaksi->dagang->barang->update([
+                        'stok' => $item->barang->stok - $item->jualbeli->stok
+                    ]);
+                }
             }
         }
         $transaksi->delete();
