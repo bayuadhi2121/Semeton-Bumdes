@@ -15,9 +15,9 @@ use Livewire\WithPagination;
 class TransaksiDetailUsaha extends Component
 {
     public $id_transaksi, $status, $statusDagang;
-    public $total;
+    public $total = 0;
     public $dibayarkan;
-    public $sisa;
+    public $sisa = 0;
     use WithPagination;
     public function rules()
     {
@@ -215,6 +215,10 @@ class TransaksiDetailUsaha extends Component
         $transaksi->update([
             'saved' => true
         ]);
+    }
+    public function updatedDibayarkan()
+    {
+        $this->sisa = (int)$this->total - (int)$this->dibayarkan;
     }
     public function render()
     {
