@@ -21,7 +21,7 @@ class AddEditModal extends Component
         return [
             'tanggal' => 'required|before:tomorrow',
             'dagangStatus' => 'nullable|required_if:usahaStatus,Dagang',
-            'nota' => 'nullable|image|max:3072'
+            'nota' => 'required|image|max:3072'
         ];
     }
 
