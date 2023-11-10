@@ -2,15 +2,12 @@
 
 namespace App\Livewire\Transaksi\Detail;
 
-use App\Models\Akun;
 use App\Models\Barang;
 use App\Models\Hutang;
 use App\Models\JualBeli;
 use App\Models\JurnalUmum;
 use App\Models\Transaksi;
-use App\Models\Usaha;
 use Exception;
-use Illuminate\Notifications\Action;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -219,10 +216,6 @@ class TransaksiDetailUsaha extends Component
             'saved' => true
         ]);
     }
-
-
-
-
     public function render()
     {
         $this->calculateTotal();

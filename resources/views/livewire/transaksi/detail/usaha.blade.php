@@ -89,6 +89,11 @@
             </label>
             <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan'
                 class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            @if (!$transaksi->saved)
+            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan'
+                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
+                disabled>
+            @endif
             <div class="basis-1/5">
                 @error('dibayarkan')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
