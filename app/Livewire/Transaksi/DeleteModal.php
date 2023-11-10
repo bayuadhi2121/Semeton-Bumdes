@@ -27,6 +27,7 @@ class DeleteModal extends Component
         if ($transaksi->status == 'Usaha') {
             $total = 0;
             foreach ($transaksi->jualbeli as $item) {
+                dd($item);
                 $total = $total + $item->jualbeli->kuantitas;
             }
             $stok = $transaksi->dagang->barang->stok;
