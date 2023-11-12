@@ -33,7 +33,7 @@ class Person extends Component
     public function render()
     {
         return view('livewire.person.index', [
-            'pengelola' => ModelsPerson::where('status', 'Akuntan')->where('nama', 'like', '%' . $this->search . '%')->paginate(10)
+            'pengelola' => ModelsPerson::where('status', '!=', 'Ketua')->where('nama', 'like', '%' . $this->search . '%')->paginate(10)
         ]);
     }
 }

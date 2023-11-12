@@ -10,6 +10,8 @@
             {{ $akun->nama }}
         </td>
         <td class="px-6 py-4 flex space-x-2">
+            @can('bendahara')
+
             <button wire:click="$dispatch('edit-modal', { akun: {{ $akun }} })">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6 text-cyan-500">
@@ -26,6 +28,7 @@
                 </svg>
             </button>
             @endif
+            @endcan
         </td>
     </tr>
 </div>

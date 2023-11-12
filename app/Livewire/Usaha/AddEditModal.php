@@ -216,22 +216,11 @@ class AddEditModal extends Component
         $this->showList = false;
     }
 
-    public function updatedSearch()
-    {
-        if ($this->person->contains('nama', $this->search)) {
-            $this->id_person = $this->person->where('nama', $this->search)->first()->id_person;
-            $this->resetValidation();
-        } else if ($this->search != '') {
-            $this->id_person = 'zxcvbnm,./';
-        } else {
-            $this->reset('id_person');
-            $this->resetValidation();
-        }
-    }
+
 
     public function render()
     {
-        $this->person = Person::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->person = Person::where('nama', 'like', '%' . $this->search . '%')->where('status', 'Akuntan')->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.usaha.add-edit-modal', [
             'pengelola' => $this->person
         ]);
