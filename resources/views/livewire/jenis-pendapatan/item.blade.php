@@ -12,7 +12,7 @@
         </td>
         <td class="px-6 py-4 flex space-x-2">
             @can('akuntan')
-            @if ($jenispendapatan->usaha->transaksi->isEmpty())
+            @if ($jenispendapatan->usaha->transaksi && $jenispendapatan->usaha->transaksi->isEmpty())
             <button wire:click="$dispatch('edit-modal', { jenisPendapatan: {{ $jenispendapatan }} })">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6 text-cyan-500">
