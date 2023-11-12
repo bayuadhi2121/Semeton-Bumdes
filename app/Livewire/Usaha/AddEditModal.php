@@ -16,6 +16,7 @@ class AddEditModal extends Component
     public $show, $showList, $title, $mode, $search = '';
     public $id_person, $id_usaha, $nama, $status;
     public Collection $person;
+    public $isTransaksi;
 
     public function rules()
     {
@@ -185,6 +186,7 @@ class AddEditModal extends Component
     {
         $this->id_usaha = $usaha->id_usaha;
         $this->nama = $usaha->nama;
+        $this->isTransaksi = $usaha->transaksi->isEmpty();
         $this->status = $usaha->status;
         $this->id_person = $usaha->id_person;
         $this->search = $usaha->person->nama ?? '';

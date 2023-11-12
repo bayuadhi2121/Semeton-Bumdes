@@ -19,6 +19,7 @@
                     <h3 class="mb-4 text-xl font-medium text-gray-900">{{ $title }} Data Usaha</h3>
 
                     <form wire:submit.prevent="{{ $mode }}" class="space-y-6">
+                        @if($isTransaksi)
                         <div>
                             <div class="relative">
                                 <input wire:model="nama" type="text" id="nama" name="nama"
@@ -31,6 +32,7 @@
                             <span class="error text-sm text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
+                        @endif
                         @if($mode=='store')
                         <div>
                             <ul
