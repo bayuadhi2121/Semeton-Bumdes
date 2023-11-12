@@ -14,6 +14,7 @@ class AddEditModal extends Component
 
     public $show = false, $title, $mode;
     public $trxStatus, $usahaStatus, $notaPath;
+    public $saved;
     public $id_transaksi, $id_usaha, $tanggal, $keterangan, $dagangStatus, $nota;
 
     public function rules()
@@ -99,6 +100,7 @@ class AddEditModal extends Component
     {
         $this->id_transaksi = $transaksi->id_transaksi;
         $this->tanggal = $transaksi->tanggal;
+        $this->saved = $transaksi->saved;
         $this->keterangan = $transaksi->keterangan;
         $this->notaPath = $transaksi->nota;
 

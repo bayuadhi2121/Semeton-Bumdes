@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Transaksi\Detail;
 
-use App\Models\Barang;
 use App\Models\Hutang;
 use App\Models\JualBeli;
 use App\Models\JurnalUmum;
