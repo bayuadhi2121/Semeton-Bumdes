@@ -28,7 +28,7 @@ class AddEditModal extends Component
             'jumlah' => 'required|numeric',
         ];
 
-        if ($barang) {
+        if ($barang && $this->status == 'Jual') {
             $rules['jumlah'] .= '|max:' . $barang->stok;
         }
 
@@ -45,6 +45,7 @@ class AddEditModal extends Component
         $this->showList = false;
         $this->status = $status;
         $this->statusDagang = $transaksi->dagang->status;
+
         $this->id_transaksi = $transaksi->id_transaksi;
     }
     public function showPerson()
