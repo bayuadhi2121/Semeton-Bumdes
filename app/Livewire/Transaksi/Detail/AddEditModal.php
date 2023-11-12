@@ -44,8 +44,9 @@ class AddEditModal extends Component
         $this->show = false;
         $this->showList = false;
         $this->status = $status;
-        $this->statusDagang = $transaksi->dagang->status;
-
+        if ($transaksi->usaha->status == 'Dagang') {
+            $this->statusDagang = $transaksi->dagang->status;
+        }
         $this->id_transaksi = $transaksi->id_transaksi;
     }
     public function showPerson()
