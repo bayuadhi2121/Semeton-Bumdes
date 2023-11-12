@@ -27,14 +27,13 @@ class DeleteModal extends Component
         if ($transaksi->usaha && $transaksi->usaha->status == 'Dagang') {
             foreach ($transaksi->jualbeli as $item) {
                 if ($transaksi->dagang->status == 'Jual') {
-                    $item->jbdagang->barang->update([
-                        'stok' => $item->jbdagang->barang->stok + $item->kuantitas
-                    ]);
+                    $stok = $item->jbdagang->barang->stok + $item->kuantitas;
                 } else if ($transaksi->dagang->status == 'Beli') {
-                    $item->jbdagang->barang->update([
-                        'stok' => $item->jbdagang->barang->stok - $item->kuantitas
-                    ]);
+                    $stok = $item->jbdagang->barang->stok - $item->kuantitas;
                 }
+                $item->jbdagang->barang->update([
+                    'stok' => $stok
+                ]);
             }
         }
         $transaksi->delete();

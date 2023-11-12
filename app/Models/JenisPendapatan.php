@@ -26,4 +26,8 @@ class JenisPendapatan extends Model
     {
         return $this->belongsTo(Usaha::class, 'id_usaha');
     }
+    public function jbjasa()
+    {
+        return $this->hasMany(Jbjasa::class, 'id_jpendapatan');
+    }
 }

@@ -122,7 +122,7 @@ class AddEditModal extends Component
 
     public function render()
     {
-        $this->usaha = Usaha::where('nama', 'like', '%' . $this->search . '%')->where('id_person', auth()->user()->id_person)->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->usaha = Usaha::where('nama', 'like', '%' . $this->search . '%')->where('id_person', auth()->user()->id_person)->where('status', 'Jasa')->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.jenis-pendapatan.add-edit-modal', [
             'usaha' => $this->usaha
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Transaksi\Detail;
 
+use App\Models\Barang;
 use App\Models\Hutang;
 use App\Models\JualBeli;
 use App\Models\JurnalUmum;
@@ -56,9 +57,33 @@ class TransaksiDetailUsaha extends Component
             $this->storeDagang();
         }
     }
+    //
+    public function cekBarang()
+    {
+        $items = JualBeli::where('id_transaksi', $this->id_transaksi)->get();
+        foreach ($items as $jb) {
+
+            if ($this->statusDagang == 'Beli') {
+                $stok = $jb->jbdagang->barang->stok + $jb->kuantitas;
+            } else if ($this->statusDagang == 'Jual') {
+                if ($jb->kuantitas > $jb->jbdagang->barang->stok) {
+                    $this->addError('kuantitas', 'Stok barang ' . $jb->jbdagang->barang->nama . ' tersisa ' . $jb->jbdagang->barang->stok);
+                    return;
+                }
+                $stok = $jb->jbdagang->barang->stok - $jb->kuantitas;
+            }
+            $jb->jbdagang->barang->update([
+                'stok' => $stok
+            ]);
+        }
+    }
     public function storeDagang()
     {
         $this->validate();
+        $this->cekBarang();
+        if ($this->getErrorBag()->any()) {
+            return;
+        }
         $transaksi = Transaksi::find($this->id_transaksi);
         $sisa = abs($this->sisa);
         foreach ($transaksi->usaha->akun as $item) {

@@ -71,7 +71,7 @@ class AddEditModal extends Component
     public function store()
     {
         $this->validate();
-        $this->cekBarang();
+        // $this->cekBarang();
         $jb = JualBeli::create([
             'id_transaksi' => $this->id_transaksi,
             'harga' => $this->harga,
@@ -95,21 +95,7 @@ class AddEditModal extends Component
         $this->closeModal();
         $this->dispatch('refresh-data');
     }
-    public function cekBarang()
-    {
 
-        $barang = Barang::where('id_barang', $this->id_barang)->first();
-        if ($this->statusDagang == 'Jual') {
-            $stok = $barang->stok - $this->jumlah;
-        } elseif ($this->statusDagang == 'Beli') {
-            $stok = $barang->stok + $this->jumlah;
-        }
-        if ($barang) {
-            $barang->update([
-                'stok' => $stok
-            ]);
-        }
-    }
     public function update()
     {
         $this->validate();
