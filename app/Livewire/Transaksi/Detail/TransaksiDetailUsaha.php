@@ -130,8 +130,6 @@ class TransaksiDetailUsaha extends Component
             } catch (Exception $e) {
             }
         }
-
-        // $this->cekBarang();
         $this->hutang($this->total, $this->dibayarkan, $transaksi);
         $transaksi->update([
             'saved' => true
@@ -151,25 +149,7 @@ class TransaksiDetailUsaha extends Component
             ]);
         }
     }
-    // public function cekBarang()
-    // {
 
-    //     $jb = JualBeli::where('id_transaksi', $this->id_transaksi)->get();
-
-    //     foreach ($jb as $item) {
-    //         $qty = $item->kuantitas;
-    //         $barang = Barang::find($item->jbdagang->barang->id_barang);
-    //         if ($this->statusDagang == 'Jual') {
-    //             $barang->update([
-    //                 'stok' => $barang->stok - $qty
-    //             ]);
-    //         } else {
-    //             $barang->update([
-    //                 'stok' => $barang->stok + $qty
-    //             ]);
-    //         }
-    //     }
-    // }
     public function storeJasa()
     {
         $this->validate();

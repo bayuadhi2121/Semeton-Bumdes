@@ -12,22 +12,27 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Collection;
 
-use function Livewire\store;
 
 class AddEditModal extends Component
 {
     public $status, $statusDagang, $id_transaksi, $id_jpendapatan, $id_barang, $id_jualbeli;
     public $show, $showList, $title, $mode, $search = '';
-    public $harga, $jumlah, $nama;
+    public $harga, $jumlah, $nama, $stok;
     public Collection $dropdown;
     public function rules()
     {
         $barang = Barang::where('nama', $this->nama)->first();
-        return [
+        $rules = [
             'nama' => 'required',
             'harga' => 'required|numeric',
-            'jumlah' => 'required|numeric|max:' . $barang->stok,
+            'jumlah' => 'required|numeric',
         ];
+
+        if ($barang) {
+            $rules['jumlah'] .= '|max:' . $barang->stok;
+        }
+
+        return $rules;
     }
     #[On('add-modal')]
     public function addModal()
@@ -50,6 +55,8 @@ class AddEditModal extends Component
     {
         $this->id_jpendapatan = $id_jpendapatan;
         $this->id_barang = $id_barang;
+        // $barang = Barang::where('id_barang', $id_barang)->first();
+        // $this->stok = $barang ? $barang->stok : null;
         $this->search = $nama_person;
         $this->nama = $this->search;
     }
