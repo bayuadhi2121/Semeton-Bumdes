@@ -99,10 +99,14 @@ class AddEditModal extends Component
     {
 
         $barang = Barang::where('id_barang', $this->id_barang)->first();
-
+        if ($this->statusDagang == 'Jual') {
+            $stok = $barang->stok - $this->jumlah;
+        } elseif ($this->statusDagang == 'Beli') {
+            $stok = $barang->stok + $this->jumlah;
+        }
         if ($barang) {
             $barang->update([
-                'stok' => $barang->stok - $this->jumlah
+                'stok' => $stok
             ]);
         }
     }
