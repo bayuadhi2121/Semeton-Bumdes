@@ -31,6 +31,7 @@ class AddEditModal extends Component
     {
         $this->show = false;
         $this->showList = false;
+        $this->isTransaksi = true;
     }
 
     public function store()
@@ -178,6 +179,7 @@ class AddEditModal extends Component
     #[On('add-modal')]
     public function addModal()
     {
+
         $this->openModal('store', 'Tambah');
     }
 
@@ -187,6 +189,7 @@ class AddEditModal extends Component
         $this->id_usaha = $usaha->id_usaha;
         $this->nama = $usaha->nama;
         $this->isTransaksi = $usaha->transaksi->isEmpty();
+
         $this->status = $usaha->status;
         $this->id_person = $usaha->id_person;
         $this->search = $usaha->person->nama ?? '';
