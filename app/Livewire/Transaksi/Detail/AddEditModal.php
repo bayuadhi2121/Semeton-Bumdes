@@ -17,19 +17,18 @@ class AddEditModal extends Component
 {
     public $status, $statusDagang, $id_transaksi, $id_jpendapatan, $id_barang, $id_jualbeli;
     public $show, $showList, $title, $mode, $search = '';
-    public $harga, $jumlah, $nama, $stok;
+    public $harga, $jumlah, $nama, $barang;
     public Collection $dropdown;
     public function rules()
     {
-        $barang = Barang::where('nama', $this->nama)->first();
         $rules = [
             'nama' => 'required',
             'harga' => 'required|numeric',
             'jumlah' => 'required|numeric',
         ];
 
-        if ($barang && $this->status == 'Jual') {
-            $rules['jumlah'] .= '|max:' . $barang->stok;
+        if ($this->barang && $this->statusDagang == 'Jual') {
+            $rules['jumlah'] .= '|max:' . $this->barang->stok;
         }
 
         return $rules;
@@ -57,8 +56,7 @@ class AddEditModal extends Component
     {
         $this->id_jpendapatan = $id_jpendapatan;
         $this->id_barang = $id_barang;
-        // $barang = Barang::where('id_barang', $id_barang)->first();
-        // $this->stok = $barang ? $barang->stok : null;
+        $this->barang = Barang::where('id_barang', $id_barang)->first();
         $this->search = $nama_person;
         $this->nama = $this->search;
     }
@@ -71,7 +69,6 @@ class AddEditModal extends Component
     public function store()
     {
         $this->validate();
-        // $this->cekBarang();
         $jb = JualBeli::create([
             'id_transaksi' => $this->id_transaksi,
             'harga' => $this->harga,

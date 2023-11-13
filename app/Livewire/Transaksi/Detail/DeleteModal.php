@@ -21,14 +21,14 @@ class DeleteModal extends Component
     public function destroy()
     {
         $jualbeli = JualBeli::where('id_jualbeli', $this->id_jualbeli)->first();
-        if ($jualbeli->transaksi->dagang->status == 'Beli') {
-            $stok = $jualbeli->jbdagang->barang->stok - $jualbeli->kuantitas;
-        } else if ($jualbeli->transaksi->dagang->status == 'Jual') {
-            $stok = $jualbeli->jbdagang->barang->stok + $jualbeli->kuantitas;
-        }
-        $jualbeli->jbdagang->barang->update([
-            'stok' => $stok
-        ]);
+        // if ($jualbeli->transaksi->dagang->status == 'Beli') {
+        //     $stok = $jualbeli->jbdagang->barang->stok - $jualbeli->kuantitas;
+        // } else if ($jualbeli->transaksi->dagang->status == 'Jual') {
+        //     $stok = $jualbeli->jbdagang->barang->stok + $jualbeli->kuantitas;
+        // }
+        // $jualbeli->jbdagang->barang->update([
+        //     'stok' => $stok
+        // ]);
         $jualbeli->delete();
         $this->closeModal();
         $this->dispatch('refresh-data');
