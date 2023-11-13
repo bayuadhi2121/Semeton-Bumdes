@@ -391,12 +391,12 @@
                         <tr class="border-b border-neutral-400 font-medium">
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Modal
                                 Akhir</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $modalAwal->Nilai ?? 0 }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                {{ $modalAwal ? $modalAwal->Nilai : 0 }} </td>
 
                         </tr>
                         @php
-                        $pasiva=$hutang+$modalAwal->Nilai ?? 0;
+                        $pasiva=$hutang+ $modalAwal ? $modalAwal->Nilai : 0 ;
                         @endphp
                     </tbody>
                 </table>

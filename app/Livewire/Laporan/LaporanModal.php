@@ -4,6 +4,7 @@ namespace App\Livewire\Laporan;
 
 use App\Models\JurnalUmum;
 use App\Models\Modal;
+use App\Models\Modal_Awal;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -102,9 +103,8 @@ class LaporanModal extends Component
     }
     public function modal($propertyName)
     {
-        $propertyValue = Modal::where('tahun', $this->awal->year - 1)
-            ->first();
-
+        $tahun = (int) substr($this->awal, 0, 4);
+        $propertyValue = Modal_Awal::where('tahun', $tahun - 1)->first();
         $this->$propertyName = $propertyValue;
     }
 }

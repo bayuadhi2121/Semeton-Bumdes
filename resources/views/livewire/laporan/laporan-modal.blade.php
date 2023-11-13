@@ -25,7 +25,7 @@
                         Saldo Modal Awal
                     </td>
                     <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Rp.{{ $modalAwal->nilai }}
+                        Rp.{{ $modalAwal ? $modalAwal->Nilai : 0 }}
                     </td>
                 </tr>
 
@@ -43,12 +43,12 @@
                     </td>
                 </tr>
                 <tr class=" border-b border-neutral-500">
-                    <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
+                    {{-- <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
                         Pengurangan (prive, rugi)
                     </td>
                     <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
                         Rp.{{ $prive->total ?? 0 }}
-                    </td>
+                    </td> --}}
                 </tr>
 
                 {{-- TOTAL PENDPATAN OPERASIONAL --}}

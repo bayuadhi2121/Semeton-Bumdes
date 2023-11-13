@@ -4,6 +4,7 @@ namespace App\Livewire\Laporan;
 
 use App\Models\JurnalUmum;
 use App\Models\Modal;
+use App\Models\Modal_Awal;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -16,7 +17,7 @@ class LaporanNeraca extends Component
     public $hutangUsaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
     public $bank, $modal, $hasil, $pihak3, $pajak, $modalakhir;
     #[Layout('layouts.laporan')]
-    public $awal, $akhir;
+    public $awal, $akhir, $tahun;
 
     public $modalAwal;
     public function mount($awal, $akhir)
@@ -76,9 +77,8 @@ class LaporanNeraca extends Component
     }
     public function modal($propertyName)
     {
-        $propertyValue = Modal::where('tahun', $this->awal->year - 1)
-            ->first();
-
+        $tahun = (int) substr($this->awal, 0, 4);
+        $propertyValue = Modal_Awal::where('tahun', $tahun - 1)->first();
         $this->$propertyName = $propertyValue;
     }
 
