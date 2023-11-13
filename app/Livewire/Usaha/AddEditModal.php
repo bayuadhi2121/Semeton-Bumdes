@@ -16,7 +16,7 @@ class AddEditModal extends Component
     public $show, $showList, $title, $mode, $search = '';
     public $id_person, $id_usaha, $nama, $status;
     public Collection $person;
-    public $isTransaksi;
+    public $usaha;
 
     public function rules()
     {
@@ -31,7 +31,7 @@ class AddEditModal extends Component
     {
         $this->show = false;
         $this->showList = false;
-        $this->isTransaksi = true;
+        $this->usaha = false;
     }
 
     public function store()
@@ -186,10 +186,9 @@ class AddEditModal extends Component
     #[On('edit-modal')]
     public function editModal(Usaha $usaha)
     {
+        $this->usaha = $usaha->transaksi->isEmpty();
         $this->id_usaha = $usaha->id_usaha;
         $this->nama = $usaha->nama;
-        $this->isTransaksi = $usaha->transaksi->isEmpty();
-
         $this->status = $usaha->status;
         $this->id_person = $usaha->id_person;
         $this->search = $usaha->person->nama ?? '';
@@ -206,6 +205,7 @@ class AddEditModal extends Component
     #[On('close-modal')]
     public function closeModal()
     {
+        $this->usaha = false;
         $this->show = false;
         $this->reset();
         $this->resetValidation();
