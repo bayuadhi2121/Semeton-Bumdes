@@ -368,13 +368,13 @@
 
                         </tr>
                         @php
-                        $pasiva=$pendek+$panjang+$modalakhir->total;
+                        $hutang=$pendek+$panjang;
                         @endphp
                         <tr class="border-b border-neutral-400 font-medium bg-cyan-300">
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Hutang (1+2+3)</td>
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $pasiva }}
+                                $hutang }}
                             </td>
 
                         </tr>
@@ -391,11 +391,13 @@
                         <tr class="border-b border-neutral-400 font-medium">
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Modal
                                 Akhir</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $modalakhir->total ?? 0 }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                {{ $modalAwal ? $modalAwal->Nilai : 0 }} </td>
 
                         </tr>
-
+                        @php
+                        $pasiva=$hutang+ $modalAwal ? $modalAwal->Nilai : 0 ;
+                        @endphp
                     </tbody>
                 </table>
             </div>

@@ -14,6 +14,7 @@ class AddEditModal extends Component
 
     public $show = false, $title, $mode;
     public $trxStatus, $usahaStatus, $notaPath;
+    public $saved;
     public $id_transaksi, $id_usaha, $tanggal, $keterangan, $dagangStatus, $nota;
 
     public function rules()
@@ -21,7 +22,7 @@ class AddEditModal extends Component
         return [
             'tanggal' => 'required|before:tomorrow',
             'dagangStatus' => 'nullable|required_if:usahaStatus,Dagang',
-            'nota' => 'nullable|image|max:3072'
+            'nota' => 'required|image|max:3072'
         ];
     }
 
@@ -99,6 +100,7 @@ class AddEditModal extends Component
     {
         $this->id_transaksi = $transaksi->id_transaksi;
         $this->tanggal = $transaksi->tanggal;
+        $this->saved = $transaksi->saved;
         $this->keterangan = $transaksi->keterangan;
         $this->notaPath = $transaksi->nota;
 

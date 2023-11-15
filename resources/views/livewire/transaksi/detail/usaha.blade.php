@@ -17,9 +17,10 @@
 
 
     <div>
-
+        @if(!$transaksi->saved)
         <button wire:click="$dispatch('add-modal')" type="button"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+        @endif
     </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -72,12 +73,12 @@
         </table>
     </div>
 
-    <form class="pt-6 w-2/5" wire:click.prevent='action'>
+    <form class="pt-6 w-2/5" wire:submit.prevent='action'>
         <div class="flex flex-row items-center justify-items-start pb-2">
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Total Transaksi
             </label>
-            <input type="text" value="{{ $total }}" id="small-input" wire:model.live='total'
+            <input type="text" value="{{ $total }}" id="small-input" wire:model='total'
                 class="total basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
 
@@ -87,8 +88,14 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Dibayarkan
             </label>
-            <input type="number" placeholder="0" id="small-input" wire:model='dibayarkan' wire:ignore
+            @if ($transaksi->saved)
+            <input type="number" placeholder="{{ $dibayarkan }}" id="small-input"
+                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
+                disabled>
+            @else
+            <input type="number" placeholder="0" id="small-input" wire:model.live='dibayarkan'
                 class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+            @endif
             <div class="basis-1/5">
                 @error('dibayarkan')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -101,18 +108,21 @@
             <label class="text-gray-800 font-semibold basis-4/12 ">
                 Sisa
             </label>
-            <input type="text" id="small-input" wire:model.live='sisa'
+            <input type="text" id="small-input" wire:model='sisa' placeholder="0"
                 class="sisa basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
+            @if (!$transaksi->saved)
             <div class="basis-1/5">
-                @if (!$transaksi->saved)
-                <button type="button"
+                <button type="submit"
                     class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
-                @endif
+
             </div>
+            @endif
 
         </div>
-
+        @error('kuantitas')
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+        @enderror
 
     </form>
     {{-- , ['usaha' => $usaha, 'status' => $status, 'mode' => $mode] --}}

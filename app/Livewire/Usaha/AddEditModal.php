@@ -16,6 +16,7 @@ class AddEditModal extends Component
     public $show, $showList, $title, $mode, $search = '';
     public $id_person, $id_usaha, $nama, $status;
     public Collection $person;
+    public $usaha;
 
     public function rules()
     {
@@ -30,6 +31,7 @@ class AddEditModal extends Component
     {
         $this->show = false;
         $this->showList = false;
+        $this->usaha = false;
     }
 
     public function store()
@@ -94,23 +96,60 @@ class AddEditModal extends Component
             ]);
         }
     }
-
+    public function updateUsaha($akun, $usaha, $nama, $id_person)
+    {
+        foreach ($akun as $item) {
+            if ($item->usaha->status == 'Jasa') {
+                if (str_contains($item->nama, 'Kas')) {
+                    $item->update([
+                        'nama' => 'Kas ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Pendapatan')) {
+                    $item->update([
+                        'nama' => 'Pendapatan ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Piutang')) {
+                    $item->update([
+                        'nama' => 'Piutang ' . $nama
+                    ]);
+                }
+            } else {
+                if (str_contains($item->nama, 'Kas')) {
+                    $item->update([
+                        'nama' => 'Kas ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Pembelian')) {
+                    $item->update([
+                        'nama' => 'Pembelian ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Penjualan')) {
+                    $item->update([
+                        'nama' => 'Penjualan ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Hutang')) {
+                    $item->update([
+                        'nama' => 'Hutang ' . $nama
+                    ]);
+                } else {
+                    $item->update([
+                        'nama' => 'Piutang ' . $nama
+                    ]);
+                }
+            }
+        }
+        $usaha->update([
+            'nama' => $this->nama,
+            'status' => $this->status,
+            'id_person' => $this->id_person,
+        ]);
+    }
     public function update()
     {
         $this->validate();
 
         $usaha = Usaha::find($this->id_usaha);
         $akun = Akun::where('id_usaha', $this->id_usaha)->get();
-        $usaha->update([
-            'nama' => $this->nama,
-            'status' => $this->status,
-            'id_person' => $this->id_person,
-        ]);
-        // dd($akun);
-
-        if ($this->status == 'Barang') {
-        }
-        // $this->storeAkun($usaha);
+        $this->updateUsaha($akun, $usaha, $this->nama, $this->id_person);
         $this->closeModal();
         $this->dispatch('page-refresh');
     }
@@ -140,12 +179,14 @@ class AddEditModal extends Component
     #[On('add-modal')]
     public function addModal()
     {
+
         $this->openModal('store', 'Tambah');
     }
 
     #[On('edit-modal')]
     public function editModal(Usaha $usaha)
     {
+        $this->usaha = $usaha->transaksi->isEmpty();
         $this->id_usaha = $usaha->id_usaha;
         $this->nama = $usaha->nama;
         $this->status = $usaha->status;
@@ -164,6 +205,7 @@ class AddEditModal extends Component
     #[On('close-modal')]
     public function closeModal()
     {
+        $this->usaha = false;
         $this->show = false;
         $this->reset();
         $this->resetValidation();
@@ -179,22 +221,11 @@ class AddEditModal extends Component
         $this->showList = false;
     }
 
-    public function updatedSearch()
-    {
-        if ($this->person->contains('nama', $this->search)) {
-            $this->id_person = $this->person->where('nama', $this->search)->first()->id_person;
-            $this->resetValidation();
-        } else if ($this->search != '') {
-            $this->id_person = 'zxcvbnm,./';
-        } else {
-            $this->reset('id_person');
-            $this->resetValidation();
-        }
-    }
+
 
     public function render()
     {
-        $this->person = Person::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->person = Person::where('nama', 'like', '%' . $this->search . '%')->where('status', 'Akuntan')->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.usaha.add-edit-modal', [
             'pengelola' => $this->person
         ]);

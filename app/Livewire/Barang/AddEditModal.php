@@ -15,10 +15,10 @@ class AddEditModal extends Component
     {
         return [
             'nama' => 'required|min:2',
-            'harga' => 'required|numeric',
-            'untung' => 'required|numeric',
+            'harga' => 'required|numeric|gt:0',
+            'untung' => 'required|numeric|gt:0',
             'stok' => 'required|numeric',
-            'stok_min' => 'required|numeric'
+            'stok_min' => 'required|numeric|gt:0'
         ];
     }
 

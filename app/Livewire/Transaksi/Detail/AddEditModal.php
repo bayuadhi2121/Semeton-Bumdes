@@ -12,33 +12,41 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Collection;
 
-use function Livewire\store;
 
 class AddEditModal extends Component
 {
-    public $status, $id_transaksi, $id_jpendapatan, $id_barang, $id_jualbeli;
+    public $status, $statusDagang, $id_transaksi, $id_jpendapatan, $id_barang, $id_jualbeli;
     public $show, $showList, $title, $mode, $search = '';
-    public $harga, $jumlah, $nama;
+    public $harga, $jumlah, $nama, $barang;
     public Collection $dropdown;
     public function rules()
     {
-        return [
+        $rules = [
             'nama' => 'required',
             'harga' => 'required|numeric',
-            'jumlah' => 'required|numeric|',
+            'jumlah' => 'required|numeric',
         ];
+
+        if ($this->barang && $this->statusDagang == 'Jual') {
+            $rules['jumlah'] .= '|max:' . $this->barang->stok;
+        }
+
+        return $rules;
     }
     #[On('add-modal')]
     public function addModal()
     {
         $this->openModal('store', 'Tambah');
     }
-    public function mount($transaksi, $status)
+    public function mount(Transaksi $transaksi, $status)
     {
         $this->show = false;
         $this->showList = false;
         $this->status = $status;
-        $this->id_transaksi = $transaksi;
+        if ($transaksi->usaha->status == 'Dagang') {
+            $this->statusDagang = $transaksi->dagang->status;
+        }
+        $this->id_transaksi = $transaksi->id_transaksi;
     }
     public function showPerson()
     {
@@ -48,6 +56,7 @@ class AddEditModal extends Component
     {
         $this->id_jpendapatan = $id_jpendapatan;
         $this->id_barang = $id_barang;
+        $this->barang = Barang::where('id_barang', $id_barang)->first();
         $this->search = $nama_person;
         $this->nama = $this->search;
     }
@@ -83,6 +92,7 @@ class AddEditModal extends Component
         $this->closeModal();
         $this->dispatch('refresh-data');
     }
+
     public function update()
     {
         $this->validate();
@@ -140,7 +150,11 @@ class AddEditModal extends Component
             $id_usaha = Transaksi::find($this->id_transaksi);
             $this->dropdown = JenisPendapatan::where('nama', 'like', '%' . $this->search . '%')->where('id_usaha', $id_usaha->id_usaha)->inRandomOrder()->limit(5)->orderBy('nama')->get();
         } else {
-            $this->dropdown = Barang::where('nama', 'like', '%' . $this->search . '%')->inRandomOrder()->limit(5)->orderBy('nama')->get();
+            $this->dropdown = Barang::where('nama', 'like', '%' . $this->search . '%')->get();
+            if ($this->statusDagang == 'Jual') {
+                $this->dropdown = $this->dropdown->where('stok', '>', 0);
+            }
+            $this->dropdown = $this->dropdown->shuffle()->take(5);
         }
         return view('livewire.transaksi.detail.add-edit-modal', [
             'jpedapatan' => $this->dropdown

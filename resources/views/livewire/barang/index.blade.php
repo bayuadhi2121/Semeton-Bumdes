@@ -2,15 +2,15 @@
     <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Data Barang</h2>
 
     <div class="mb-4 flex justify-between">
+        @can('akuntan')
         <button wire:click="$dispatch('add-modal')" type="button"
             class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
-
+        @endcan
         <div class="relative w-1/4">
-            @can('akuntan')
+
             <input type="text" id="simple-search" wire:model.live='search'
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
                 placeholder="Cari Barang..." required>
-            @endcanw
             @if ($search != '')
             <button wire:click="resetSearch()"
                 class="text-gray-500 absolute right-2 bottom-4 font-medium rounded-lg text-sm">

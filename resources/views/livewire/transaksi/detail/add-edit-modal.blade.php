@@ -50,6 +50,7 @@
                             <div class="absolute w-full">
                                 <div class="bg-white p-2 border-2 shadow-lg rounded-lg mt-2">
                                     @foreach ($dropdown as $item)
+
                                     <div wire:click="setPerson('{{ $item->id_jpendapatan }}','{{ $item->id_barang }}', '{{ $item->nama }}')"
                                         class="py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
                                         {{ $item->nama }}
@@ -60,7 +61,7 @@
                                     ''))
                                     <div
                                         class="flex items-center space-x-2 py-2 px-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer">
-                                        <span>Tidak Ada Akun</span>
+                                        <span>Tidak Ada Data</span>
                                     </div>
                                     @endif
                                 </div>
