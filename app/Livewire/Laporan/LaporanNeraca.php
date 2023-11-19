@@ -31,7 +31,17 @@ class LaporanNeraca extends Component
     {
         return view('livewire.laporan.laporan-neraca');
     }
-
+    public function storeModal()
+    {
+        $tahun = (int) substr($this->awal, 0, 4);
+        $modalawal = Modal_Awal::firstOrNew(['tahun' => $tahun]);
+        $tahunlalu = Modal_Awal::where('tahun', $tahun - 1)->first();
+        $nilai = ($this->bank->Nilai ?? 0 + $this->modal->Nilai ?? 0 + $this->hasil->Nilai ?? 0 + $this->pihak3->Nilai ?? 0 + $this->pajak->Nilai ?? 0) + ($tahunlalu->Nilai ?? 0);
+        // Set default values if the record is new
+        $modalawal->fill([
+            'Nilai' => $nilai,
+        ])->save();
+    }
     public function setUsaha()
     {
         $this->akunKas = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
@@ -109,5 +119,6 @@ class LaporanNeraca extends Component
         $this->queryHutang('Pajak', 'pajak');
 
         $this->modal('modalAwal');
+        $this->storeModal();
     }
 }
