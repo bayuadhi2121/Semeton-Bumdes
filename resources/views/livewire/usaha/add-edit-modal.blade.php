@@ -21,7 +21,7 @@
                     <form wire:submit.prevent="{{ $mode }}" class="space-y-6">
 
                         @if($mode=='update' && $usaha)
-                        {{ $usaha }}
+
                         <div>
                             <div class="relative">
                                 <input wire:model="nama" type="text" id="nama" name="nama"
