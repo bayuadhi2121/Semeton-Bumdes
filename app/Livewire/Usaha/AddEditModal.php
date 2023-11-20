@@ -73,7 +73,11 @@ class AddEditModal extends Component
             $usaha->akun()->CreateMany([
                 [
                     'id_usaha' => $usaha->id_usaha,
-                    'nama' => 'Pembelian ' . $usaha->nama
+                    'nama' => 'Persediaan barang dagang ' . $usaha->nama
+                ],
+                [
+                    'id_usaha' => $usaha->id_usaha,
+                    'nama' => 'Harga Pokok Penjualan ' . $usaha->nama
                 ],
 
                 [
@@ -118,9 +122,9 @@ class AddEditModal extends Component
                     $item->update([
                         'nama' => 'Kas ' . $nama
                     ]);
-                } else if (str_contains($item->nama, 'Pembelian')) {
+                } else if (str_contains($item->nama, 'Persediaan barang dagang')) {
                     $item->update([
-                        'nama' => 'Pembelian ' . $nama
+                        'nama' => 'Persediaan barang dagang ' . $nama
                     ]);
                 } else if (str_contains($item->nama, 'Penjualan')) {
                     $item->update([
@@ -129,6 +133,10 @@ class AddEditModal extends Component
                 } else if (str_contains($item->nama, 'Hutang')) {
                     $item->update([
                         'nama' => 'Hutang ' . $nama
+                    ]);
+                } elseif (str_contains($item->nama, 'Harga Pokok Penjualan')) {
+                    $item->update([
+                        'nama' => 'Harga Pokok Penjualan ' . $nama
                     ]);
                 } else {
                     $item->update([
@@ -164,11 +172,25 @@ class AddEditModal extends Component
     public function createPerson()
     {
         $nama = ucwords($this->search);
-        $result = Person::create([
-            'nama' => $nama,
-            'username' => str_replace(" ", "", strtolower($this->search)),
-            'status' => 'Akuntan'
+
+        // Attempt to find a record with the given username
+        $result = Person::firstOrNew([
+            'username' => str_replace(" ", "", strtolower($this->search))
         ]);
+
+        // Check if the record already exists
+        if (!$result->exists) {
+            // If the record doesn't exist, set the attributes and save
+            $result->nama = $nama;
+            $result->status = 'Akuntan';
+            $result->save();
+        } else {
+            // If the record already exists, you can handle the situation here
+            // For example, throw an exception or return an error message
+            // In this example, we'll throw an exception
+            $this->addError('id_person', 'Pengelola sudah ada ');
+            return;
+        }
 
         $this->id_person = $result->id_person;
         $this->search = $nama;

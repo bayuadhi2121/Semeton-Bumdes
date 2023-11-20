@@ -34,8 +34,15 @@ class EditModal extends Component
 
         foreach ($akunList as $akun) {
             $nama = strtolower($akun->nama);
-
             // Check for common conditions and create JurnalUmum accordingly
+            if ($hutang->transaksi->usaha->status == 'Dagang' && $hutang->transaksi->dagang->status == 'Beli' && $hutang->is_hutang && strpos($nama, 'kas') !== false) {
+                JurnalUmum::create([
+                    'id_akun' => $akun->id_akun,
+                    'id_transaksi' => $hutang->transaksi->id_transaksi,
+                    'debit' => 0,
+                    'kredit' => $this->dibayar,
+                ]);
+            }
             if (
                 ($hutang->is_hutang && strpos($nama, 'hutang') !== false) ||
                 (!$hutang->is_hutang && strpos($nama, 'piutang') !== false)
@@ -46,7 +53,7 @@ class EditModal extends Component
                     'debit' => $debit,
                     'kredit' => $kredit,
                 ]);
-            } elseif (strpos($nama, 'kas') !== false) {
+            } elseif (strpos($nama, 'kas') !== false && !$hutang->transaksi->dagang->status == 'Beli') {
 
                 JurnalUmum::create([
                     'id_akun' => $akun->id_akun,

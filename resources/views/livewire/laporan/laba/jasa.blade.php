@@ -9,8 +9,6 @@
                 <tr class="border-b border-neutral-400">
                     <td colspan="4" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">A.
                         Pendapatan Jasa</td>
-                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
-                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
                 </tr>
 
                 {{-- ANAK PENDAPATAN JASA --}}
@@ -71,8 +69,6 @@
                 <tr class="border-b border-neutral-400">
                     <td colspan="4" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">C.
                         Beban</td>
-                    {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
-                    <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td> --}}
                 </tr>
 
                 {{-- ANAK BEBAN --}}
@@ -126,7 +122,7 @@
                     <td colspan="3" class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
                         Laba/Rugi Bersih </td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
-                        Rp.{{$operasional-$totalpendapatan}}</td>
+                        Rp.{{$totalpendapatan-$operasional}}</td>
 
                 </tr>
 

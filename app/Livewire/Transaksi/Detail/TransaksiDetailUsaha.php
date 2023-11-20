@@ -163,7 +163,7 @@ class TransaksiDetailUsaha extends Component
     {
         $is_hutang = true;
         if ($dibayar != $total) {
-            if ($transaksi->status == 'Dagang' && $transaksi->dagang->status == 'Beli' || $transaksi->status == 'Usaha') {
+            if ($transaksi->status == 'Dagang' && $transaksi->dagang->status == 'Jual' && $transaksi->status == 'Usaha') {
                 $is_hutang = false;
             }
             Hutang::create([

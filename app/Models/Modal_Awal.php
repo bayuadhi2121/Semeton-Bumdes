@@ -10,10 +10,8 @@ class Modal_Awal extends Model
     use HasFactory;
 
     protected $guarded = [];
-
+    protected $primaryKey = 'Tahun';
     public $table = 'modal_awals';
 
     public $incrementing = false;
-
-    public $timestamps = false;
 }

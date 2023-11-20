@@ -40,11 +40,12 @@
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                 </tr>
                 <tr class=" border-b border-neutral-400">
-                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Barang Tersedia Terjual
+                    {{-- <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Barang Tersedia
+                        Terjual
                     </td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp{{ $item->total_jual }}</td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
+                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td> --}}
                 </tr>
                 {{-- LABA RUGI--}}
 
@@ -53,10 +54,10 @@
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> </td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> Rp{{
-                        $item->penjualan-($item->pembelian+$item->total_jual) }} </td>
+                        $item->penjualan-($item->pembelian) }} </td>
 
                     @php
-                    $dagang=$dagang+$item->penjualan-($item->pembelian+$item->total_jual);
+                    $dagang=$dagang+$item->penjualan-($item->pembelian);
                     @endphp
 
                 </tr>
