@@ -56,7 +56,7 @@
                         @endphp
                         @endforeach
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Kas Piutang</td>
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Piutang</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $piutang->total ?? 0
                                 }} </td>
                             @php
