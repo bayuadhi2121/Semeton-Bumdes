@@ -164,11 +164,25 @@ class AddEditModal extends Component
     public function createPerson()
     {
         $nama = ucwords($this->search);
-        $result = Person::create([
-            'nama' => $nama,
-            'username' => str_replace(" ", "", strtolower($this->search)),
-            'status' => 'Akuntan'
+
+        // Attempt to find a record with the given username
+        $result = Person::firstOrNew([
+            'username' => str_replace(" ", "", strtolower($this->search))
         ]);
+
+        // Check if the record already exists
+        if (!$result->exists) {
+            // If the record doesn't exist, set the attributes and save
+            $result->nama = $nama;
+            $result->status = 'Akuntan';
+            $result->save();
+        } else {
+            // If the record already exists, you can handle the situation here
+            // For example, throw an exception or return an error message
+            // In this example, we'll throw an exception
+            $this->addError('id_person', 'Pengelola sudah ada ');
+            return;
+        }
 
         $this->id_person = $result->id_person;
         $this->search = $nama;
