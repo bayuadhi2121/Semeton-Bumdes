@@ -73,7 +73,11 @@ class AddEditModal extends Component
             $usaha->akun()->CreateMany([
                 [
                     'id_usaha' => $usaha->id_usaha,
-                    'nama' => 'Pembelian ' . $usaha->nama
+                    'nama' => 'Persediaan barang dagang ' . $usaha->nama
+                ],
+                [
+                    'id_usaha' => $usaha->id_usaha,
+                    'nama' => 'Harga Pokok Penjualan ' . $usaha->nama
                 ],
 
                 [
@@ -118,9 +122,9 @@ class AddEditModal extends Component
                     $item->update([
                         'nama' => 'Kas ' . $nama
                     ]);
-                } else if (str_contains($item->nama, 'Pembelian')) {
+                } else if (str_contains($item->nama, 'Persediaan barang dagang')) {
                     $item->update([
-                        'nama' => 'Pembelian ' . $nama
+                        'nama' => 'Persediaan barang dagang ' . $nama
                     ]);
                 } else if (str_contains($item->nama, 'Penjualan')) {
                     $item->update([
@@ -129,6 +133,10 @@ class AddEditModal extends Component
                 } else if (str_contains($item->nama, 'Hutang')) {
                     $item->update([
                         'nama' => 'Hutang ' . $nama
+                    ]);
+                } elseif (str_contains($item->nama, 'Harga Pokok Penjualan')) {
+                    $item->update([
+                        'nama' => 'Harga Pokok Penjualan ' . $nama
                     ]);
                 } else {
                     $item->update([
