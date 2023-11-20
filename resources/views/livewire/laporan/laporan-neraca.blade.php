@@ -396,7 +396,8 @@
 
                         </tr>
                         @php
-                        $pasiva=$hutang+ $modalAwal ? $modalAwal->Nilai : 0 ;
+                        $modal=$modalAwal ? $modalAwal->Nilai : 0;
+                        $pasiva=$hutang + $modal;
                         @endphp
                     </tbody>
                 </table>

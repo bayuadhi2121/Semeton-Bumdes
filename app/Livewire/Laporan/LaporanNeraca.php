@@ -38,7 +38,7 @@ class LaporanNeraca extends Component
         $tahun = (int) substr($this->awal, 0, 4);
         $modalawal = Modal_Awal::firstOrNew(['tahun' => $tahun]);
         $tahunlalu = Modal_Awal::where('tahun', $tahun - 1)->first();
-        $nilai = ($this->bank->Nilai ?? 0 + $this->modal->Nilai ?? 0 + $this->hasil->Nilai ?? 0 + $this->pihak3->Nilai ?? 0 + $this->pajak->Nilai ?? 0) + ($tahunlalu->Nilai ?? 0);
+        $nilai = ($this->bank->total ?? 0 + $this->modal->total ?? 0 + $this->hasil->total ?? 0 + $this->pihak3->total ?? 0 + $this->pajak->totals ?? 0) + ($tahunlalu->Nilai ?? 0);
 
         $modalawal->fill([
             'Nilai' => $nilai,
@@ -75,7 +75,7 @@ class LaporanNeraca extends Component
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', '%' . $keyword . '%')
+            ->where('akuns.nama', 'LIKE', 'Kas ' . $keyword)
             ->first();
 
         $this->$propertyName = $propertyValue;
@@ -86,10 +86,8 @@ class LaporanNeraca extends Component
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', '%' . $keyword . '%')
-            ->whereNotNull('akuns.id_usaha')
+            ->where('akuns.nama', 'LIKE', 'Hutang ' . $keyword)
             ->first();
-
         $this->$propertyName = $propertyValue;
     }
     public function modal($propertyName)
