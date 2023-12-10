@@ -1,6 +1,6 @@
 <div>
-    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi {{ $status
-        }}</h2>
+    <h2 class="text-2xl font-medium mb-5 pb-1 flex flex-inline border-b-4 border-cyan-500">Detail Transaksi
+        {{ $status }}</h2>
 
     <div class="mb-4 flex flex-row justify-between items-center">
         <dt class="text-gray-800 font-semibold pr-2">Tanggal </dt>
@@ -17,9 +17,9 @@
 
 
     <div>
-        @if(!$transaksi->saved)
-        <button wire:click="$dispatch('add-modal')" type="button"
-            class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
+        @if (!$transaksi->saved)
+            <button wire:click="$dispatch('add-modal')" type="button"
+                class="text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Tambah</button>
         @endif
     </div>
 
@@ -51,21 +51,18 @@
             <tbody>
 
                 @forelse ($jualbeli as $item)
+                    @livewire('transaksi.detail.item', ['number' => $jualbeli->firstItem() + $loop->index, 'jualbeli' => $item, 'status' => $status], key(null))
 
-                @livewire('transaksi.detail.item', ['number' => $jualbeli->firstItem() + $loop->index, 'jualbeli' =>
-                $item,'status'=>$status],
-                key(null))
-
-                @if ($loop->last)
-                <tr>
-                    <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-800">Total Semua</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">Ini total</td>
-                </tr>
-                @endif
+                    {{-- @if ($loop->last)
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 font-medium text-center text-gray-800">Total Semua</td>
+                            <td class="px-6 py-4 font-medium text-gray-800">Ini total</td>
+                        </tr>
+                    @endif --}}
                 @empty
-                <tr>
-                    <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
-                </tr>
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 font-medium text-center">Data Kosong</td>
+                    </tr>
                 @endforelse
 
 
@@ -89,16 +86,16 @@
                 Dibayarkan
             </label>
             @if ($transaksi->saved)
-            <input type="number" placeholder="{{ $dibayarkan }}" id="small-input"
-                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
-                disabled>
+                <input type="number" placeholder="{{ $dibayarkan }}" id="small-input"
+                    class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
+                    disabled>
             @else
-            <input type="number" placeholder="0" id="small-input" wire:model.live='dibayarkan'
-                class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
+                <input type="number" placeholder="0" id="small-input" wire:model.live='dibayarkan'
+                    class="dibayarkan basis-2/5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2">
             @endif
             <div class="basis-1/5">
                 @error('dibayarkan')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -112,26 +109,24 @@
                 class="sisa basis-2/5 bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 mr-2"
                 disabled>
             @if (!$transaksi->saved)
-            <div class="basis-1/5">
-                <button type="submit"
-                    class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
+                <div class="basis-1/5">
+                    <button type="submit"
+                        class=" text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 ml-2">Simpan</button>
 
-            </div>
+                </div>
             @endif
 
         </div>
         @error('kuantitas')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
         @enderror
 
     </form>
     {{-- , ['usaha' => $usaha, 'status' => $status, 'mode' => $mode] --}}
     <!-- Add data modal -->
-    @livewire('transaksi.detail .add-edit-modal',['status'=>$status,'transaksi'=>$id_transaksi])
+    @livewire('transaksi.detail.add-edit-modal', ['status' => $status, 'transaksi' => $id_transaksi])
     {{-- Confirmation modal --}}
     @livewire('transaksi.detail.delete-modal')
 
-    <script>
-
-    </script>
+    <script></script>
 </div>

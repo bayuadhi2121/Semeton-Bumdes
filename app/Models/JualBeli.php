@@ -48,4 +48,9 @@ class JualBeli extends Model
     {
         return $this->hasOneThrough(JenisBiaya::class, Beban::class, 'id_jualbeli', 'id_jbiaya', 'id_jualbeli', 'id_jbiaya');
     }
+
+    public function barang()
+    {
+        return $this->hasOneThrough(Barang::class, Jbdagang::class, 'id_jualbeli', 'id_barang', 'id_jualbeli', 'id_barang');
+    }
 }

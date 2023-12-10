@@ -59,6 +59,10 @@ class AddEditModal extends Component
         $this->barang = Barang::where('id_barang', $id_barang)->first();
         $this->search = $nama_person;
         $this->nama = $this->search;
+
+        if ($this->statusDagang == 'Jual') {
+            $this->harga = $this->barang->harga + $this->barang->untung;
+        }
     }
 
     public function closePerson()

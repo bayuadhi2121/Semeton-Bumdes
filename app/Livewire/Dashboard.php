@@ -59,7 +59,13 @@ class Dashboard extends Component
         foreach($usahas as $key=>$usaha) {
             if($tempDagang) { continue; }
 
-            if($usaha['nama'] == $usahas[$key+1]['nama']) {
+            try {
+                $sameUsaha = $usaha['nama'] == $usahas[$key+1]['nama'];
+            } catch (\Throwable $th) {
+                $sameUsaha = false;
+            }
+
+            if($sameUsaha) {
                 $usahadagang[] = [
                     'nama' => $usaha['nama'],
                     'total' => $usaha['total'] - $usahas[$key+1]['total']
