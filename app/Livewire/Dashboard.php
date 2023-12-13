@@ -60,7 +60,8 @@ class Dashboard extends Component
             if($tempDagang) { continue; }
 
             try {
-                $sameUsaha = $usaha['nama'] == $usahas[$key+1]['nama'];
+                $usaha['nama'] == $usahas[$key+1]['nama'];
+                $sameUsaha = true;
             } catch (\Throwable $th) {
                 $sameUsaha = false;
             }
