@@ -15,8 +15,8 @@ use Livewire\WithPagination;
 class TransaksiDetailUsaha extends Component
 {
     public $id_transaksi, $status, $statusDagang;
-    public $total = 0;
-    public $dibayarkan;
+    public $total = 0, $hpp = 0;
+    public $dibayarkan = 0;
     public $sisa = 0;
     use WithPagination;
     public function rules()
@@ -48,6 +48,12 @@ class TransaksiDetailUsaha extends Component
         $this->total = $items->sum(function ($item) {
             return $item->kuantitas * $item->harga;
         });
+
+        if ($this->statusDagang == 'Jual') {
+            $this->hpp = $items->sum(function ($item) {
+                return $item->kuantitas * $item->barang->harga;
+            });
+        }
     }
     public function action()
     {
@@ -72,9 +78,17 @@ class TransaksiDetailUsaha extends Component
                 }
                 $stok = $jb->jbdagang->barang->stok - $jb->kuantitas;
             }
-            $jb->jbdagang->barang->update([
-                'stok' => $stok
-            ]);
+
+            if ($this->statusDagang == 'Beli') {
+                $jb->jbdagang->barang->update([
+                    'stok' => $stok,
+                    'harga' => $jb->harga
+                ]);
+            } else {
+                $jb->jbdagang->barang->update([
+                    'stok' => $stok
+                ]);
+            }
         }
     }
     public function storeDagang()
@@ -86,90 +100,103 @@ class TransaksiDetailUsaha extends Component
         }
         $transaksi = Transaksi::find($this->id_transaksi);
         $sisa = abs($this->sisa);
+
+        // list akun usaha dagang
+        $id_kas = "";
+        $id_penjualan = "";
+        $id_hpp = "";
+        $id_pbd = "";
+        $id_hutang = "";
+        $id_piutang = "";
+
+        // ambil id list akun
         foreach ($transaksi->usaha->akun as $item) {
-            $id_akun = $item->id_akun;
-            $record = [
-                'kredit' => 0,
-                'debit' => 0,
-                'id_akun' => '',
-                'id_transaksi' => $this->id_transaksi
-            ];
-            //hutang
-            if ($this->dibayarkan == 0) {
-                //jual
-                if ($transaksi->dagang->status == 'Jual') {
-                    if (strpos($item->nama, 'Penjualan ' . $item->usaha->nama) !== false) {
-                        $record['kredit'] = $this->total;
-                        $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
-                        $record['debit'] = $sisa;
-                        $record['id_akun'] = $id_akun;
-                    }
-                } else {
-
-                    if (strpos($item->nama, 'Pembelian ' . $item->usaha->nama) !== false) {
-                        $record['debit'] = $this->total;
-                        $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Hutang ' . $item->usaha->nama) !== false) {
-                        $record['kredit'] = $this->total;
-                        $record['id_akun'] = $id_akun;
-                    }
-                }
-            } else {
-
-                if ($transaksi->dagang->status == 'Jual') {
-                    if (strpos($item->nama, 'Penjualan ' . $item->usaha->nama) !== false) {
-                        $record['kredit'] = $this->total;
-                        $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
-                        $record['debit'] = $this->dibayarkan;
-                        $record['id_akun'] = $id_akun;
-                    }
-                } else {
-                    if (strpos($item->nama, 'Pembelian ' . $item->usaha->nama) !== false) {
-                        $record['debit'] = $this->total;
-                        $record['id_akun'] = $id_akun;
-                    } elseif (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
-                        $record['kredit'] = $this->dibayarkan;
-                        $record['id_akun'] = $id_akun;
-                    }
-                }
-            }
-
-            if ($this->sisa != 0) {
-                if ($transaksi->dagang->status == 'Jual') {
-                    if (strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
-                        $record['debit'] = $sisa;
-                        $record['id_akun'] = $id_akun;
-                    }
-                } else {
-                    if (strpos($item->nama, 'Hutang ' . $item->usaha->nama) !== false) {
-                        $record['kredit'] = $sisa;
-                        $record['id_akun'] = $id_akun;
-                    }
-                }
-            }
-            try {
-                JurnalUmum::create($record);
-            } catch (Exception $e) {
+            if (strpos($item->nama, 'Penjualan ' . $item->usaha->nama) === 0) {
+                $id_penjualan = $item->id_akun;
+            } elseif (strpos($item->nama, 'Kas ' . $item->usaha->nama) === 0) {
+                $id_kas = $item->id_akun;
+            } elseif (strpos($item->nama, 'Harga Pokok Penjualan ' . $item->usaha->nama) === 0) {
+                $id_hpp = $item->id_akun;
+            } elseif (strpos($item->nama, 'Persediaan Barang Dagang ' . $item->usaha->nama) === 0) {
+                $id_pbd = $item->id_akun;
+            } elseif (strpos($item->nama, 'Hutang ' . $item->usaha->nama) === 0) {
+                $id_hutang = $item->id_akun;
+            } elseif (strpos($item->nama, 'Piutang ' . $item->usaha->nama) === 0) {
+                $id_piutang = $item->id_akun;
             }
         }
-        $this->hutang($this->total, $this->dibayarkan, $transaksi);
+
+        if ($this->dibayarkan == 0) {
+            // full piutang (jual)
+            if ($transaksi->dagang->status == 'Jual') {
+                $transaksi->jurnalumum()->CreateMany([
+                    ['debit' => 0, 'kredit' => $this->total, 'id_akun' => $id_penjualan],
+                    ['debit' => $this->hpp, 'kredit' => 0, 'id_akun' => $id_hpp],
+                    ['debit' => 0, 'kredit' => $this->hpp, 'id_akun' => $id_pbd],
+                    ['debit' => $sisa, 'kredit' => 0, 'id_akun' => $id_piutang],
+                ]);
+            }
+            // full hutang (beli)
+            else {
+                $transaksi->jurnalumum()->CreateMany([
+                    ['debit' => $this->total, 'kredit' => 0, 'id_akun' => $id_pbd],
+                    ['debit' => 0, 'kredit' => $sisa, 'id_akun' => $id_hutang],
+                ]);
+            }
+        } elseif ($this->dibayarkan != 0 && $this->sisa != 0) {
+            // bayar separuh (jual)
+            if ($transaksi->dagang->status == 'Jual') {
+                $transaksi->jurnalumum()->CreateMany([
+                    ['debit' => $this->dibayarkan, 'kredit' => 0, 'id_akun' => $id_kas],
+                    ['debit' => 0, 'kredit' => $this->total, 'id_akun' => $id_penjualan],
+                    ['debit' => $this->hpp, 'kredit' => 0, 'id_akun' => $id_hpp],
+                    ['debit' => 0, 'kredit' => $this->hpp, 'id_akun' => $id_pbd],
+                    ['debit' => $sisa, 'kredit' => 0, 'id_akun' => $id_piutang],
+                ]);
+            }
+            // bayar separuh (beli)
+            else {
+                $transaksi->jurnalumum()->CreateMany([
+                    ['debit' => 0, 'kredit' => $this->dibayarkan, 'id_akun' => $id_kas],
+                    ['debit' => $this->total, 'kredit' => 0, 'id_akun' => $id_pbd],
+                    ['debit' => 0, 'kredit' => $sisa, 'id_akun' => $id_hutang],
+                ]);
+            }
+        } else {
+            // bayar full (jual)
+            if ($transaksi->dagang->status == 'Jual') {
+                $transaksi->jurnalumum()->CreateMany([
+                    ['debit' => $this->dibayarkan, 'kredit' => 0, 'id_akun' => $id_kas],
+                    ['debit' => 0, 'kredit' => $this->total, 'id_akun' => $id_penjualan],
+                    ['debit' => $this->hpp, 'kredit' => 0, 'id_akun' => $id_hpp],
+                    ['debit' => 0, 'kredit' => $this->hpp, 'id_akun' => $id_pbd],
+                ]);
+            }
+            // bayar full (beli)
+            else {
+                $transaksi->jurnalumum()->CreateMany([
+                    ['debit' => 0, 'kredit' => $this->dibayarkan, 'id_akun' => $id_kas],
+                    ['debit' => $this->total, 'kredit' => 0, 'id_akun' => $id_pbd],
+                ]);
+            }
+        }
+
+        $this->hutang($transaksi);
         $transaksi->update([
             'saved' => true
         ]);
     }
-    public function hutang(string $total, string $dibayar, Transaksi $transaksi)
+    public function hutang(Transaksi $transaksi)
     {
         $is_hutang = true;
-        if ($dibayar != $total) {
-            if ($transaksi->status == 'Dagang' && $transaksi->dagang->status == 'Jual' && $transaksi->status == 'Usaha') {
+        if ($this->sisa != 0) {
+            if ($transaksi->dagang->status == 'Jual') {
                 $is_hutang = false;
             }
-            Hutang::create([
-                'id_transaksi' => $transaksi->id_transaksi,
+
+            $transaksi->hutang()->create([
                 'is_hutang' => $is_hutang,
-                'total' => $total - $dibayar
+                'total' => abs($this->sisa)
             ]);
         }
     }
@@ -180,34 +207,28 @@ class TransaksiDetailUsaha extends Component
         $transaksi = Transaksi::find($this->id_transaksi);
         $sisa = abs($this->sisa);
         foreach ($transaksi->usaha->akun as $item) {
-            $id_akun = $item->id_akun;
             $record = [
                 'kredit' => 0,
                 'debit' => 0,
-                'id_akun' => '',
+                'id_akun' => $item->id_akun,
                 'id_transaksi' => $this->id_transaksi
             ];
-            if ($this->dibayarkan != 0) {
-                if (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
+            if ($this->dibayarkan == 0) {
+                if (strpos($item->nama, 'Kas ' . $item->usaha->nama) == false) {
                     $record['debit'] = $this->dibayarkan;
-                    $record['id_akun'] = $id_akun;
-                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) !== false) {
+                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) == false) {
                     $record['kredit'] = $this->total;
-                    $record['id_akun'] = $id_akun;
                 }
             } else {
-                if ($this->sisa != 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
+                if ($this->sisa == 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) == false) {
                     $record['debit'] = $sisa;
-                    $record['id_akun'] = $id_akun;
-                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) !== false) {
+                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) == false) {
                     $record['kredit'] = $this->total;
-                    $record['id_akun'] = $id_akun;
                 }
             }
 
-            if ($this->sisa != 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
+            if ($this->sisa == 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) == false) {
                 $record['debit'] = $sisa;
-                $record['id_akun'] = $id_akun;
             }
             try {
                 JurnalUmum::create($record);
@@ -215,7 +236,7 @@ class TransaksiDetailUsaha extends Component
             }
         }
 
-        $this->hutang($this->total, $this->dibayarkan, $transaksi);
+        $this->hutang($transaksi);
         $transaksi->update([
             'saved' => true
         ]);

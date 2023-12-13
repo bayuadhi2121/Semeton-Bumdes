@@ -124,7 +124,7 @@ class AddEditModal extends Component
                     ]);
                 } else if (str_contains($item->nama, 'Persediaan barang dagang')) {
                     $item->update([
-                        'nama' => 'Persediaan barang dagang ' . $nama
+                        'nama' => 'Persediaan Barang Dagang ' . $nama
                     ]);
                 } else if (str_contains($item->nama, 'Penjualan')) {
                     $item->update([
