@@ -26,43 +26,35 @@ class EditModal extends Component
     {
         $this->validate();
         $hutang = Hutang::where('id_hutang', $this->id_hutang)->first();
-        $akunList = $hutang->transaksi->usaha->akun;
 
-        // Determine the debit and credit values based on is_hutang
-        $debit = $hutang->is_hutang ? $this->dibayar : 0;
-        $kredit = $hutang->is_hutang ? 0 : $this->dibayar;
+        $id_kas = "";
+        $id_hutang = "";
+        $id_piutang = "";
 
-        foreach ($akunList as $akun) {
-            $nama = strtolower($akun->nama);
-            // Check for common conditions and create JurnalUmum accordingly
-            if ($hutang->transaksi->usaha->status == 'Dagang' && $hutang->transaksi->dagang->status == 'Beli' && $hutang->is_hutang && strpos($nama, 'kas') !== false) {
-                JurnalUmum::create([
-                    'id_akun' => $akun->id_akun,
-                    'id_transaksi' => $hutang->transaksi->id_transaksi,
-                    'debit' => 0,
-                    'kredit' => $this->dibayar,
-                ]);
-            }
-            if (
-                ($hutang->is_hutang && strpos($nama, 'hutang') !== false) ||
-                (!$hutang->is_hutang && strpos($nama, 'piutang') !== false)
-            ) {
-                JurnalUmum::create([
-                    'id_akun' => $akun->id_akun,
-                    'id_transaksi' => $hutang->transaksi->id_transaksi,
-                    'debit' => $debit,
-                    'kredit' => $kredit,
-                ]);
-            } elseif (strpos($nama, 'kas') !== false && !$hutang->transaksi->dagang->status ?? "Beli" == 'Beli') {
-
-                JurnalUmum::create([
-                    'id_akun' => $akun->id_akun,
-                    'id_transaksi' => $hutang->transaksi->id_transaksi,
-                    'debit' => $hutang->is_hutang ? 0 : $this->dibayar,
-                    'kredit' => $hutang->is_hutang ? $kredit : 0,
-                ]);
+        foreach ($hutang->transaksi->usaha->akun as $item) {
+            if (strpos($item->nama, 'Kas ' . $item->usaha->nama) === 0) {
+                $id_kas = $item->id_akun;
+            } elseif (strpos($item->nama, 'Hutang ' . $item->usaha->nama) === 0) {
+                $id_hutang = $item->id_akun;
+            } elseif (strpos($item->nama, 'Piutang ' . $item->usaha->nama) === 0) {
+                $id_piutang = $item->id_akun;
             }
         }
+
+        $hutang->transaksi->jurnalumum()->CreateMany([
+            [
+                'id_akun' => $id_kas,
+                'id_transaksi' => $hutang->transaksi->id_transaksi,
+                'debit' => $hutang->is_hutang ? 0 : $this->dibayar,
+                'kredit' => $hutang->is_hutang ? $this->dibayar : 0,
+            ],
+            [
+                'id_akun' => $hutang->is_hutang ? $id_hutang : $id_piutang,
+                'id_transaksi' => $hutang->transaksi->id_transaksi,
+                'debit' => $hutang->is_hutang ? $this->dibayar : 0,
+                'kredit' => $hutang->is_hutang ? 0 : $this->dibayar,
+            ],
+        ]);
 
         // Update the 'bayar' attribute
         $hutang->update([
