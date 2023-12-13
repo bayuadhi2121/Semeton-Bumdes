@@ -36,7 +36,7 @@ class Usaha extends Model
 
     public function jpendapatan()
     {
-        return $this->hasMany(JenisPendapatan::class, 'id_jpendapatan');
+        return $this->hasMany(JenisPendapatan::class, 'id_usaha');
     }
 
     public function akun()
