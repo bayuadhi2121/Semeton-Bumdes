@@ -77,7 +77,7 @@ class AddEditModal extends Component
                 ],
                 [
                     'id_usaha' => $usaha->id_usaha,
-                    'nama' => 'Harga pokok penjualan ' . $usaha->nama
+                    'nama' => 'Harga Pokok Penjualan ' . $usaha->nama
                 ],
 
                 [
