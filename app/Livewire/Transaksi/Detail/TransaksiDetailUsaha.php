@@ -79,7 +79,7 @@ class TransaksiDetailUsaha extends Component
                 $stok = $jb->jbdagang->barang->stok - $jb->kuantitas;
             }
 
-            if($this->statusDagang == 'Beli') {
+            if ($this->statusDagang == 'Beli') {
                 $jb->jbdagang->barang->update([
                     'stok' => $stok,
                     'harga' => $jb->harga
