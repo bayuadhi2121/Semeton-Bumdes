@@ -207,28 +207,34 @@ class TransaksiDetailUsaha extends Component
         $transaksi = Transaksi::find($this->id_transaksi);
         $sisa = abs($this->sisa);
         foreach ($transaksi->usaha->akun as $item) {
+            $id_akun = $item->id_akun;
             $record = [
                 'kredit' => 0,
                 'debit' => 0,
-                'id_akun' => $item->id_akun,
+                'id_akun' => '',
                 'id_transaksi' => $this->id_transaksi
             ];
-            if ($this->dibayarkan == 0) {
-                if (strpos($item->nama, 'Kas ' . $item->usaha->nama) == false) {
+            if ($this->dibayarkan != 0) {
+                if (strpos($item->nama, 'Kas ' . $item->usaha->nama) !== false) {
                     $record['debit'] = $this->dibayarkan;
-                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) == false) {
+                    $record['id_akun'] = $id_akun;
+                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) !== false) {
                     $record['kredit'] = $this->total;
+                    $record['id_akun'] = $id_akun;
                 }
             } else {
-                if ($this->sisa == 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) == false) {
+                if ($this->sisa != 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
                     $record['debit'] = $sisa;
-                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) == false) {
+                    $record['id_akun'] = $id_akun;
+                } elseif (strpos($item->nama, 'Pendapatan ' . $item->usaha->nama) !== false) {
                     $record['kredit'] = $this->total;
+                    $record['id_akun'] = $id_akun;
                 }
             }
 
-            if ($this->sisa == 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) == false) {
+            if ($this->sisa != 0 && strpos($item->nama, 'Piutang ' . $item->usaha->nama) !== false) {
                 $record['debit'] = $sisa;
+                $record['id_akun'] = $id_akun;
             }
             try {
                 JurnalUmum::create($record);
