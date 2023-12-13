@@ -20,6 +20,7 @@ class Dagang extends Component
         $this->akhir = Carbon::parse($akhir)->endOfDay();;
     }
     #[Layout('layouts.laporan')]
+
     public function render()
     {
         $this->usaha =
@@ -31,11 +32,11 @@ class Dagang extends Component
             ->join('barangs', 'barangs.id_barang', '=', 'jbdagangs.id_barang')
             ->select('usahas.nama')
             ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Penjualan%" THEN jurnal_umums.debit + jurnal_umums.kredit ELSE 0 END) AS penjualan')
-            ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Pembelian%" THEN jurnal_umums.debit + jurnal_umums.kredit ELSE 0 END) AS pembelian')
-            ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Pembelian%" THEN (barangs.harga+barangs.untung)*barangs.stok ELSE 0 END) AS total_jual')
+            ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Harga pokok penjualan%" THEN jurnal_umums.debit + jurnal_umums.kredit ELSE 0 END) AS pembelian')
+            ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Harga pokok penjualan%" THEN (barangs.harga+barangs.untung)*barangs.stok ELSE 0 END) AS total_jual')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%Penjualan%')
-            ->orWhere('akuns.nama', 'LIKE', '%Pembelian%')
+            ->orWhere('akuns.nama', 'LIKE', '%Harga Pokok Penjualan%')
             ->groupBy('usahas.nama')
             ->get();
         $this->beban = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')

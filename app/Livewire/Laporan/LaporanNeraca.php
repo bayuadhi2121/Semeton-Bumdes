@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class LaporanNeraca extends Component
 {
-    public $akunKas, $piutang, $komputer, $perlengkapan, $umum, $barangdagang; //variabel asset lancar
+    public $akunKas, $persediaan, $piutang, $komputer, $perlengkapan, $umum, $barangdagang; //variabel asset lancar
     public $gedung, $tanah, $kendaraan, $penyusutan, $assettetap; //variabel asset tak lancar
     public $assetlain; //variabel asset lain
     public $hutangUsaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
@@ -48,11 +48,21 @@ class LaporanNeraca extends Component
     {
         $this->akunKas = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
-            ->select('jurnal_umums.id_akun', 'akuns.nama')
+            ->join('usahas', 'transaksis.id_usaha', '=', 'usahas.id_usaha')
+            ->select('jurnal_umums.id_akun', 'akuns.nama', 'usahas.nama')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%Kas%')
-            ->groupBy('jurnal_umums.id_akun', 'akuns.nama')
+            ->groupBy('jurnal_umums.id_akun', 'akuns.nama', 'usahas.nama')
+            ->get();
+        $this->persediaan = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->join('usahas', 'transaksis.id_usaha', '=', 'usahas.id_usaha')
+            ->select('jurnal_umums.id_akun', 'akuns.nama',)
+            ->selectRaw('SUM(jurnal_umums.debit - jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
+            ->where('akuns.nama', 'LIKE', '%Persediaan barang dagang%')
+            ->groupBy('jurnal_umums.id_akun', 'akuns.nama',)
             ->get();
         $this->hutangUsaha = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
