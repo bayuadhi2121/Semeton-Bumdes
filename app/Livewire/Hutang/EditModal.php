@@ -53,7 +53,7 @@ class EditModal extends Component
                     'debit' => $debit,
                     'kredit' => $kredit,
                 ]);
-            } elseif (strpos($nama, 'kas') !== false && !$hutang->transaksi->dagang->status == 'Beli') {
+            } elseif (strpos($nama, 'kas') !== false && !$hutang->transaksi->dagang->status ?? "Beli" == 'Beli') {
 
                 JurnalUmum::create([
                     'id_akun' => $akun->id_akun,
