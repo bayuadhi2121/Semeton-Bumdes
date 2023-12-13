@@ -73,7 +73,7 @@ class AddEditModal extends Component
             $usaha->akun()->CreateMany([
                 [
                     'id_usaha' => $usaha->id_usaha,
-                    'nama' => 'Persediaan barang dagang ' . $usaha->nama
+                    'nama' => 'Persediaan Barang Dagang ' . $usaha->nama
                 ],
                 [
                     'id_usaha' => $usaha->id_usaha,
