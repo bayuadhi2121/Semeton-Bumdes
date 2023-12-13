@@ -191,7 +191,7 @@ class TransaksiDetailUsaha extends Component
         $is_hutang = true;
 
         if ($this->sisa != 0) {
-            if ($transaksi->dagang != null && $transaksi->dagang->status == 'Jual') {
+            if ($transaksi->dagang->status ?? 'Jual' == 'Jual') {
                 $is_hutang = false;
             }
 
