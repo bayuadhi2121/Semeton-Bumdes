@@ -86,7 +86,7 @@ class AddEditModal extends Component
 
         // cek apakah data biaya diubah, jika tidak ya biarkan saja
         // jika iya maka update juga datanya
-        if($this->id_jbiaya != $this->id_jualbeli_temp) {
+        if ($this->id_jbiaya != $this->id_jualbeli_temp) {
             Beban::where('id_jualbeli', $this->id_jualbeli)->update([
                 'id_jbiaya' => $this->id_jbiaya
             ]);
@@ -117,10 +117,10 @@ class AddEditModal extends Component
         ]);
 
         // buat akun untuk hutan beban
-        Akun::create([
-            'nama' => 'Hutang Biaya ' . $nama_beban . ' ' . $this->nama_usaha,
-            'id_usaha' => $this->id_usaha
-        ]);
+        // Akun::create([
+        //     'nama' => 'Hutang Biaya ' . $nama_beban . ' ' . $this->nama_usaha,
+        //     'id_usaha' => $this->id_usaha
+        // ]);
 
         // baru buat jenis biayanya
         $jbiaya = JenisBiaya::create([
@@ -180,10 +180,10 @@ class AddEditModal extends Component
 
     public function updatedNama()
     {
-        if($this->jbiaya->contains('nama', $this->nama)) {
+        if ($this->jbiaya->contains('nama', $this->nama)) {
             $this->id_jbiaya = $this->jbiaya->where('nama', $this->nama)->where('id_usaha', $this->id_usaha)->first()->id_jbiaya;
             $this->resetValidation();
-        } else if($this->nama != '') {
+        } else if ($this->nama != '') {
             $this->id_jbiaya = 'zxcvbnm,./';
         } else {
             $this->reset('id_jbiaya');
@@ -193,7 +193,7 @@ class AddEditModal extends Component
 
     public function render()
     {
-        $this->jbiaya = JenisBiaya::where('nama', 'like', '%'.$this->nama.'%')->where('id_usaha', $this->id_usaha)->inRandomOrder()->limit(5)->orderBy('nama')->get();
+        $this->jbiaya = JenisBiaya::where('nama', 'like', '%' . $this->nama . '%')->where('id_usaha', $this->id_usaha)->inRandomOrder()->limit(5)->orderBy('nama')->get();
         return view('livewire.transaksi.detail.beban.add-edit-modal', [
             'jualbeli' => JualBeli::all(),
             'jbiaya' => $this->jbiaya
