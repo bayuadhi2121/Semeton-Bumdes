@@ -189,15 +189,18 @@ class TransaksiDetailUsaha extends Component
     public function hutang(Transaksi $transaksi)
     {
         $is_hutang = true;
-        if ($this->sisa != 0) {
-            if ($transaksi->dagang->status == 'Jual') {
-                $is_hutang = false;
-            }
+        try {
+            if ($this->sisa != 0) {
+                if ($transaksi->dagang->status == 'Jual') {
+                    $is_hutang = false;
+                }
 
-            $transaksi->hutang()->create([
-                'is_hutang' => $is_hutang,
-                'total' => abs($this->sisa)
-            ]);
+                $transaksi->hutang()->create([
+                    'is_hutang' => $is_hutang,
+                    'total' => abs($this->sisa)
+                ]);
+            }
+        } catch (Exception $e) {
         }
     }
 
