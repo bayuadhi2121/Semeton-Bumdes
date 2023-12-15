@@ -105,6 +105,7 @@ class LaporanNeraca extends Component
             ->where('akuns.nama', 'LIKE', '%Hutang%')
             ->whereNotNull('akuns.id_usaha')
             ->get();
+        dd($propertyValue);
         foreach ($propertyValue as $item) {
             $total = $total + $item->total;
         }

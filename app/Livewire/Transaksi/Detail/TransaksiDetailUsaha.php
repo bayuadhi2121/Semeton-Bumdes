@@ -193,7 +193,6 @@ class TransaksiDetailUsaha extends Component
 
             $status = $transaksi->dagang->status ?? 'Jual';
             if ($status  == 'Jual') {
-                dd($status);
                 $is_hutang = false;
             }
 
