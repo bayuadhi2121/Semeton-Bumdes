@@ -122,21 +122,12 @@
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                 </tr>
                 <tr class=" border-b border-neutral-400">
-                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Pembelian</td>
+                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Harga Pokok Penjualan</td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp{{ $item->pembelian }}</td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
                 </tr>
-                <tr class=" border-b border-neutral-400">
-                    <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Barang Tersedia Terjual
-                    </td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">Rp{{ $item->total_jual }}</td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
-                    <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"></td>
-                </tr>
-                @php
-                $laba=$item->penjualan-($item->pembelian+$item->total_jual)
-                @endphp
+
                 {{-- LABA RUGI--}}
                 <tr class="border-b border-neutral-400 font-medium">
                     <td class="whitespace-nowrap border-r pl-6 px-2  py-2 order-neutral-400">Laba/Rugi</td>
