@@ -68,6 +68,10 @@ class AddEditModal extends Component
                     'id_usaha' => $usaha->id_usaha,
                     'nama' => 'Piutang ' . $usaha->nama
                 ],
+                [
+                    'id_usaha' => $usaha->id_usaha,
+                    'nama' => 'Hutang ' . $usaha->nama
+                ],
             ]);
         } else {
             $usaha->akun()->CreateMany([
@@ -115,6 +119,10 @@ class AddEditModal extends Component
                 } else if (str_contains($item->nama, 'Piutang')) {
                     $item->update([
                         'nama' => 'Piutang ' . $nama
+                    ]);
+                } else if (str_contains($item->nama, 'Hutang')) {
+                    $item->update([
+                        'nama' => 'Hutang ' . $nama
                     ]);
                 }
             } else {
