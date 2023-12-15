@@ -251,7 +251,7 @@
                             </td>
                         </tr>
                         @php
-                        $pendek=$hutangusaha->total ??0+$gaji->total ?? 0+$pihak3jkpendek->total ??
+                        $pendek=$hutangusaha ??0+$gaji->total ?? 0+$pihak3jkpendek->total ??
                         0+$jkpendeklainnya->total ?? 0+$sewagedung->total ?? 0+$listrik->total ?? 0;
                         @endphp
 
@@ -335,10 +335,6 @@
                                 class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">2.
                                 Hutang
                                 Jangka Panjang</td>
-                            {{-- <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
-                            </td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400"></td>
-                            --}}
                         </tr>
                         @php
                         $panjang=$bank->total ?? 0 + $modal->total ?? 0 +$hasil->total ?? 0 + $pihak3->total ?? 0 +
