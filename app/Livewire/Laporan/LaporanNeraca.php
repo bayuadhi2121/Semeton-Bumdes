@@ -81,11 +81,12 @@ class LaporanNeraca extends Component
     }
     public function queryKas($keyword, $propertyName)
     {
+        $keyword = 'Kas' . $keyword;
         $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', '%Kas ' . $keyword . '%')
+            ->where('akuns.nama', 'LIKE', $keyword)
             ->first();
 
         $this->$propertyName = $propertyValue;
