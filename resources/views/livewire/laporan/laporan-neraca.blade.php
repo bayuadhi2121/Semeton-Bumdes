@@ -347,29 +347,30 @@
                         @endphp
                         {{-- ANAK HUTANG JANGKA PANJANG --}}
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Bank</td>
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Bank</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $bank->total ?? 0 }}
                             </td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Modal</td>
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Modal</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $modal->total ?? 0
                                 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Bagi Hasil
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Bagi Hasil
                             </td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $hasil->total ?? 0
                                 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Kepada Pihak
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Kepada
+                                Pihak
                                 ketiga</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $pihak3->total ?? 0
                                 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Pajak</td>
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Pajak</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $pajak->total ?? 0
                                 }}</td>
                         </tr>
