@@ -14,7 +14,7 @@ class LaporanNeraca extends Component
     public $akunKas, $persediaan, $piutang, $komputer, $perlengkapan, $umum, $barangdagang; //variabel asset lancar
     public $gedung, $tanah, $kendaraan, $penyusutan, $assettetap; //variabel asset tak lancar
     public $assetlain; //variabel asset lain
-    public $hutangUsaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
+    public $hutangusaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
     public $bank, $modal, $hasil, $pihak3, $pajak, $modalakhir;
     #[Layout('layouts.laporan')]
     public $awal, $akhir, $tahun;
@@ -64,13 +64,7 @@ class LaporanNeraca extends Component
             ->where('akuns.nama', 'LIKE', '%Persediaan barang dagang%')
             ->groupBy('jurnal_umums.id_akun', 'akuns.nama',)
             ->get();
-        $this->hutangUsaha = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
-            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
-            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
-            ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', '%Hutang%')
-            ->whereNotNull('akuns.id_usaha')
-            ->first();
+
         $this->modalakhir = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
@@ -126,6 +120,7 @@ class LaporanNeraca extends Component
     public function setValue()
     {
         $this->setUsaha();
+        $this->queryHutangUsaha('hutangusaha');
         $this->queryKas('Piutang', 'piutang');
         $this->queryKas('Umum', 'umum');
         $this->queryKas('Komputer', 'komputer');
