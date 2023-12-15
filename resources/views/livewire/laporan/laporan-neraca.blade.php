@@ -282,31 +282,33 @@
 
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang kepada Pihak
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang kepada
+                                Pihak
                                 Ketiga Jk. Pendek</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{
                                 $pihak3jkpendek->total ?? 0 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Jangka
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Jangka
                                 Pendek
                                 Lainnya</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{
                                 $jkpendeklainnya->total ?? 0 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang sewa Gedung
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang sewa Gedung
                             </td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $sewagedung->total
                                 ?? 0 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Listrik</td>
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Listrik
+                            </td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $listrik->total ?? 0
                                 }}</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Telpon</td>
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Telpon</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $telpon->total ?? 0
                                 }}</td>
                         </tr>
