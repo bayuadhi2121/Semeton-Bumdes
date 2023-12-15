@@ -189,10 +189,11 @@ class TransaksiDetailUsaha extends Component
     public function hutang(Transaksi $transaksi)
     {
         $is_hutang = true;
-
         if ($this->sisa != 0) {
-            if ($transaksi->dagang->status ? $transaksi->dagang->status : 'Jual' == 'Jual') {
-                dd(" ");
+
+            $status = $transaksi->dagang->status ?? 'Jual';
+            if ($status  == 'Jual') {
+                dd($status);
                 $is_hutang = false;
             }
 
