@@ -192,7 +192,7 @@ class TransaksiDetailUsaha extends Component
 
         if ($this->sisa != 0) {
             if ($transaksi->dagang->status ?? 'Jual' == 'Jual') {
-                dd("");
+                dd($transaksi->dagang->status);
                 $is_hutang = false;
             }
 
