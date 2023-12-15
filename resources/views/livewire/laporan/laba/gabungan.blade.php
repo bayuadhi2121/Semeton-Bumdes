@@ -129,6 +129,9 @@
                 </tr>
 
                 {{-- LABA RUGI--}}
+                @php
+                $laba=$laba+($item->penjualan-$item->pembelian);
+                @endphp
                 <tr class="border-b border-neutral-400 font-medium">
                     <td class="whitespace-nowrap border-r pl-6 px-2  py-2 order-neutral-400">Laba/Rugi</td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400"> </td>
