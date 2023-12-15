@@ -275,7 +275,7 @@
                             </td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
-                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Utang Gaji dan
+                            <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Gaji dan
                                 Tunjangan</td>
                             <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $gaji->total ?? 0 }}
                             </td>
