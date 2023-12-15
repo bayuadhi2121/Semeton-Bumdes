@@ -85,7 +85,7 @@ class LaporanNeraca extends Component
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', 'Kas ' . $keyword)
+            ->where('akuns.nama', 'LIKE', '%Kas ' . $keyword . '%')
             ->first();
 
         $this->$propertyName = $propertyValue;
