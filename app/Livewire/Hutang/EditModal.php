@@ -3,15 +3,15 @@
 namespace App\Livewire\Hutang;
 
 use App\Models\Hutang;
-use App\Models\JurnalUmum;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class EditModal extends Component
 {
 
     public $show, $title, $mode;
     public $id_hutang, $bayar, $dibayar;
+
     public function rules()
     {
         return [
@@ -26,6 +26,7 @@ class EditModal extends Component
     {
         $this->validate();
         $hutang = Hutang::where('id_hutang', $this->id_hutang)->first();
+        // dd($hutang->is_hutang);
 
         $id_kas = "";
         $id_hutang = "";
