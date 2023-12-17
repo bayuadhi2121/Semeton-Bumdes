@@ -11,7 +11,7 @@ class UpdateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:update-command';
+    protected $signature = 'hello:world';
 
     /**
      * The console command description.
@@ -25,6 +25,7 @@ class UpdateCommand extends Command
      */
     public function handle()
     {
-        //
+        info('test');
+        return 0;
     }
 }
