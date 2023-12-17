@@ -26,6 +26,7 @@ class UpdateCommand extends Command
     public function handle()
     {
         info('test');
+        echo "hello world\n";
         return 0;
     }
 }
