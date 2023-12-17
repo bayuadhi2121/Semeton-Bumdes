@@ -112,6 +112,23 @@ class LaporanNeraca extends Component
         }
         $this->$propertyName = $total;
     }
+    public function queryPiutangUsaha($propertyName)
+    {
+        $total = 0;
+        $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->select('akuns.nama',)
+            ->selectRaw('SUM(jurnal_umums.debit - jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
+            ->where('akuns.nama', 'LIKE', '%Piutang%')
+            ->whereNotNull('akuns.id_usaha')
+            ->groupBy('akuns.nama',)
+            ->get();
+        foreach ($propertyValue as $item) {
+            $total = $total + $item->total;
+        }
+        $this->$propertyName = $total;
+    }
     public function modal($propertyName)
     {
         $tahun = (int) substr($this->awal, 0, 4);
@@ -123,7 +140,7 @@ class LaporanNeraca extends Component
     {
         $this->setUsaha();
         $this->queryHutangUsaha('hutangusaha');
-        $this->queryKas('Piutang', 'piutang');
+        $this->queryPiutangUsaha('piutang');
         $this->queryKas('Umum', 'umum');
         $this->queryKas('Komputer', 'komputer');
         $this->queryKas('Tanah', 'tanah');
