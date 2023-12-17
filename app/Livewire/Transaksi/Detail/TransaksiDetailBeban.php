@@ -46,51 +46,51 @@ class TransaksiDetailBeban extends Component
         ->join('bebans', 'jual_belis.id_jualbeli', '=', 'bebans.id_jualbeli')
         ->join('jenis_biayas', 'bebans.id_jbiaya', '=', 'jenis_biayas.id_jbiaya')
         ->groupBy('jenis_biayas.id_akun')
-        ->get();
+        ->get()->toArray();
 
         // ambil id akun yang berpengaruh pada transaksi beban di usaha yang berkaitan
         $akun = Akun::where('id_usaha', $this->transaksi->id_usaha)->pluck('id_akun', 'nama')->toArray();
-        $idKas = $akun['Kas ' . $this->namaUsaha];
 
-        $jumum = [];
+        // list akun usaha dagang
+        $id_kas = $akun['Kas ' . $this->namaUsaha];
+        $id_beban = $biayas[0]['id_akun'];
+        $id_hutang = $akun['Hutang ' . $this->namaUsaha];
 
-        // cek apakah dibayar atau tidak
-        if($this->bayar > 0) {
-            $jumum[] = [
-                'kredit' => $this->bayar,
-                'debit' => 0,
-                'id_akun' => $idKas
-            ];
-        }
+        $total_bayar = $biayas[0]['total'];
+        $sisa = abs($this->sisa);
 
-        // cek apakah hutang atau tidak
-        if($this->sisa > 0) {
-            $idHutang = $akun['Hutang ' . array_search ($biayas[0]->id_akun, $akun)];
+        $hasHutang = false;
+        if ($this->bayar == 0) {
+            // full hutang
+            $this->transaksi->jurnalumum()->CreateMany([
+                ['debit' => $total_bayar, 'kredit' => 0, 'id_akun' => $id_beban],
+                ['debit' => 0, 'kredit' => $sisa, 'id_akun' => $id_hutang],
+            ]);
 
-            $jumum[] = [
-                'kredit' => $this->sisa,
-                'debit' => 0,
-                'id_akun' => $idHutang
-            ];
+            $hasHutang = true;
+        } elseif ($this->bayar != 0 && $this->sisa != 0) {
+            // bayar separuh
+            $this->transaksi->jurnalumum()->CreateMany([
+                ['debit' => 0, 'kredit' => $this->bayar, 'id_akun' => $id_kas],
+                ['debit' => $total_bayar, 'kredit' => 0, 'id_akun' => $id_beban],
+                ['debit' => 0, 'kredit' => $sisa, 'id_akun' => $id_hutang],
+            ]);
 
-            // tambah data hutang
-            $this->transaksi->hutang()->create([
-                'bayar' => 0,
-                'total' => $this->sisa
+            $hasHutang = true;
+        } else {
+            // bayar full
+            $this->transaksi->jurnalumum()->CreateMany([
+                ['debit' => 0, 'kredit' => $this->bayar, 'id_akun' => $id_kas],
+                ['debit' => $total_bayar, 'kredit' => 0, 'id_akun' => $id_beban],
             ]);
         }
 
-        // masukkan beban
-        foreach($biayas as $biaya) {
-            $jumum[] = [
-                'kredit' => 0,
-                'debit' => $biaya->total,
-                'id_akun' => $biaya->id_akun
-            ];
+        if($hasHutang) {
+            $this->transaksi->hutang()->create([
+                'is_hutang' => true,
+                'total' => $sisa
+            ]);
         }
-
-        // store data ke jurnal umum
-        $this->transaksi->jurnalumum()->CreateMany($jumum);
 
         // tandai transaksi sudah disimpan
         $this->transaksi->update([

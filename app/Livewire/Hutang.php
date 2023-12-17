@@ -14,13 +14,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class Hutang extends Component
 {
     use WithPagination;
-    public $page = 1;
+    // public $page = 1;
 
     #[Url('bumdes')]
     public $is_hutang = false;
 
-    public $perPage = 1;
-    #[On('page-refresh', '$refresh')]
+    // public $perPage = 1;
+    #[On('page-refresh')]
+    public function refresh()
+    {
+        $this->redirect(route('hutang', ['bumdes' => $this->is_hutang]), navigate: true);
+    }
 
     public function setHutang($is_hutang = false)
     {

@@ -71,3 +71,4 @@
 
     <!-- Add data modal -->
     @livewire('hutang.edit-modal')
+</div>
