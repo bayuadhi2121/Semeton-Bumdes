@@ -41,7 +41,6 @@ class Gabungan extends Component
             ->select('usahas.nama')
             ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Penjualan%" THEN jurnal_umums.debit + jurnal_umums.kredit ELSE 0 END) AS penjualan')
             ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Harga Pokok Penjualan%" THEN jurnal_umums.debit + jurnal_umums.kredit ELSE 0 END) AS pembelian')
-            ->selectRaw('SUM(CASE WHEN akuns.nama LIKE "%Harga Pokok Penjualan%" THEN (barangs.harga+barangs.untung)*barangs.stok ELSE 0 END) AS total_jual')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
             ->where('akuns.nama', 'LIKE', '%Penjualan%')
             ->orWhere('akuns.nama', 'LIKE', '%Harga Pokok Penjualan%')
@@ -49,6 +48,7 @@ class Gabungan extends Component
             ->get();
         $this->beban = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('usahas', 'akuns.id_usaha', '=', 'usahas.id_usaha')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->select('jurnal_umums.id_akun', 'akuns.nama')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])

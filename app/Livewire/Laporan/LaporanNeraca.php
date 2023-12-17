@@ -14,7 +14,7 @@ class LaporanNeraca extends Component
     public $akunKas, $persediaan, $piutang, $komputer, $perlengkapan, $umum, $barangdagang; //variabel asset lancar
     public $gedung, $tanah, $kendaraan, $penyusutan, $assettetap; //variabel asset tak lancar
     public $assetlain; //variabel asset lain
-    public $hutangUsaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
+    public $hutangusaha, $gaji, $pihakk3jkpendek, $jkpendeklain, $listrik, $telpon, $sewagedung;
     public $bank, $modal, $hasil, $pihak3, $pajak, $modalakhir;
     #[Layout('layouts.laporan')]
     public $awal, $akhir, $tahun;
@@ -64,13 +64,7 @@ class LaporanNeraca extends Component
             ->where('akuns.nama', 'LIKE', '%Persediaan barang dagang%')
             ->groupBy('jurnal_umums.id_akun', 'akuns.nama',)
             ->get();
-        $this->hutangUsaha = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
-            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
-            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
-            ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', '%Hutang%')
-            ->whereNotNull('akuns.id_usaha')
-            ->first();
+
         $this->modalakhir = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
@@ -81,11 +75,12 @@ class LaporanNeraca extends Component
     }
     public function queryKas($keyword, $propertyName)
     {
+        $keyword = 'Kas ' . $keyword;
         $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
             ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
             ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
             ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
-            ->where('akuns.nama', 'LIKE', 'Kas ' . $keyword)
+            ->where('akuns.nama', 'LIKE', $keyword)
             ->first();
 
         $this->$propertyName = $propertyValue;
@@ -100,6 +95,40 @@ class LaporanNeraca extends Component
             ->first();
         $this->$propertyName = $propertyValue;
     }
+    public function queryHutangUsaha($propertyName)
+    {
+        $total = 0;
+        $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->select('akuns.nama',)
+            ->selectRaw('SUM(jurnal_umums.kredit - jurnal_umums.debit) as total')
+            ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
+            ->where('akuns.nama', 'LIKE', '%Hutang%')
+            ->whereNotNull('akuns.id_usaha')
+            ->groupBy('akuns.nama',)
+            ->get();
+        foreach ($propertyValue as $item) {
+            $total = $total + $item->total;
+        }
+        $this->$propertyName = $total;
+    }
+    public function queryPiutangUsaha($propertyName)
+    {
+        $total = 0;
+        $propertyValue = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->select('akuns.nama',)
+            ->selectRaw('SUM(jurnal_umums.debit - jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$this->awal, $this->akhir])
+            ->where('akuns.nama', 'LIKE', '%Piutang%')
+            ->whereNotNull('akuns.id_usaha')
+            ->groupBy('akuns.nama',)
+            ->get();
+        foreach ($propertyValue as $item) {
+            $total = $total + $item->total;
+        }
+        $this->$propertyName = $total;
+    }
     public function modal($propertyName)
     {
         $tahun = (int) substr($this->awal, 0, 4);
@@ -110,7 +139,8 @@ class LaporanNeraca extends Component
     public function setValue()
     {
         $this->setUsaha();
-        $this->queryKas('Piutang', 'piutang');
+        $this->queryHutangUsaha('hutangusaha');
+        $this->queryPiutangUsaha('piutang');
         $this->queryKas('Umum', 'umum');
         $this->queryKas('Komputer', 'komputer');
         $this->queryKas('Tanah', 'tanah');
