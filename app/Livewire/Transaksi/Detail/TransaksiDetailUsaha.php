@@ -186,6 +186,7 @@ class TransaksiDetailUsaha extends Component
             'saved' => true
         ]);
     }
+
     public function hutang(Transaksi $transaksi)
     {
         $is_hutang = true;
