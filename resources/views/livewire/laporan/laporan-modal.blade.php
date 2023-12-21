@@ -25,7 +25,7 @@
                         Saldo Modal Awal
                     </td>
                     <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Rp.{{ $modalAwal ? $modalAwal->Nilai : 0 }}
+                        @currency($modalAwal ? $modalAwal->Nilai : 0)
                     </td>
                 </tr>
 
@@ -39,7 +39,7 @@
                         Penambahan (setor modal, Laba)
                     </td>
                     <td class="whitespace-nowrap border-r px-2 font-medium py-2 border-neutral-500">
-                        Rp.{{ $lababersih }}
+                        @currency($lababersih ?? 0)
                     </td>
                 </tr>
                 <tr class=" border-b border-neutral-500">
@@ -57,7 +57,7 @@
                         Total Perubahan Modal
                     </td>
                     <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-500">
-                        Rp.
+                        @currency($lababersih ?? 0 + $modalawal ?? 0)
                     </td>
                 </tr>
                 {{-- GAP KOSONG --}}

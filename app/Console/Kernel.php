@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('hello:world')->everyMinute();
+        $schedule->command('hello:world')->yearlyOn(12, 21, '21.00')->timezone('Asia/Ujung_Pandang');
     }
 
     /**

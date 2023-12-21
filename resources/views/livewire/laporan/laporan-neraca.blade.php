@@ -139,26 +139,26 @@
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Gedung dan
                                 Bangunan
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $gedung->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency(
+                                $gedung->total ?? 0)</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Kendaraan</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $kendaraan->total ??
-                                0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($kendaraan->total ?? 0 )</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Akumulasi
                                 Penyusutan
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $penyusutan->total
-                                ?? 0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency(
+                                $penyusutan->total ?? 0 )</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Aset Tetap Lainnya
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $assettetap->total
-                                ?? 0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($assettetap->total ?? 0 )</td>
                         </tr>
 
                         {{-- TOTAL ASET TIDAK LANCAR --}}
@@ -166,8 +166,8 @@
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Aset
                                 Tidak Lancar</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $assettak }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                @currency($assettak)</td>
 
                         </tr>
                         {{-- GAP KOSONG --}}
@@ -196,8 +196,8 @@
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Aset Lain Lain
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{
-                                $assetlain->total ?? 0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($assetlain->total ?? 0) </td>
                         </tr>
 
                         {{-- TOTAL ASET TIDAK LANCAR --}}
@@ -205,8 +205,8 @@
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Aset
                                 lain-lain</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $asetlain }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                @currency($asetlain)</td>
 
                         </tr>
                         @php
@@ -216,8 +216,8 @@
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Aset
                                 (1+2+3)</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $aktiva }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                @currency($aktiva)</td>
 
                         </tr>
                         {{-- GAP KOSONG --}}
@@ -265,13 +265,14 @@
                         {{-- ANAK HUTANG --}}
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Usaha</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $hutangusaha }}
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency($hutangusaha)
                             </td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Gaji dan
                                 Tunjangan</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $gaji->total ?? 0 }}
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency($gaji->total
+                                ?? 0)
                             </td>
 
                         </tr>
@@ -279,32 +280,32 @@
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang kepada
                                 Pihak
                                 Ketiga Jk. Pendek</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{
-                                $pihak3jkpendek->total ?? 0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($pihak3jkpendek->total ?? 0)</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Jangka
                                 Pendek
                                 Lainnya</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{
-                                $jkpendeklainnya->total ?? 0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($jkpendeklainnya->total ?? 0 )</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang sewa Gedung
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $sewagedung->total
-                                ?? 0 }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($sewagedung->total ?? 0 )</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Listrik
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $listrik->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($listrik->total ?? 0)</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Telpon</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $telpon->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($telpon->total ?? 0)</td>
                         </tr>
 
 
@@ -313,8 +314,8 @@
                         <tr class="border-b border-neutral-400 font-medium">
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Hutang Jangka Pendek</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $pendek }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                @currency($pendek )</td>
 
                         </tr>
                         {{-- GAP KOSONG --}}
@@ -338,39 +339,41 @@
                         {{-- ANAK HUTANG JANGKA PANJANG --}}
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Bank</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $bank->total ?? 0 }}
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency($bank->total
+                                ?? 0)
                             </td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Modal</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $modal->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency($modal->total
+                                ?? 0)</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Bagi Hasil
                             </td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $hasil->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency($hasil->total
+                                ?? 0)</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Kepada
                                 Pihak
                                 ketiga</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $pihak3->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">
+                                @currency($pihak3->total ?? 0)</td>
                         </tr>
                         <tr class=" border-b border-neutral-400">
                             <td class="whitespace-nowrap border-r pl-6 pr-0  py-2 border-neutral-400">Hutang Pajak</td>
-                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">{{ $pajak->total ?? 0
-                                }}</td>
+                            <td class="whitespace-nowrap border-r px-2  py-2 border-neutral-400">@currency($pajak->total
+                                ?? 0)</td>
                         </tr>
 
                         {{-- TOTAL HUTANG JANGKA PANJANG --}}
                         <tr class="border-b border-neutral-400 font-medium">
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Hutang Jangka Panjang</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $panjang }}</td>
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                @currency(
+                                $panjang )</td>
 
                         </tr>
                         @php
@@ -379,8 +382,8 @@
                         <tr class="border-b border-neutral-400 font-medium bg-cyan-300">
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Total
                                 Hutang (1+2+3)</td>
-                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">{{
-                                $hutang }}
+                            <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
+                                @currency($hutang)
                             </td>
 
                         </tr>
@@ -398,7 +401,7 @@
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">Modal
                                 Akhir</td>
                             <td class="whitespace-nowrap  border-r pl-1 pr-0 py-2 font-medium border-neutral-400">
-                                {{ $modalAwal ? $modalAwal->Nilai : 0 }} </td>
+                                @currency($modalAwal ? $modalAwal->Nilai : 0 )</td>
 
                         </tr>
                         @php
@@ -417,14 +420,14 @@
                     <td colspan="3" class="whitespace-nowrap border-r py-2 text-center border-neutral-400 font-bold ">
                         Total
                         Aktiva</td>
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400 px-1">Rp.
-                        {{$aktiva }}
+                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400 px-1">
+                        @currency($aktifa)
                     </td>
                     <td colspan="3" class="whitespace-nowrap border-r py-2 text-center border-neutral-400 font-bold ">
                         Total
                         Pasiva</td>
-                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400 px-1">Rp.{{
-                        $pasiva }}</td>
+                    <td colspan="3" class="whitespace-nowrap border-r py-2 font-bold border-neutral-400 px-1">
+                        @currency($pasiva)</td>
                 </tr>
             <tbody>
         </table>

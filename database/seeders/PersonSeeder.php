@@ -24,8 +24,5 @@ class PersonSeeder extends Seeder
             'kontak' => '087889872637',
             'status' => 'Ketua',
         ]);
-        JenisPendapatan::create([
-            'nama' => 'dummy',
-        ]);
     }
 }
