@@ -7,6 +7,8 @@ use App\Models\Transaksi;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 
+use function PHPUnit\Framework\isEmpty;
+
 class DeleteModal extends Component
 {
     public $show;
@@ -26,14 +28,16 @@ class DeleteModal extends Component
         }
         if ($transaksi->usaha && $transaksi->usaha->status == 'Dagang') {
             foreach ($transaksi->jualbeli as $item) {
-                if ($transaksi->dagang->status == 'Jual') {
-                    $stok = $item->jbdagang->barang->stok + $item->kuantitas;
-                } else if ($transaksi->dagang->status == 'Beli') {
-                    $stok = $item->jbdagang->barang->stok - $item->kuantitas;
+                if ($transaksi->dagang != null) {
+                    if ($transaksi->dagang->status == 'Jual') {
+                        $stok = $item->jbdagang->barang->stok + $item->kuantitas;
+                    } else if ($transaksi->dagang->status == 'Beli') {
+                        $stok = $item->jbdagang->barang->stok - $item->kuantitas;
+                    }
+                    $item->jbdagang->barang->update([
+                        'stok' => $stok
+                    ]);
                 }
-                $item->jbdagang->barang->update([
-                    'stok' => $stok
-                ]);
             }
         }
         $transaksi->delete();
