@@ -82,5 +82,27 @@ class UpdateCommand extends Command
             ->where('akuns.nama', 'LIKE', '%Biaya%')
             ->groupBy('jurnal_umums.id_akun', 'akuns.nama')
             ->get();
+        // $this->query('Beban', 'Bunga', 'bunga');
+        $bunga = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Beban Bunga%')
+            ->first();
+
+        // $this->query('Beban', 'Denda', 'denda');
+        $denda = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Beban Denda%')
+            ->first();
+        // $this->query('Beban', 'lain-lainnya', 'lain');
+        $lain = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Beban lain-lainnya%')
+            ->first();
     }
 }
