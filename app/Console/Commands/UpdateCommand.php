@@ -104,5 +104,57 @@ class UpdateCommand extends Command
             ->whereBetween('transaksis.tanggal', [$start, $end])
             ->where('akuns.nama', 'LIKE', '%Beban lain-lainnya%')
             ->first();
+        // $this->query('Kas', 'Bank', 'bank');
+        $bank = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Kas Bank%')
+            ->first();
+        // $this->query('Kas', 'Bagi Hasil', 'hasil');
+        $hasil = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Kas Bagi Hasil%')
+            ->first();
+        // $this->query('Kas', 'Sumbangan', 'sumbangan');
+        $sumbangan = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Kas Sumbangan%')
+            ->first();
+        // $this->query('', 'Prive', 'prive');
+        // $prive = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+        // ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+        // ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+        // ->whereBetween('transaksis.tanggal', [$start, $end])
+        // ->where('akuns.nama', 'LIKE', '%Kas Bank%')
+        // ->first();
+        foreach ($jasa as $item) {
+            $totaljasa = $totaljasa + $item->total;
+        }
+        foreach ($dagang as $item) {
+            $totaldagang = $totaldagang + $item->penjualan - ($item->pembelian + $item->total_jual);
+        }
+        foreach ($beban as $item) {
+            $totalbeban = $totalbeban + $item->total;
+        }
+        $labakotor = $totaljasa + $totaldagang + ($bank->total ?? 0 + $hasil->total ?? 0 + $sumbangan->total ?? 0);
+
+        $totalbeban = $totalbeban + $bunga->total ?? 0  + $denda->total ?? 0 + $lain->total ?? 0;
+        $lababersih = $labakotor + $totalbeban;
+        $modalawal = Modal_Awal::firstOrNew(['Tahun' => $year]);
+        $nilaimodalawal = Modal_Awal::where('Tahun', $year - 1)->first();
+
+        if ($modalawal) {
+            $modalawal->fill([
+                "Nilai" => $lababersih + $nilaimodalawal->Nilai ?? 0
+            ])->save();
+        }
+
+
+        return 0;
     }
 }
