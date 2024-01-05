@@ -154,6 +154,7 @@ class UpdateCommand extends Command
             ])->save();
         }
 
+        info("berhasil");
 
         return 0;
     }
