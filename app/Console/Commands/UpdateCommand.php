@@ -125,13 +125,7 @@ class UpdateCommand extends Command
             ->whereBetween('transaksis.tanggal', [$start, $end])
             ->where('akuns.nama', 'LIKE', '%Kas Sumbangan%')
             ->first();
-        // $this->query('', 'Prive', 'prive');
-        // $prive = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
-        // ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
-        // ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
-        // ->whereBetween('transaksis.tanggal', [$start, $end])
-        // ->where('akuns.nama', 'LIKE', '%Kas Bank%')
-        // ->first();
+
         foreach ($jasa as $item) {
             $totaljasa = $totaljasa + $item->total;
         }
