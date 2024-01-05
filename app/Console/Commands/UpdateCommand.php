@@ -46,5 +46,16 @@ class UpdateCommand extends Command
         $year = Carbon::now()->year;
         $start = Carbon::createFromDate($year, 1, 1)->startOfDay()->format('Y-m-d');
         $end = Carbon::createFromDate($year, 12, 31)->startOfDay()->format('Y-m-d');
+
+        $jasa = JurnalUmum::join('akuns', 'jurnal_umums.id_akun', '=', 'akuns.id_akun')
+            ->join('transaksis', 'jurnal_umums.id_transaksi', '=', 'transaksis.id_transaksi')
+            ->join('usahas', 'akuns.id_usaha', '=', 'usahas.id_usaha')
+            ->select('jurnal_umums.id_akun', 'akuns.nama')
+            ->selectRaw('SUM(jurnal_umums.debit + jurnal_umums.kredit) as total')
+            ->whereBetween('transaksis.tanggal', [$start, $end])
+            ->where('akuns.nama', 'LIKE', '%Kas%')
+            ->where('usahas.status', 'Jasa')
+            ->groupBy('jurnal_umums.id_akun', 'akuns.nama')
+            ->get();
     }
 }
