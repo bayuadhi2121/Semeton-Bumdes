@@ -14,7 +14,7 @@
             {{ $jualbeli->kuantitas }}
         </td>
         <td class="px-6 py-4">
-            {{ $jualbeli->harga }}
+            @currency($jualbeli->harga)
         </td>
         <td class="px-6 py-4">
             {{ $jualbeli->total }}
